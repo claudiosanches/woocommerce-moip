@@ -1,0 +1,217 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce MoIP v1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-11-02 20:12:29+0000\n"
+"Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#. translators: plugin header field 'Name'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "WooCommerce MoIP"
+msgstr "WooCommerce MoIP"
+
+#. translators: plugin header field 'PluginURI'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "http://claudiosmweb.com/plugins/moip-para-woocommerce/"
+msgstr "http://claudiosmweb.com/plugins/moip-para-woocommerce/"
+
+#. translators: plugin header field 'Description'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "Gateway de pagamento MoIP para WooCommerce."
+msgstr "Gateway de pagamento MoIP para WooCommerce."
+
+#. translators: plugin header field 'Author'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "claudiosanches"
+msgstr "claudiosanches"
+
+#. translators: plugin header field 'AuthorURI'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "http://www.claudiosmweb.com/"
+msgstr "http://www.claudiosmweb.com/"
+
+#: wc-moip.php:19
+#@ wcmoip
+msgid "WooCommerce MoIP Gateway depends on the last version of <a href=\"http://wordpress.org/extend/plugins/woocommerce/\">WooCommerce</a> to work!"
+msgstr "WooCommerce MoIP Gateway precisa da última versão do <a href=\"http://wordpress.org/extend/plugins/woocommerce/\">WooCommerce</a> para funcionar!"
+
+#: wc-moip.php:82
+#: wc-moip.php:145
+#@ wcmoip
+msgid "MoIP"
+msgstr "MoIP"
+
+#: wc-moip.php:119
+#@ wcmoip
+msgid "MoIP standard"
+msgstr "MoIP padrão"
+
+#: wc-moip.php:120
+#@ wcmoip
+msgid "MoIP standard works by sending the user to MoIP to enter their payment information."
+msgstr "MoIP padrão funciona enviando o usuário para o site do MoIP, onde ele irá fazer o pagamento."
+
+#: wc-moip.php:136
+#@ wcmoip
+msgid "Enable/Disable"
+msgstr "Habilita/Desabilita"
+
+#: wc-moip.php:138
+#@ wcmoip
+msgid "Enable MoIP standard"
+msgstr "Habilitar MoIP padrão"
+
+#: wc-moip.php:142
+#@ wcmoip
+msgid "Title"
+msgstr "Título"
+
+#: wc-moip.php:144
+#@ wcmoip
+msgid "This controls the title which the user sees during checkout."
+msgstr "Isto controla o título que o usuário vê durante o checkout."
+
+#: wc-moip.php:148
+#@ wcmoip
+msgid "Description"
+msgstr "Descrição"
+
+#: wc-moip.php:150
+#@ wcmoip
+msgid "This controls the description which the user sees during checkout."
+msgstr "Isso controla a descrição que o usuário vê durante o checkout."
+
+#: wc-moip.php:151
+#: wc-moip.php:287
+#@ wcmoip
+msgid "Pay via MoIP"
+msgstr "Pagar com MoIP"
+
+#: wc-moip.php:154
+#@ wcmoip
+msgid "MoIP Login"
+msgstr "MoIP Login"
+
+#: wc-moip.php:156
+#@ wcmoip
+msgid "Please enter your MoIP email address or username; this is needed in order to take payment."
+msgstr "Por favor digite o seu endereço de email ou nome de usuário do MoIP, que é necessário para receber o pagamento."
+
+#: wc-moip.php:160
+#@ wcmoip
+msgid "Invoice Prefix"
+msgstr "Prefixo de pedido"
+
+#: wc-moip.php:162
+#@ wcmoip
+msgid "Please enter a prefix for your invoice numbers. If you use your MoIP account for multiple stores ensure this prefix is unqiue as MoIP will not allow orders with the same invoice number."
+msgstr "Por favor informe um prefixo para utilizar com os números de pedidos. Caso você utilize sua conta do MoIP em mais de uma loja, procure utilizar um prefixo único para cada loja."
+
+#: wc-moip.php:230
+#, php-format
+#@ wcmoip
+msgid "Order %s"
+msgstr "Pedido %s"
+
+#: wc-moip.php:234
+#@ wcmoip
+msgid "Shipping via"
+msgstr "Entrega via"
+
+#: wc-moip.php:265
+#@ wcmoip
+msgid "Thank you for your order. We are now redirecting you to MoIP to make payment."
+msgstr "Obrigado por fazer seu pedido. Agora estamos redirecionando você para o MoIP para efetuar o pagamento."
+
+#: wc-moip.php:287
+#@ wcmoip
+msgid "Cancel order &amp; restore cart"
+msgstr "Cancelar pedido e restaurar carrinho"
+
+#: wc-moip.php:317
+#@ wcmoip
+msgid "Thank you for your order, please click the button below to pay with MoIP."
+msgstr "Obrigado por seu pedido, por favor clique no botão abaixo para pagar com MoIP."
+
+#: wc-moip.php:375
+#@ wcmoip
+msgid "Payment has already been made but not yet credited to Carteira MoIP."
+msgstr "O pagamento já foi feito, mas ainda não foi creditado na sua Carteira MoIP."
+
+#: wc-moip.php:379
+#: wc-moip.php:428
+#@ wcmoip
+msgid "Payment under review by MoIP."
+msgstr "Pagamento aguardando revisão do MoIP"
+
+#: wc-moip.php:383
+#@ wcmoip
+msgid "Billet was printed and has not been paid yet."
+msgstr "O boleto foi impresso e não foi pago ainda."
+
+#: wc-moip.php:392
+#@ wcmoip
+msgid "MoIP Transaction ID"
+msgstr "MoIP: ID da transação"
+
+#: wc-moip.php:399
+#@ wcmoip
+msgid "Payer email"
+msgstr "E-mail do comprador"
+
+#: wc-moip.php:406
+#@ wcmoip
+msgid "Payment type"
+msgstr "Tipo de pagamento"
+
+#: wc-moip.php:413
+#@ wcmoip
+msgid "Number of parcels"
+msgstr "Número de parcelas"
+
+#: wc-moip.php:419
+#@ wcmoip
+msgid "Payment completed and credited."
+msgstr "Pagamento completo e creditado na sua Carteira MoIP."
+
+#: wc-moip.php:424
+#@ wcmoip
+msgid "Payment canceled by MoIP."
+msgstr "Pagamento cancelado pelo MoIP."
+
+#: wc-moip.php:432
+#@ wcmoip
+msgid "Payment was reversed by the payer, payee, payment institution or MoIP."
+msgstr "Pagamento foi estornado pelo pagador, recebedor, instituição de pagamento ou MoIP."
+
+#: wc-moip.php:451
+#, php-format
+#@ wcmoip
+msgid "<strong>Gateway Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s"
+msgstr "<strong>Método de pagamento desativado</strong> Você deve informar o seu endereço de e-mail do MoIP. %sClique aqui para configurar!%s"
+
+#. translators: plugin header field 'Version'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "1.0"
+msgstr "1.0"
+
