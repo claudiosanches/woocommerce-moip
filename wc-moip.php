@@ -41,7 +41,7 @@ function wcmoip_gateway_load() {
     load_plugin_textdomain( 'wcmoip', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
     /**
-     * Add the gateway to MoIP.
+     * Add the gateway to WooCommerce.
      *
      * @access public
      * @param array $methods
@@ -67,19 +67,18 @@ function wcmoip_gateway_load() {
          * @return void
          */
         public function __construct() {
-            global $woocommerce;
 
-            $this->id            = 'moip';
-            $this->icon          = plugins_url( 'images/moip.png', __FILE__ );
-            $this->has_fields    = false;
+            $this->id               = 'moip';
+            $this->icon             = plugins_url( 'images/moip.png', __FILE__ );
+            $this->has_fields       = false;
 
             // Sandbox URL.
-            // $this->moip_url      = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
+            // $this->payment_url      = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
 
             // Payment URL.
-            $this->moip_url      = 'https://www.moip.com.br/PagamentoMoIP.do';
+            $this->payment_url      = 'https://www.moip.com.br/PagamentoMoIP.do';
 
-            $this->method_title  = __( 'MoIP', 'wcmoip' );
+            $this->method_title     = __( 'MoIP', 'wcmoip' );
 
             // Load the form fields.
             $this->init_form_fields();
@@ -94,7 +93,7 @@ function wcmoip_gateway_load() {
             $this->invoice_prefix   = !empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
 
             // Actions.
-            add_action( 'init', array( &$this, 'check_moip_ipn_response' ) );
+            add_action( 'init', array( &$this, 'check_ipn_response' ) );
             add_action( 'valid_moip_ipn_request', array( &$this, 'successful_request' ) );
             add_action( 'woocommerce_receipt_moip', array( &$this, 'receipt_page' ) );
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
@@ -104,7 +103,6 @@ function wcmoip_gateway_load() {
 
             // Checks if email is not empty.
             $this->login == '' ? add_action( 'admin_notices', array( &$this, 'login_missing_message' ) ) : '';
-
         }
 
         /**
@@ -167,21 +165,17 @@ function wcmoip_gateway_load() {
         }
 
         /**
-         * Get MoIP Args.
+         * Generate the args to form.
          *
-         * @param mixed $order
+         * @param  array $order Order data.
          * @return array
          */
-        public function get_moip_args( $order ) {
-            global $woocommerce;
-
-            $order_id = $order->id;
+        public function get_form_args( $order ) {
 
             // Fixed phone number.
             $order->billing_phone = str_replace( array( '(', '-', ' ', ')' ), '', $order->billing_phone );
 
-            // MoIP Args.
-            $moip_args = array(
+            $args = array(
                 'id_carteira'         => $this->login,
                 'valor'               => str_replace( array( ',', '.' ) , '', $order->order_total ),
                 'nome'                => sanitize_text_field( get_bloginfo( 'name' ) ),
@@ -206,7 +200,7 @@ function wcmoip_gateway_load() {
                 //'pagador_pais'        => $order->billing_country,
 
                 // Payment Info.
-                'id_transacao'        => $this->invoice_prefix . $order_id,
+                'id_transacao'        => $this->invoice_prefix . $order->id,
 
                 // Shipping info.
                 //'frete'
@@ -227,42 +221,40 @@ function wcmoip_gateway_load() {
                 }
             }
 
-            $moip_args['descricao'] = sprintf( __( 'Order %s' , 'wcmoip' ), $order->get_order_number() ) . " - " . implode( ', ', $item_names );
+            $args['descricao'] = sprintf( __( 'Order %s' , 'wcmoip' ), $order->get_order_number() ) . ' - ' . implode( ', ', $item_names );
 
             // Shipping Cost item.
             if ( $order->get_shipping() > 0 ) {
-                $moip_args['descricao'] .= ', ' . __( 'Shipping via', 'wcmoip' ) . ' ' . ucwords( $order->shipping_method_title );
+                $args['descricao'] .= ', ' . __( 'Shipping via', 'wcmoip' ) . ' ' . ucwords( $order->shipping_method_title );
             }
 
-            $moip_args = apply_filters( 'woocommerce_moip_args', $moip_args );
+            $args = apply_filters( 'woocommerce_moip_args', $args );
 
-            return $moip_args;
+            return $args;
         }
 
         /**
-         * Generate the MoIP button link.
+         * Generate the form.
          *
          * @param mixed $order_id
          * @return string
          */
-        public function generate_moip_form( $order_id ) {
+        public function generate_form( $order_id ) {
             global $woocommerce;
 
             $order = new WC_Order( $order_id );
 
-            $moip_adr = $this->moip_url;
+            $args = $this->get_form_args( $order );
 
-            $moip_args = $this->get_moip_args( $order );
+            $args_array = array();
 
-            $moip_args_array = array();
-
-            foreach ( $moip_args as $key => $value ) {
-                $moip_args_array[] = '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" />';
+            foreach ( $args as $key => $value ) {
+                $args_array[] = '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" />';
             }
 
             $woocommerce->add_inline_js( '
                 jQuery("body").block({
-                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />'.__( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ).'",
+                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ).'",
                         overlayCSS:
                         {
                             background: "#fff",
@@ -279,12 +271,12 @@ function wcmoip_gateway_load() {
                             zIndex:          "9999"
                         }
                     });
-                jQuery("#submit_moip_payment_form").click();
+                jQuery("#submit-payment-form").click();
             ' );
 
-            return '<form action="' . esc_url( $moip_adr ) . '" method="post" id="moip_payment_form" accept-charset="ISO-8859-1" target="_top">
-                    ' . implode( '', $moip_args_array ) . '
-                    <input type="submit" class="button alt" id="submit_moip_payment_form" value="' . __( 'Pay via MoIP', 'wcmoip' ).'" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>
+            return '<form action="' . esc_url( $this->payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
+                    ' . implode( '', $args_array ) . '
+                    <input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via MoIP', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>
                 </form>';
 
         }
@@ -314,20 +306,20 @@ function wcmoip_gateway_load() {
         public function receipt_page( $order ) {
             global $woocommerce;
 
-            echo '<p>' . __( 'Thank you for your order, please click the button below to pay with MoIP.', 'wcmoip' ).'</p>';
+            echo '<p>' . __( 'Thank you for your order, please click the button below to pay with MoIP.', 'wcmoip' ) . '</p>';
 
-            echo $this->generate_moip_form( $order );
+            echo $this->generate_form( $order );
 
             // Remove cart.
             $woocommerce->cart->empty_cart();
         }
 
         /**
-         * Check MoIP API Response.
+         * Check API Response.
          *
          * @return void
          */
-        public function check_moip_ipn_response() {
+        public function check_ipn_response() {
 
             if ( isset( $_POST['cod_moip'] ) ) {
 
@@ -358,7 +350,6 @@ function wcmoip_gateway_load() {
          * @return void
          */
         public function successful_request( $posted ) {
-            global $woocommerce;
 
             if ( !empty( $posted['id_transacao'] ) ) {
                 $order_key = $posted['id_transacao'];
@@ -442,7 +433,7 @@ function wcmoip_gateway_load() {
         }
 
         /**
-         * Adds error message when not configured the MoIP email or username.
+         * Adds error message when not configured the email or username.
          *
          * @return string Error Mensage.
          */
