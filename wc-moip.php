@@ -407,7 +407,7 @@ function wcmoip_gateway_load() {
                             }
 
                             // Payment completed.
-                            $order->add_order_note( __( 'Payment completed and credited.', 'wcmoip' ) );
+                            $order->add_order_note( __( 'Payment completed and credited in your Carteira MoIP.', 'wcmoip' ) );
                             $order->payment_complete();
 
                             break;
