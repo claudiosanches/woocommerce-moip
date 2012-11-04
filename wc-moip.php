@@ -99,10 +99,23 @@ function wcmoip_gateway_load() {
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
 
             // Valid for use.
-            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && !empty( $this->login );
+            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && !empty( $this->login ) && $this->is_valid_for_use();
 
             // Checks if email is not empty.
             $this->login == '' ? add_action( 'admin_notices', array( &$this, 'login_missing_message' ) ) : '';
+        }
+
+        /**
+         * Check if this gateway is enabled and available in the user's country.
+         *
+         * @return bool
+         */
+        public function is_valid_for_use() {
+            if ( !in_array( get_woocommerce_currency() , array( 'BRL' ) ) ) {
+                return false;
+            }
+
+            return true;
         }
 
         /**
@@ -309,9 +322,6 @@ function wcmoip_gateway_load() {
             echo '<p>' . __( 'Thank you for your order, please click the button below to pay with MoIP.', 'wcmoip' ) . '</p>';
 
             echo $this->generate_form( $order );
-
-            // Remove cart.
-            $woocommerce->cart->empty_cart();
         }
 
         /**
