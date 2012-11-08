@@ -21,7 +21,7 @@ Please notice that WooCommerce must be installed and active.
 
 Adicione o MoIP como método de pagamento em sua loja WooCommerce.
 
-[MoIP](http://site.moip.com.br/) é um método de pagamento brasileiro desenvolvido pela Buscapé Company.
+[MoIP](http://site.moip.com.br/) é um método de pagamento brasileiro desenvolvido pela IG.
 
 O plugin WooCommerce MoIP foi desenvolvido sem nenhum incentivo do MoIP ou IG. Nenhum dos desenvolvedores deste plugin possuem vínculos com estas duas empresas.
 
