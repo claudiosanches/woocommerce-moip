@@ -3,7 +3,7 @@ Contributors: claudiosanches
 Tags: ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, moip
 Requires at least: 3.0
 Tested up to: 3.4.2
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,7 @@ Você pode esclarecer suas dúvidas usando:
 == Installation ==
 
 = Plugin Install: =
+
 * Upload plugin files to your plugins folder, or install using WordPress' built-in Add New Plugin installer
 * Activate the plugin
 * Navigate to WooCommerce -> Settings -> Payment Gateways, choose MoIP and fill in your MoIP Email or Username
@@ -81,9 +82,11 @@ You should have received a copy of the GNU General Public License along with Aut
 == Frequently Asked Questions ==
 
 = What is the plugin license? =
+
 * This plugin is released under a GPL license.
 
 = What is needed to use this plugin? =
+
 * WooCommerce installed and active
 * Only one account on [MoIP](http://site.moip.com.br/ "MoIP").
 
@@ -122,12 +125,24 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 == Changelog ==
 
+= 1.1 - 30/11/2012 =
+
+* Adicionada opção para logs de erro.
+* Adicionada opção para utilizar o sandbox do MoIP Labs.
+
 = 1.0 =
-* Initial release.
+
+* Versão inicial.
 
 == Upgrade Notice ==
 
+= 1.1 =
+
+* Added error logs.
+* Added sandbox option.
+
 = 1.0 =
+
 * Enjoy it.
 
 == Screenshots ==
