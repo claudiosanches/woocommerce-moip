@@ -73,12 +73,6 @@ function wcmoip_gateway_load() {
             $this->icon           = plugins_url( 'images/moip.png', __FILE__ );
             $this->has_fields     = false;
 
-            // Sandbox URL.
-            // $this->payment_url    = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
-
-            // Payment URL.
-            $this->payment_url    = 'https://www.moip.com.br/PagamentoMoIP.do';
-
             $this->method_title   = __( 'MoIP', 'wcmoip' );
 
             // Load the form fields.
@@ -92,6 +86,7 @@ function wcmoip_gateway_load() {
             $this->description    = $this->settings['description'];
             $this->login          = $this->settings['login'];
             $this->invoice_prefix = !empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
+            $this->sandbox        = $this->settings['sandbox'];
             $this->debug          = $this->settings['debug'];
 
             // Actions.
@@ -184,6 +179,13 @@ function wcmoip_gateway_load() {
                     'title' => __( 'Gateway Testing', 'wcmoip' ),
                     'type' => 'title',
                     'description' => '',
+                ),
+                'sandbox' => array(
+                    'title' => __( 'MoIP sandbox', 'wcmoip' ),
+                    'type' => 'checkbox',
+                    'label' => __( 'Enable MoIP sandbox', 'wcmoip' ),
+                    'default' => 'no',
+                    'description' => sprintf( __( 'MoIP sandbox can be used to test payments. Sign up for a developer account <a href="%s">here</a>.', 'wcmoip' ), 'http://labs.moip.com.br/' ),
                 ),
                 'debug' => array(
                     'title' => __( 'Debug Log', 'wcmoip' ),
@@ -310,7 +312,14 @@ function wcmoip_gateway_load() {
                 jQuery("#submit-payment-form").click();
             ' );
 
-            return '<form action="' . esc_url( $this->payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
+            // Payment URL or Sandbox URL.
+            if ( $this->sandbox == 'yes' ) {
+                $payment_url = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
+            } else {
+                $payment_url = 'https://www.moip.com.br/PagamentoMoIP.do';
+            }
+
+            return '<form action="' . esc_url( $payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
                     ' . implode( '', $args_array ) . '
                     <input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via MoIP', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>
                 </form>';
