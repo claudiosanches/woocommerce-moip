@@ -5,7 +5,7 @@
  * Description: Gateway de pagamento MoIP para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://www.claudiosmweb.com/
- * Version: 1.0
+ * Version: 1.1
  * License: GPLv2 or later
  * Text Domain: wcmoip
  * Domain Path: /languages/
@@ -67,18 +67,19 @@ function wcmoip_gateway_load() {
          * @return void
          */
         public function __construct() {
+            global $woocommerce;
 
-            $this->id               = 'moip';
-            $this->icon             = plugins_url( 'images/moip.png', __FILE__ );
-            $this->has_fields       = false;
+            $this->id             = 'moip';
+            $this->icon           = plugins_url( 'images/moip.png', __FILE__ );
+            $this->has_fields     = false;
 
             // Sandbox URL.
-            // $this->payment_url      = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
+            // $this->payment_url    = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
 
             // Payment URL.
-            $this->payment_url      = 'https://www.moip.com.br/PagamentoMoIP.do';
+            $this->payment_url    = 'https://www.moip.com.br/PagamentoMoIP.do';
 
-            $this->method_title     = __( 'MoIP', 'wcmoip' );
+            $this->method_title   = __( 'MoIP', 'wcmoip' );
 
             // Load the form fields.
             $this->init_form_fields();
@@ -87,10 +88,11 @@ function wcmoip_gateway_load() {
             $this->init_settings();
 
             // Define user set variables.
-            $this->title            = $this->settings['title'];
-            $this->description      = $this->settings['description'];
-            $this->login            = $this->settings['login'];
-            $this->invoice_prefix   = !empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
+            $this->title          = $this->settings['title'];
+            $this->description    = $this->settings['description'];
+            $this->login          = $this->settings['login'];
+            $this->invoice_prefix = !empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
+            $this->debug          = $this->settings['debug'];
 
             // Actions.
             add_action( 'init', array( &$this, 'check_ipn_response' ) );
@@ -103,6 +105,11 @@ function wcmoip_gateway_load() {
 
             // Checks if email is not empty.
             $this->login == '' ? add_action( 'admin_notices', array( &$this, 'login_missing_message' ) ) : '';
+
+            // Active logs.
+            if ( $this->debug == 'yes' ) {
+                $this->log = $woocommerce->logger();
+            }
         }
 
         /**
@@ -172,6 +179,18 @@ function wcmoip_gateway_load() {
                     'type' => 'text',
                     'description' => __( 'Please enter a prefix for your invoice numbers. If you use your MoIP account for multiple stores ensure this prefix is unqiue as MoIP will not allow orders with the same invoice number.', 'wcmoip' ),
                     'default' => 'WC-'
+                ),
+                'testing' => array(
+                    'title' => __( 'Gateway Testing', 'wcmoip' ),
+                    'type' => 'title',
+                    'description' => '',
+                ),
+                'debug' => array(
+                    'title' => __( 'Debug Log', 'wcmoip' ),
+                    'type' => 'checkbox',
+                    'label' => __( 'Enable logging', 'wcmoip' ),
+                    'default' => 'no',
+                    'description' => __( 'Log MoIP events, such as API requests, inside <code>woocommerce/logs/moip.txt</code>', 'wcmoip' ),
                 )
             );
 
@@ -258,6 +277,10 @@ function wcmoip_gateway_load() {
             $order = new WC_Order( $order_id );
 
             $args = $this->get_form_args( $order );
+
+            if ( $this->debug == 'yes' ) {
+                $this->log->add( 'moip', 'Payment arguments for order #' . $order_id . ': ' . print_r( $args, true ) );
+            }
 
             $args_array = array();
 
@@ -370,6 +393,10 @@ function wcmoip_gateway_load() {
                 // Checks whether the invoice number matches the order.
                 // If true processes the payment.
                 if ( $order->id === $order_id ) {
+
+                    if ( $this->debug == 'yes' ) {
+                        $this->log->add( 'moip', 'Payment status from order #' . $order->id . ': ' . $posted['status_pagamento'] );
+                    }
 
                     switch ( $posted['status_pagamento'] ) {
                         case '1':
