@@ -5,7 +5,7 @@
  * Description: Gateway de pagamento MoIP para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://www.claudiosmweb.com/
- * Version: 1.1
+ * Version: 1.1.1
  * License: GPLv2 or later
  * Text Domain: wcmoip
  * Domain Path: /languages/
@@ -93,7 +93,11 @@ function wcmoip_gateway_load() {
             add_action( 'init', array( &$this, 'check_ipn_response' ) );
             add_action( 'valid_moip_ipn_request', array( &$this, 'successful_request' ) );
             add_action( 'woocommerce_receipt_moip', array( &$this, 'receipt_page' ) );
-            add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
+            if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '<' ) ) {
+                add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
+            } else {
+                add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( &$this, 'process_admin_options' ) );
+            }
 
             // Valid for use.
             $this->enabled = ( 'yes' == $this->settings['enabled'] ) && !empty( $this->login ) && $this->is_valid_for_use();
