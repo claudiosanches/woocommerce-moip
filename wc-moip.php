@@ -51,6 +51,7 @@ function wcmoip_gateway_load() {
 
     function wcmoip_add_gateway( $methods ) {
         $methods[] = 'WC_MOIP_Gateway';
+
         return $methods;
     }
 
@@ -90,7 +91,7 @@ function wcmoip_gateway_load() {
             $this->debug          = $this->settings['debug'];
 
             // Actions.
-            add_action( 'init', array( &$this, 'check_ipn_response' ) );
+            add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
             add_action( 'valid_moip_ipn_request', array( &$this, 'successful_request' ) );
             add_action( 'woocommerce_receipt_moip', array( &$this, 'receipt_page' ) );
             if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '>=' ) ) {
@@ -369,26 +370,19 @@ function wcmoip_gateway_load() {
          */
         public function check_ipn_response() {
 
-            if ( isset( $_POST['cod_moip'] ) ) {
+            @ob_clean();
 
-                @ob_clean();
+            $posted = stripslashes_deep( $_POST );
 
-                $posted = stripslashes_deep( $_POST );
+            if ( isset( $_POST['id_transacao'] ) ) {
 
-                if ( isset( $_POST['id_transacao'] ) ) {
+                header( 'HTTP/1.0 200 OK' );
 
-                    header( 'HTTP/1.0 200 OK' );
+                do_action( 'valid_moip_ipn_request', $posted );
 
-                    do_action( 'valid_moip_ipn_request', $posted );
-
-                } else {
-
-                    header( 'HTTP/1.0 404 Not Found' );
-
-                }
-
+            } else {
+                wp_die( __( 'MoIP Request Failure', 'wcpagseguro' ) );
             }
-
         }
 
         /**
@@ -500,3 +494,20 @@ function wcmoip_gateway_load() {
 
     } // class WC_MOIP_Gateway.
 } // function wcmoip_gateway_load.
+
+/**
+ * Adds support to legacy IPN.
+ *
+ * @return void
+ */
+function wcmoip_legacy_ipn() {
+    if ( isset( $_POST['cod_moip'] ) && ! isset( $_GET['wc-api'] ) ) {
+        global $woocommerce;
+
+        $woocommerce->payment_gateways();
+
+        do_action( 'woocommerce_api_wc_moip_gateway' );
+    }
+}
+
+add_action( 'init', 'wcmoip_legacy_ipn' );
