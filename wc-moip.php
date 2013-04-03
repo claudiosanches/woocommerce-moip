@@ -15,11 +15,11 @@
  * WooCommerce fallback notice.
  */
 function wcmoip_woocommerce_fallback_notice() {
-    $message = '<div class="error">';
-        $message .= '<p>' . __( 'WooCommerce MoIP Gateway depends on the last version of <a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a> to work!' , 'wcmoip' ) . '</p>';
-    $message .= '</div>';
+    $html = '<div class="error">';
+        $html .= '<p>' . __( 'WooCommerce MoIP Gateway depends on the last version of <a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a> to work!', 'wcmoip' ) . '</p>';
+    $html .= '</div>';
 
-    echo $message;
+    echo $html;
 }
 
 /**
@@ -29,7 +29,7 @@ add_action( 'plugins_loaded', 'wcmoip_gateway_load', 0 );
 
 function wcmoip_gateway_load() {
 
-    if ( !class_exists( 'WC_Payment_Gateway' ) ) {
+    if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
         add_action( 'admin_notices', 'wcmoip_woocommerce_fallback_notice' );
 
         return;
@@ -43,8 +43,8 @@ function wcmoip_gateway_load() {
     /**
      * Add the gateway to WooCommerce.
      *
-     * @access public
      * @param array $methods
+     *
      * @return array
      */
     add_filter( 'woocommerce_payment_gateways', 'wcmoip_add_gateway' );
@@ -85,7 +85,7 @@ function wcmoip_gateway_load() {
             $this->title          = $this->settings['title'];
             $this->description    = $this->settings['description'];
             $this->login          = $this->settings['login'];
-            $this->invoice_prefix = !empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
+            $this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
             $this->sandbox        = $this->settings['sandbox'];
             $this->debug          = $this->settings['debug'];
 
@@ -100,13 +100,15 @@ function wcmoip_gateway_load() {
             }
 
             // Valid for use.
-            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && !empty( $this->login ) && $this->is_valid_for_use();
+            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->login ) && $this->is_valid_for_use();
 
-            // Checks if email is not empty.
-            $this->login == '' ? add_action( 'admin_notices', array( &$this, 'login_missing_message' ) ) : '';
+            // Checks if login is not empty.
+            if ( empty( $this->login ) ) {
+                add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
+            }
 
             // Active logs.
-            if ( $this->debug == 'yes' ) {
+            if ( 'yes' == $this->debug ) {
                 $this->log = $woocommerce->logger();
             }
         }
@@ -117,7 +119,7 @@ function wcmoip_gateway_load() {
          * @return bool
          */
         public function is_valid_for_use() {
-            if ( !in_array( get_woocommerce_currency() , array( 'BRL' ) ) ) {
+            if ( ! in_array( get_woocommerce_currency(), array( 'BRL' ) ) ) {
                 return false;
             }
 
@@ -125,10 +127,7 @@ function wcmoip_gateway_load() {
         }
 
         /**
-         * Admin Panel Options
-         * - Options for bits like 'title' and availability on a country-by-country basis.
-         *
-         * @since 1.0.0
+         * Admin Panel Options.
          */
         public function admin_options() {
 
@@ -137,7 +136,7 @@ function wcmoip_gateway_load() {
             <p><?php _e( 'MoIP standard works by sending the user to MoIP to enter their payment information.', 'wcmoip' ); ?></p>
             <table class="form-table">
                 <?php $this->generate_settings_html(); ?>
-            </table><!--/.form-table-->
+            </table> <!-- /.form-table -->
             <?php
         }
 
@@ -206,6 +205,7 @@ function wcmoip_gateway_load() {
          * Generate the args to form.
          *
          * @param  array $order Order data.
+         *
          * @return array
          */
         public function get_form_args( $order ) {
@@ -215,7 +215,7 @@ function wcmoip_gateway_load() {
 
             $args = array(
                 'id_carteira'         => $this->login,
-                'valor'               => str_replace( array( ',', '.' ) , '', $order->order_total ),
+                'valor'               => str_replace( array( ',', '.' ), '', $order->order_total ),
                 'nome'                => sanitize_text_field( get_bloginfo( 'name' ) ),
 
                 // Sender info.
@@ -259,7 +259,7 @@ function wcmoip_gateway_load() {
                 }
             }
 
-            $args['descricao'] = sprintf( __( 'Order %s' , 'wcmoip' ), $order->get_order_number() ) . ' - ' . implode( ', ', $item_names );
+            $args['descricao'] = sprintf( __( 'Order %s', 'wcmoip' ), $order->get_order_number() ) . ' - ' . implode( ', ', $item_names );
 
             // Shipping Cost item.
             if ( $order->get_shipping() > 0 ) {
@@ -275,6 +275,7 @@ function wcmoip_gateway_load() {
          * Generate the form.
          *
          * @param mixed $order_id
+         *
          * @return string
          */
         public function generate_form( $order_id ) {
@@ -284,7 +285,7 @@ function wcmoip_gateway_load() {
 
             $args = $this->get_form_args( $order );
 
-            if ( $this->debug == 'yes' ) {
+            if ( 'yes' == $this->debug ) {
                 $this->log->add( 'moip', 'Payment arguments for order #' . $order_id . ': ' . print_r( $args, true ) );
             }
 
@@ -317,7 +318,7 @@ function wcmoip_gateway_load() {
             ' );
 
             // Payment URL or Sandbox URL.
-            if ( $this->sandbox == 'yes' ) {
+            if ( 'yes' == $this->sandbox ) {
                 $payment_url = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
             } else {
                 $payment_url = 'https://www.moip.com.br/PagamentoMoIP.do';
@@ -334,6 +335,7 @@ function wcmoip_gateway_load() {
          * Process the payment and return the result.
          *
          * @param int $order_id
+         *
          * @return array
          */
         public function process_payment( $order_id ) {
@@ -393,11 +395,12 @@ function wcmoip_gateway_load() {
          * Successful Payment!
          *
          * @param array $posted
+         *
          * @return void
          */
         public function successful_request( $posted ) {
 
-            if ( !empty( $posted['id_transacao'] ) ) {
+            if ( ! empty( $posted['id_transacao'] ) ) {
                 $order_key = $posted['id_transacao'];
                 $order_id = (int) str_replace( $this->invoice_prefix, '', $order_key );
 
@@ -407,7 +410,7 @@ function wcmoip_gateway_load() {
                 // If true processes the payment.
                 if ( $order->id === $order_id ) {
 
-                    if ( $this->debug == 'yes' ) {
+                    if ( 'yes' == $this->debug ) {
                         $this->log->add( 'moip', 'Payment status from order #' . $order->id . ': ' . $posted['status_pagamento'] );
                     }
 
@@ -427,28 +430,28 @@ function wcmoip_gateway_load() {
                         case '4':
 
                             // Order details.
-                            if ( !empty( $posted['cod_moip'] ) ) {
+                            if ( ! empty( $posted['cod_moip'] ) ) {
                                 update_post_meta(
                                     $order_id,
                                     __( 'MoIP Transaction ID', 'wcmoip' ),
                                     $posted['cod_moip']
                                 );
                             }
-                            if ( !empty( $posted['email_consumidor'] ) ) {
+                            if ( ! empty( $posted['email_consumidor'] ) ) {
                                 update_post_meta(
                                     $order_id,
                                     __( 'Payer email', 'wcmoip' ),
                                     $posted['email_consumidor']
                                 );
                             }
-                            if ( !empty( $posted['tipo_pagamento'] ) ) {
+                            if ( ! empty( $posted['tipo_pagamento'] ) ) {
                                 update_post_meta(
                                     $order_id,
                                     __( 'Payment type', 'wcmoip' ),
                                     $posted['tipo_pagamento']
                                 );
                             }
-                            if ( !empty( $posted['parcelas'] ) ) {
+                            if ( ! empty( $posted['parcelas'] ) ) {
                                 update_post_meta(
                                     $order_id,
                                     __( 'Number of parcels', 'wcmoip' ),
@@ -488,11 +491,11 @@ function wcmoip_gateway_load() {
          * @return string Error Mensage.
          */
         public function login_missing_message() {
-            $message = '<div class="error">';
-                $message .= '<p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s' , 'wcmoip' ), '<a href="' . get_admin_url() . 'admin.php?page=woocommerce_settings&amp;tab=payment_gateways">', '</a>' ) . '</p>';
-            $message .= '</div>';
+            $html = '<div class="error">';
+                $html .= '<p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url() . 'admin.php?page=woocommerce_settings&amp;tab=payment_gateways">', '</a>' ) . '</p>';
+            $html .= '</div>';
 
-            echo $message;
+            echo $html;
         }
 
     } // class WC_MOIP_Gateway.
