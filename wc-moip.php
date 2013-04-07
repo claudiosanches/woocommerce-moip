@@ -381,7 +381,7 @@ function wcmoip_gateway_load() {
                 do_action( 'valid_moip_ipn_request', $posted );
 
             } else {
-                wp_die( __( 'MoIP Request Failure', 'wcpagseguro' ) );
+                wp_die( __( 'MoIP Request Failure', 'wcmoip' ) );
             }
         }
 
