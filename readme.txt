@@ -4,7 +4,7 @@ Donate link: http://claudiosmweb.com/doacoes/
 Tags: ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, moip
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 1.1.2
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,11 +59,15 @@ Você pode esclarecer suas dúvidas usando:
 
 = Configurações no MoIP: =
 
-No MoIP você precisa apenas validar sua conta e configurar ela para receber pagamentos.
+No MoIP você precisa validar sua conta e configurar ela para receber pagamentos.
+
+Para que seja possível receber notificações sobre as transações direto no seu WooCommerce você deve ativar a opção "**Notificação de Alteração de Status de Pagamento**" em `Menus Dados > Preferências > Notificação das transações` e preencher a opção "**URL de notificação**" da seguinte forma:
+
+    http://seusite.com/?wc-api=WC_MOIP_Gateway
 
 = Configurações do Plugin: =
 
-Com o plugin instalado acesse o admin do WordPress e entre em "WooCommerce" > "Configurações" > "Portais de pagamento"  > "MoIP".
+Com o plugin instalado acesse o admin do WordPress e entre em `WooCommerce > Configurações > Portais de pagamento > MoIP`.
 
 Habilite o MoIP, adicione o seu e-mail.
 
