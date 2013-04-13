@@ -73,6 +73,14 @@ Habilite o MoIP, adicione o seu e-mail.
 
 Pronto, sua loja já pode receber pagamentos pelo MoIP.
 
+= Configurações no WooCommerce =
+
+No WooCommerce 2.0 ou superior existe uma opção para cancelar a compra e liberar o estoque depois de alguns minutos.
+
+Esta opção não funciona muito bem com o MoIP, pois pagamentos por boleto bancário pode demorar até 48 horas para serem validados.
+
+Para corrigir isso é necessário ir em "WooCommerce" > "Configurações" > "Inventário" e limpar (deixe em branco) o valor da opção **Manter Estoque (minutos)**.
+
 == Frequently Asked Questions ==
 
 = What is the plugin license? =
@@ -112,6 +120,10 @@ Consulte a página "[Quanto custa - MoIP](http://site.moip.com.br/quanto-custa/)
 = Como que plugin faz integração com MoIP? =
 
 Fazemos a integração baseada na documentação oficial do MoIP que pode ser encontrada em "[MoIP Labs](http://labs.moip.com.br/)"
+
+= A compra é cancelada após alguns minutos, mesmo com o pedido sendo pago, como resolvo isso? =
+
+Para resolver este problema vá até "WooCommerce" > "Configurações" > "Inventário" e limpe (deixe em branco) o valor da opção **Manter Estoque (minutos)**.
 
 = Mais dúvidas relacionadas ao funcionamento do plugin? =
 
