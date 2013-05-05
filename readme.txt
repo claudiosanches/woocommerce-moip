@@ -106,7 +106,7 @@ Este plugin esta licenciado como GPL.
 
 = Como funciona o MoIP? =
 
-* Saiba mais em "[O que é - Moip](http://site.moip.com.br/o-que-e/)".
+* Saiba mais em "[O que é - MoIP](http://site.moip.com.br/o-que-e/)".
 
 = Quais são os meios de pagamento que o plugin aceita? =
 
@@ -166,7 +166,8 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 == License ==
 
-This file is part of WooCommerce MoIP.
 WooCommerce MoIP is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
 WooCommerce MoIP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along with Author Bio Box. If not, see <http://www.gnu.org/licenses/>.
+
+You should have received a copy of the GNU General Public License along with WooCommerce MoIP. If not, see <http://www.gnu.org/licenses/>.
