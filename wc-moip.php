@@ -410,19 +410,6 @@ function wcmoip_gateway_load() {
 
                     switch ( $posted['status_pagamento'] ) {
                         case '1':
-                            $order->update_status( 'on-hold', __( 'Payment has already been made but not yet credited to Carteira MoIP.', 'wcmoip' ) );
-
-                            break;
-                        case '2':
-                            $order->update_status( 'on-hold', __( 'Payment under review by MoIP.', 'wcmoip' ) );
-
-                            break;
-                        case '3':
-                            $order->update_status( 'on-hold', __( 'Billet was printed and has not been paid yet.', 'wcmoip' ) );
-
-                            break;
-                        case '4':
-
                             // Order details.
                             if ( ! empty( $posted['cod_moip'] ) ) {
                                 update_post_meta(
@@ -454,8 +441,20 @@ function wcmoip_gateway_load() {
                             }
 
                             // Payment completed.
-                            $order->add_order_note( __( 'Payment completed and credited in your Carteira MoIP.', 'wcmoip' ) );
+                            $order->add_order_note( __( 'Payment has already been made but not yet credited to Carteira MoIP.', 'wcmoip' ) );
                             $order->payment_complete();
+
+                            break;
+                        case '2':
+                            $order->update_status( 'on-hold', __( 'Payment under review by MoIP.', 'wcmoip' ) );
+
+                            break;
+                        case '3':
+                            $order->update_status( 'on-hold', __( 'Billet was printed and has not been paid yet.', 'wcmoip' ) );
+
+                            break;
+                        case '4':
+                            $order->update_status( 'on-hold', __( 'Payment completed and credited in your Carteira MoIP.', 'wcmoip' ) );
 
                             break;
                         case '5':
