@@ -4,7 +4,7 @@ Donate link: http://claudiosmweb.com/doacoes/
 Tags: ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, moip
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,11 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 2. Checkout page.
 
 == Changelog ==
+
+= 1.2.1 - 06/05/2013 =
+
+* Adicionado o parametro `$order` no filtro `woocommerce_moip_args`.
+* Melhoria na tradução.
 
 = 1.1.2 - 06/03/2013 =
 
