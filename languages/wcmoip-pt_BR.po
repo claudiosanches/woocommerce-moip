@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce MoIP v1.2.1\n"
+"Project-Id-Version: WooCommerce MoIP v1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-06 22:04:12+0000\n"
+"PO-Revision-Date: 2013-05-06 22:39:49+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -147,53 +147,53 @@ msgstr "Cancelar pedido e restaurar carrinho"
 msgid "Thank you for your order, please click the button below to pay with MoIP."
 msgstr "Obrigado por seu pedido, por favor clique no botão abaixo para pagar com MoIP."
 
-#: wc-moip.php:413
+#: wc-moip.php:444
 #@ wcmoip
 msgid "Payment has already been made but not yet credited to Carteira MoIP."
 msgstr "O pagamento já foi feito, mas ainda não foi creditado na sua Carteira MoIP."
 
-#: wc-moip.php:417
-#: wc-moip.php:466
+#: wc-moip.php:449
+#: wc-moip.php:465
 #@ wcmoip
 msgid "Payment under review by MoIP."
 msgstr "Pagamento aguardando revisão do MoIP"
 
-#: wc-moip.php:421
+#: wc-moip.php:453
 #@ wcmoip
 msgid "Billet was printed and has not been paid yet."
 msgstr "O boleto foi impresso e não foi pago ainda."
 
-#: wc-moip.php:430
+#: wc-moip.php:417
 #@ wcmoip
 msgid "MoIP Transaction ID"
 msgstr "MoIP: ID da transação"
 
-#: wc-moip.php:437
+#: wc-moip.php:424
 #@ wcmoip
 msgid "Payer email"
 msgstr "E-mail do comprador"
 
-#: wc-moip.php:444
+#: wc-moip.php:431
 #@ wcmoip
 msgid "Payment type"
 msgstr "Tipo de pagamento"
 
-#: wc-moip.php:451
+#: wc-moip.php:438
 #@ wcmoip
 msgid "Number of parcels"
 msgstr "Número de parcelas"
 
-#: wc-moip.php:462
+#: wc-moip.php:461
 #@ wcmoip
 msgid "Payment canceled by MoIP."
 msgstr "Pagamento cancelado pelo MoIP."
 
-#: wc-moip.php:470
+#: wc-moip.php:469
 #@ wcmoip
 msgid "Payment was reversed by the payer, payee, payment institution or MoIP."
 msgstr "Pagamento foi estornado pelo pagador, recebedor, instituição de pagamento ou MoIP."
 
-#: wc-moip.php:489
+#: wc-moip.php:488
 #, php-format
 #@ wcmoip
 msgid "<strong>Gateway Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s"
@@ -251,14 +251,14 @@ msgstr "http://claudiosmweb.com/"
 msgid "MoIP Request Failure"
 msgstr "MoIP falha no pedido"
 
-#. translators: plugin header field 'Version'
-#: wc-moip.php:0
-#@ wcmoip
-msgid "1.2.1"
-msgstr "1.2.1"
-
 #: wc-moip.php:301
 #@ wcmoip
 msgid "Redirecting"
 msgstr "Redirecionando"
+
+#. translators: plugin header field 'Version'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "1.3.0"
+msgstr "1.3.0"
 

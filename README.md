@@ -4,7 +4,7 @@
 **Tags:** ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, moip  
 **Requires at least:** 3.0  
 **Tested up to:** 3.5.1  
-**Stable tag:** 1.2.1  
+**Stable tag:** 1.3.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -139,6 +139,10 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 
 ## Changelog ##
+
+### 1.3.0 - 06/05/2013 ###
+
+* Melhorado o retorno automatico de dados.
 
 ### 1.2.1 - 06/05/2013 ###
 
