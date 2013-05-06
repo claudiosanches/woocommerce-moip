@@ -267,7 +267,7 @@ function wcmoip_gateway_load() {
                 $args['descricao'] .= ', ' . __( 'Shipping via', 'wcmoip' ) . ' ' . ucwords( $order->shipping_method_title );
             }
 
-            $args = apply_filters( 'woocommerce_moip_args', $args );
+            $args = apply_filters( 'woocommerce_moip_args', $args, $order );
 
             return $args;
         }
@@ -315,7 +315,7 @@ function wcmoip_gateway_load() {
                             zIndex:          "9999"
                         }
                     });
-                jQuery("#submit-payment-form").click();
+                // jQuery("#submit-payment-form").click();
             ' );
 
             // Payment URL or Sandbox URL.
