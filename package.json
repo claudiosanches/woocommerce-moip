@@ -1,0 +1,12 @@
+{
+  "name": "woocommerce-moip",
+  "description": "Gateway de pagamento MoIP para WooCommerce",
+  "version": "1.2.1",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-rsync": "~0.1.1",
+    "grunt-shell": "~0.2.2",
+    "grunt-wx-zipdir": "~0.3.1"
+  }
+}
