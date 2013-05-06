@@ -5,7 +5,7 @@
  * Description: Gateway de pagamento MoIP para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://claudiosmweb.com/
- * Version: 1.2
+ * Version: 1.2.1
  * License: GPLv2 or later
  * Text Domain: wcmoip
  * Domain Path: /languages/
@@ -298,7 +298,7 @@ function wcmoip_gateway_load() {
 
             $woocommerce->add_inline_js( '
                 jQuery("body").block({
-                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ).'",
+                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"' . __( 'Redirecting', 'wcmoip' ) . '&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ).'",
                         overlayCSS:
                         {
                             background: "#fff",
@@ -315,7 +315,7 @@ function wcmoip_gateway_load() {
                             zIndex:          "9999"
                         }
                     });
-                // jQuery("#submit-payment-form").click();
+                jQuery("#submit-payment-form").click();
             ' );
 
             // Payment URL or Sandbox URL.
