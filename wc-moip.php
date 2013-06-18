@@ -5,7 +5,7 @@
  * Description: Gateway de pagamento MoIP para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://claudiosmweb.com/
- * Version: 1.3.0
+ * Version: 1.3.1
  * License: GPLv2 or later
  * Text Domain: wcmoip
  * Domain Path: /languages/
@@ -454,7 +454,7 @@ function wcmoip_gateway_load() {
 
                             break;
                         case '4':
-                            $order->update_status( 'on-hold', __( 'Payment completed and credited in your Carteira MoIP.', 'wcmoip' ) );
+                            $order->add_order_note( __( 'Payment completed and credited in your Carteira MoIP.', 'wcmoip' ) );
 
                             break;
                         case '5':
