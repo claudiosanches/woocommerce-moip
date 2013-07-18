@@ -98,6 +98,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'title' => __( 'Title', 'wcmoip' ),
                 'type' => 'text',
                 'description' => __( 'This controls the title which the user sees during checkout.', 'wcmoip' ),
+                'desc_tip' => true,
                 'default' => __( 'MoIP', 'wcmoip' )
             ),
             'description' => array(
@@ -110,12 +111,14 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'title' => __( 'MoIP Login', 'wcmoip' ),
                 'type' => 'text',
                 'description' => __( 'Please enter your MoIP email address or username; this is needed in order to take payment.', 'wcmoip' ),
+                'desc_tip' => true,
                 'default' => ''
             ),
             'invoice_prefix' => array(
                 'title' => __( 'Invoice Prefix', 'wcmoip' ),
                 'type' => 'text',
                 'description' => __( 'Please enter a prefix for your invoice numbers. If you use your MoIP account for multiple stores ensure this prefix is unqiue as MoIP will not allow orders with the same invoice number.', 'wcmoip' ),
+                'desc_tip' => true,
                 'default' => 'WC-'
             ),
             'testing' => array(
@@ -135,10 +138,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'type' => 'checkbox',
                 'label' => __( 'Enable logging', 'wcmoip' ),
                 'default' => 'no',
-                'description' => __( 'Log MoIP events, such as API requests, inside <code>woocommerce/logs/moip.txt</code>', 'wcmoip' ),
+                'description' => sprintf( __( 'Log MoIP events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/mercadopago' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
             )
         );
-
     }
 
     /**
