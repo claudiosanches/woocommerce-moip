@@ -233,27 +233,53 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         foreach ( $args as $key => $value )
             $args_array[] = '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" />';
 
-        $woocommerce->add_inline_js( '
-            jQuery("body").block({
-                    message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"' . __( 'Redirecting', 'wcmoip' ) . '&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ).'",
-                    overlayCSS:
-                    {
-                        background: "#fff",
-                        opacity:    0.6
-                    },
-                    css: {
-                        padding:         20,
-                        textAlign:       "center",
-                        color:           "#555",
-                        border:          "3px solid #aaa",
-                        backgroundColor: "#fff",
-                        cursor:          "wait",
-                        lineHeight:      "32px",
-                        zIndex:          "9999"
-                    }
-                });
-            jQuery("#submit-payment-form").click();
-        ' );
+
+        if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+            $woocommerce->get_helper( 'inline-javascript' )->add_inline_js( '
+                $.blockUI({
+                        message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ) ) . '",
+                        baseZ: 99999,
+                        overlayCSS:
+                        {
+                            background: "#fff",
+                            opacity: 0.6
+                        },
+                        css: {
+                            padding:        "20px",
+                            zIndex:         "9999999",
+                            textAlign:      "center",
+                            color:          "#555",
+                            border:         "3px solid #aaa",
+                            backgroundColor:"#fff",
+                            cursor:         "wait",
+                            lineHeight:     "24px",
+                        }
+                    });
+                jQuery("#submit-payment-form").click();
+            ' );
+        } else {
+            $woocommerce->add_inline_js( '
+                jQuery("body").block({
+                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ) . '",
+                        overlayCSS:
+                        {
+                            background: "#fff",
+                            opacity:    0.6
+                        },
+                        css: {
+                            padding:         20,
+                            textAlign:       "center",
+                            color:           "#555",
+                            border:          "3px solid #aaa",
+                            backgroundColor: "#fff",
+                            cursor:          "wait",
+                            lineHeight:      "32px",
+                            zIndex:          "9999"
+                        }
+                    });
+                jQuery("#submit-payment-form").click();
+            ' );
+        }
 
         // Payment URL or Sandbox URL.
         if ( 'yes' == $this->sandbox )
@@ -265,7 +291,6 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 ' . implode( '', $args_array ) . '
                 <input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via MoIP', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>
             </form>';
-
     }
 
     /**
@@ -279,11 +304,17 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         $order = new WC_Order( $order_id );
 
-        return array(
-            'result'    => 'success',
-            'redirect'  => add_query_arg( 'order', $order->id, add_query_arg( 'key', $order->order_key, get_permalink( woocommerce_get_page_id( 'pay' ) ) ) )
-        );
-
+        if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+            return array(
+                'result'   => 'success',
+                'redirect' => $order->get_checkout_payment_url( true )
+            );
+        } else {
+            return array(
+                'result'   => 'success',
+                'redirect' => add_query_arg( 'order', $order->id, add_query_arg( 'key', $order->order_key, get_permalink( woocommerce_get_page_id( 'pay' ) ) ) )
+            );
+        }
     }
 
     /**
