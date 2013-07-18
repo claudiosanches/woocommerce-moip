@@ -38,24 +38,21 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
         add_action( 'valid_moip_ipn_request', array( &$this, 'successful_request' ) );
         add_action( 'woocommerce_receipt_moip', array( &$this, 'receipt_page' ) );
-        if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '>=' ) ) {
+        if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '>=' ) )
             add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( &$this, 'process_admin_options' ) );
-        } else {
+        else
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
-        }
 
         // Valid for use.
         $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->login ) && $this->is_valid_for_use();
 
         // Checks if login is not empty.
-        if ( empty( $this->login ) ) {
+        if ( empty( $this->login ) )
             add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
-        }
 
         // Active logs.
-        if ( 'yes' == $this->debug ) {
+        if ( 'yes' == $this->debug )
             $this->log = $woocommerce->logger();
-        }
     }
 
     /**
@@ -64,9 +61,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return bool
      */
     public function is_valid_for_use() {
-        if ( ! in_array( get_woocommerce_currency(), array( 'BRL' ) ) ) {
+        if ( ! in_array( get_woocommerce_currency(), array( 'BRL' ) ) )
             return false;
-        }
 
         return true;
     }
@@ -75,13 +71,12 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * Admin Panel Options.
      */
     public function admin_options() {
-
         ?>
         <h3><?php _e( 'MoIP standard', 'wcmoip' ); ?></h3>
         <p><?php _e( 'MoIP standard works by sending the user to MoIP to enter their payment information.', 'wcmoip' ); ?></p>
         <table class="form-table">
             <?php $this->generate_settings_html(); ?>
-        </table> <!-- /.form-table -->
+        </table>
         <?php
     }
 
@@ -198,18 +193,16 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         if ( sizeof( $order->get_items() ) > 0 ) {
             foreach ( $order->get_items() as $item ) {
-                if ( $item['qty'] ) {
+                if ( $item['qty'] )
                     $item_names[] = $item['name'] . ' x ' . $item['qty'];
-                }
             }
         }
 
         $args['descricao'] = sprintf( __( 'Order %s', 'wcmoip' ), $order->get_order_number() ) . ' - ' . implode( ', ', $item_names );
 
         // Shipping Cost item.
-        if ( $order->get_shipping() > 0 ) {
+        if ( $order->get_shipping() > 0 )
             $args['descricao'] .= ', ' . __( 'Shipping via', 'wcmoip' ) . ' ' . ucwords( $order->shipping_method_title );
-        }
 
         $args = apply_filters( 'woocommerce_moip_args', $args, $order );
 
@@ -230,15 +223,13 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         $args = $this->get_form_args( $order );
 
-        if ( 'yes' == $this->debug ) {
+        if ( 'yes' == $this->debug )
             $this->log->add( 'moip', 'Payment arguments for order #' . $order_id . ': ' . print_r( $args, true ) );
-        }
 
         $args_array = array();
 
-        foreach ( $args as $key => $value ) {
+        foreach ( $args as $key => $value )
             $args_array[] = '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" />';
-        }
 
         $woocommerce->add_inline_js( '
             jQuery("body").block({
@@ -263,11 +254,10 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         ' );
 
         // Payment URL or Sandbox URL.
-        if ( 'yes' == $this->sandbox ) {
+        if ( 'yes' == $this->sandbox )
             $payment_url = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
-        } else {
+        else
             $payment_url = 'https://www.moip.com.br/PagamentoMoIP.do';
-        }
 
         return '<form action="' . esc_url( $payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
                 ' . implode( '', $args_array ) . '
@@ -348,9 +338,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             // If true processes the payment.
             if ( $order->id === $order_id ) {
 
-                if ( 'yes' == $this->debug ) {
+                if ( 'yes' == $this->debug )
                     $this->log->add( 'moip', 'Payment status from order #' . $order->id . ': ' . $posted['status_pagamento'] );
-                }
 
                 switch ( $posted['status_pagamento'] ) {
                     case '1':
