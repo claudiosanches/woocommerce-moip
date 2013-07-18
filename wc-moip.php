@@ -15,18 +15,12 @@
  * WooCommerce fallback notice.
  */
 function wcmoip_woocommerce_fallback_notice() {
-    $html = '<div class="error">';
-        $html .= '<p>' . __( 'WooCommerce MoIP Gateway depends on the last version of <a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a> to work!', 'wcmoip' ) . '</p>';
-    $html .= '</div>';
-
-    echo $html;
+    echo '<div class="error"><p>' . sprintf( __( 'WooCommerce MoIP Gateway depends on the last version of %s to work!', 'wcmoip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
 }
 
 /**
  * Load functions.
  */
-add_action( 'plugins_loaded', 'wcmoip_gateway_load', 0 );
-
 function wcmoip_gateway_load() {
 
     if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
@@ -57,8 +51,9 @@ function wcmoip_gateway_load() {
 
     // Include the WC_MOIP_Gateway class.
     require_once plugin_dir_path( __FILE__ ) . 'class-wc-moip-gateway.php';
+}
 
-} // function wcmoip_gateway_load.
+add_action( 'plugins_loaded', 'wcmoip_gateway_load', 0 );
 
 /**
  * Adds support to legacy IPN.
