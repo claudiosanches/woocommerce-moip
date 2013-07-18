@@ -372,7 +372,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             if ( $order->id === $order_id ) {
 
                 if ( 'yes' == $this->debug )
-                    $this->log->add( 'moip', 'Payment status from order #' . $order->id . ': ' . $posted['status_pagamento'] );
+                    $this->log->add( 'moip', 'Payment status from order ' . $order->get_order_number() . ': ' . $posted['status_pagamento'] );
 
                 switch ( $posted['status_pagamento'] ) {
                     case '1':
