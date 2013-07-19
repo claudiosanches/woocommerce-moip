@@ -15,7 +15,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         global $woocommerce;
 
         $this->id             = 'moip';
-        $this->icon           = plugins_url( 'images/moip.png', __FILE__ );
+        $this->icon           = apply_filters( 'woocommerce_moip_icon', plugins_url( 'images/moip.png', __FILE__ ) );
         $this->has_fields     = false;
 
         $this->method_title   = __( 'MoIP', 'wcmoip' );
