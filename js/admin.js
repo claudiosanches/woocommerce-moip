@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
 
     function apiFieldsDisplay() {
         var api_fields = $('.form-table:eq(1) tr'),
-            payment_fields = $('.form-table:eq(2), #mainform h4:eq(1), #mainform h4:eq(1) + p');
+            payment_fields = $('.form-table:eq(2), #mainform h4:eq(1), #mainform h4:eq(1) + p, .form-table:eq(3)');
 
         if (api.is(':checked')) {
             api_fields.show();

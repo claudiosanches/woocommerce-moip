@@ -98,7 +98,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * Admin Panel Options.
      */
     public function admin_options() {
-        wp_enqueue_script( 'wc-correios', WOO_MOIP_URL . 'js/admin.js', array( 'jquery' ), '', true );
+        wp_enqueue_script( 'wc-correios', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), '', true );
         ?>
         <h3><?php _e( 'MoIP standard', 'wcmoip' ); ?></h3>
         <p><?php _e( 'MoIP standard works by sending the user to MoIP to enter their payment information.', 'wcmoip' ); ?></p>
