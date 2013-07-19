@@ -457,18 +457,20 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
         if ( 'yes' == $this->financing_banking )
             $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
-        if ( 'yes' == $this->billet_banking )
+        if ( 'yes' == $this->billet_banking ) {
             $payment->addChild( 'FormaPagamento', 'BoletoBancario' );
+
+            // <Boleto>
+            //     <DataVencimento>2000-12-31T12:00:00.000-03:00</DataVencimento>
+            //     <Instrucao1>Primeira linha de mensagem adicional</Instrucao1>
+            //     <Instrucao2>Segunda linha</Instrucao2>
+            //     <Instrucao3>Terceira linha</Instrucao3>
+            //     <URLLogo>http://meusite.com.br/meulogo.jpg</URLLogo>
+            // </Boleto>
+        }
+
         if ( 'yes' == $this->moip_wallet )
             $payment->addChild( 'FormaPagamento', 'CarteiraMoIP' );
-
-        // <Boleto>
-        //     <DataVencimento>2000-12-31T12:00:00.000-03:00</DataVencimento>
-        //     <Instrucao1>Primeira linha de mensagem adicional</Instrucao1>
-        //     <Instrucao2>Segunda linha</Instrucao2>
-        //     <Instrucao3>Terceira linha</Instrucao3>
-        //     <URLLogo>http://meusite.com.br/meulogo.jpg</URLLogo>
-        // </Boleto>
 
         // Notification URL.
         $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
@@ -643,7 +645,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
                 return array(
                     'result'   => 'success',
-                    // 'redirect' => $url
+                    'redirect' => $url
                 );
             }
         } else {
