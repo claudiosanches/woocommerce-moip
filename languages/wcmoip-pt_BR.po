@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce MoIP v1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-19 22:36:50+0000\n"
+"PO-Revision-Date: 2013-07-19 23:21:12+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -235,12 +235,6 @@ msgstr "MoIP falha no pedido"
 #@ wcmoip
 msgid "Log MoIP events, such as API requests, inside %s"
 msgstr "Registrar eventos do MoIP, tais como pedidos de API, dentro de %s"
-
-#. translators: plugin header field 'Version'
-#: wc-moip.php:0
-#@ wcmoip
-msgid "1.4.0"
-msgstr "1.4.0"
 
 #: wc-moip.php:18
 #, php-format
@@ -562,4 +556,10 @@ msgstr "URL da imagem do logo a ser mostrado no boleto."
 #@ wcmoip
 msgid "Type of Term"
 msgstr "Tipo de Prazo"
+
+#. translators: plugin header field 'Version'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "1.5.0"
+msgstr "1.5.0"
 
