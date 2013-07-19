@@ -57,7 +57,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         // Billet options.
         $this->billet                   = isset( $this->settings['billet'] ) ? $this->settings['billet'] : 'no';
-        $this->billet_time              = isset( $this->settings['billet_time'] ) ? $this->settings['billet_time'] : 'no';
+        $this->billet_type_term         = isset( $this->settings['billet_type_term'] ) ? $this->settings['billet_type_term'] : 'no';
         $this->billet_number_days       = isset( $this->settings['billet_number_days'] ) ? $this->settings['billet_number_days'] : '7';
         $this->billet_instruction_line1 = isset( $this->settings['billet_instruction_line1'] ) ? $this->settings['billet_instruction_line1'] : '';
         $this->billet_instruction_line2 = isset( $this->settings['billet_instruction_line2'] ) ? $this->settings['billet_instruction_line2'] : '';
@@ -240,14 +240,14 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'default' => 'yes'
             ),
             'installments_section' => array(
-                'title' => __( 'Credit Card Installments', 'wcmoip' ),
+                'title' => __( 'Credit Card Installments Settings', 'wcmoip' ),
                 'type' => 'title',
                 'description' => '',
             ),
             'installments' => array(
-                'title' => __( 'Custom installments', 'wcmoip' ),
+                'title' => __( 'Installments settings', 'wcmoip' ),
                 'type' => 'checkbox',
-                'label' => __( 'Enable Custom installments', 'wcmoip' ),
+                'label' => __( 'Enable Installments settings', 'wcmoip' ),
                 'default' => 'no'
             ),
             'installments_mininum' => array(
@@ -327,8 +327,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'label' => __( 'Enable Billet settings', 'wcmoip' ),
                 'default' => 'no'
             ),
-            'billet_time' => array(
-                'title' => __( 'Custom Time', 'wcmoip' ),
+            'billet_type_term' => array(
+                'title' => __( 'Type of Term', 'wcmoip' ),
                 'type' => 'select',
                 'description' => '',
                 'default' => 'no',
@@ -529,9 +529,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             // Billet settings.
             if ( 'yes' == $this->billet ) {
                 $billet = $instruction->addChild( 'Boleto' );
-                if ( 'no' != $billet->billet_time && ! empty( $this->billet_number_days ) ) {
+                if ( 'no' != $billet->billet_type_term && ! empty( $this->billet_number_days ) ) {
                     $days = $billet->addChild( 'DiasExpiracao', (int) $this->billet_number_days );
-                    $days->addAttribute( 'Tipo', $this->billet_time );
+                    $days->addAttribute( 'Tipo', $this->billet_type_term );
                 }
 
                 if ( ! empty( $this->billet_instruction_line1 ) )

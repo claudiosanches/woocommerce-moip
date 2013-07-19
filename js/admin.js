@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
         installments = $("#woocommerce_moip_installments"),
         receipt = $("#woocommerce_moip_receipt"),
         billet = $("#woocommerce_moip_billet"),
-        billet_time = $("#woocommerce_moip_billet_time");
+        billet_time = $("#woocommerce_moip_billet_type_term");
 
     // API Fields.
     function apiFieldsDisplay(api) {
