@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
     var api = $("#woocommerce_moip_api"),
         installments = $("#woocommerce_moip_installments"),
-        receipt = $("#woocommerce_moip_receipt"),
+        receipt = $("#woocommerce_moip_installments_receipt"),
         billet = $("#woocommerce_moip_billet"),
         billet_time = $("#woocommerce_moip_billet_type_term");
 
