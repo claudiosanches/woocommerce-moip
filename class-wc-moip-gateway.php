@@ -15,7 +15,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         global $woocommerce;
 
         $this->id             = 'moip';
-        $this->icon           = plugins_url( 'images/moip.png', __FILE__ );
+        $this->icon           = apply_filters( 'woocommerce_moip_icon', plugins_url( 'images/moip.png', __FILE__ ) );
         $this->has_fields     = false;
 
         $this->method_title   = __( 'MoIP', 'wcmoip' );
@@ -26,13 +26,47 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         // Load the settings.
         $this->init_settings();
 
-        // Define user set variables.
-        $this->title          = $this->settings['title'];
-        $this->description    = $this->settings['description'];
+        // Display options.
+        $this->title       = $this->settings['title'];
+        $this->description = $this->settings['description'];
+
+        // Gateway options.
         $this->login          = $this->settings['login'];
         $this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
-        $this->sandbox        = $this->settings['sandbox'];
-        $this->debug          = $this->settings['debug'];
+
+        // API options.
+        $this->api   = isset( $this->settings['api'] ) ? $this->settings['api'] : 'html';
+        $this->token = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
+        $this->key   = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
+
+        // Payment methods.
+        $this->billet_banking    = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
+        $this->credit_card       = isset( $this->settings['credit_card'] ) ? $this->settings['credit_card'] : 'yes';
+        $this->debit_card        = isset( $this->settings['debit_card'] ) ? $this->settings['debit_card'] : 'yes';
+        $this->moip_wallet       = isset( $this->settings['moip_wallet'] ) ? $this->settings['moip_wallet'] : 'yes';
+        $this->banking_debit     = isset( $this->settings['banking_debit'] ) ? $this->settings['banking_debit'] : 'yes';
+        $this->financing_banking = isset( $this->settings['financing_banking'] ) ? $this->settings['financing_banking'] : 'no';
+
+        // Installments options.
+        $this->installments          = isset( $this->settings['installments'] ) ? $this->settings['installments'] : 'no';
+        $this->installments_mininum  = isset( $this->settings['installments_mininum'] ) ? $this->settings['installments_mininum'] : 2;
+        $this->installments_maxium   = isset( $this->settings['installments_maxium'] ) ? $this->settings['installments_maxium'] : 12;
+        $this->installments_receipt  = isset( $this->settings['installments_receipt'] ) ? $this->settings['installments_receipt'] : 'AVista';
+        $this->installments_interest = isset( $this->settings['installments_interest'] ) ? $this->settings['installments_interest'] : 0;
+        $this->installments_rehearse = isset( $this->settings['installments_rehearse'] ) ? $this->settings['installments_rehearse'] : 'no';
+
+        // Billet options.
+        $this->billet                   = isset( $this->settings['billet'] ) ? $this->settings['billet'] : 'no';
+        $this->billet_type_term         = isset( $this->settings['billet_type_term'] ) ? $this->settings['billet_type_term'] : 'no';
+        $this->billet_number_days       = isset( $this->settings['billet_number_days'] ) ? $this->settings['billet_number_days'] : '7';
+        $this->billet_instruction_line1 = isset( $this->settings['billet_instruction_line1'] ) ? $this->settings['billet_instruction_line1'] : '';
+        $this->billet_instruction_line2 = isset( $this->settings['billet_instruction_line2'] ) ? $this->settings['billet_instruction_line2'] : '';
+        $this->billet_instruction_line3 = isset( $this->settings['billet_instruction_line3'] ) ? $this->settings['billet_instruction_line3'] : '';
+        $this->billet_logo              = isset( $this->settings['billet_logo'] ) ? $this->settings['billet_logo'] : '';
+
+        // Debug options.
+        $this->sandbox = $this->settings['sandbox'];
+        $this->debug   = $this->settings['debug'];
 
         // Actions.
         add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
@@ -44,11 +78,24 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
 
         // Valid for use.
-        $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->login ) && $this->is_valid_for_use();
+        if ( 'xml' == $this->api ) {
+            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->token ) && ! empty( $this->key ) && $this->is_valid_for_use();
 
-        // Checks if login is not empty.
-        if ( empty( $this->login ) )
-            add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
+            // Checks if token is not empty.
+            if ( empty( $this->token ) )
+                add_action( 'admin_notices', array( &$this, 'token_missing_message' ) );
+
+            // Checks if key is not empty.
+            if ( empty( $this->key ) )
+                add_action( 'admin_notices', array( &$this, 'key_missing_message' ) );
+
+        } else {
+            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->login ) && $this->is_valid_for_use();
+
+            // Checks if login is not empty.
+            if ( empty( $this->login ) )
+                add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
+        }
 
         // Active logs.
         if ( 'yes' == $this->debug )
@@ -71,6 +118,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * Admin Panel Options.
      */
     public function admin_options() {
+        wp_enqueue_script( 'wc-correios', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), '', true );
         ?>
         <h3><?php _e( 'MoIP standard', 'wcmoip' ); ?></h3>
         <p><?php _e( 'MoIP standard works by sending the user to MoIP to enter their payment information.', 'wcmoip' ); ?></p>
@@ -121,6 +169,211 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'desc_tip' => true,
                 'default' => 'WC-'
             ),
+            'api_section' => array(
+                'title' => __( 'Payment API', 'wcmoip' ),
+                'type' => 'title',
+                'description' => '',
+            ),
+            'api' => array(
+                'title' => __( 'MoIP Payment API', 'wcmoip' ),
+                'type' => 'select',
+                'description' => sprintf( __( 'The XML API requires Access Token and Access Key. %sHere\'s how to get this information%s.', 'wcmoip' ), '<a href="https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/" target="_blank">', '</a>' ),
+                'default' => 'form',
+                'options' => array(
+                    'html' => __( 'HTML - Basic and less safe', 'wcmoip' ),
+                    'xml' => __( 'XML - Safe and with more options', 'wcmoip' )
+                )
+            ),
+            'token' => array(
+                'title' => __( 'Access Token', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Please enter your Access Token; this is needed in order to take payment.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'key' => array(
+                'title' => __( 'Access Key', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Please enter your Access Key; this is needed in order to take payment.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'payment_section' => array(
+                'title' => __( 'Payment Settings', 'wcmoip' ),
+                'type' => 'title',
+                'description' => __( 'These options need to be available to you in your MoIP account.', 'wcmoip' ),
+            ),
+            'billet_banking' => array(
+                'title' => __( 'Billet Banking', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Billet Banking', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'credit_card' => array(
+                'title' => __( 'Credit Card', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Credit Card', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'debit_card' => array(
+                'title' => __( 'Debit Card', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Debit Card', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'moip_wallet' => array(
+                'title' => __( 'MoIP Wallet', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable MoIP Wallet', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'banking_debit' => array(
+                'title' => __( 'Banking Debit', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Banking Debit', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'financing_banking' => array(
+                'title' => __( 'Financing Banking', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Financing Banking', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'installments_section' => array(
+                'title' => __( 'Credit Card Installments Settings', 'wcmoip' ),
+                'type' => 'title',
+                'description' => '',
+            ),
+            'installments' => array(
+                'title' => __( 'Installments settings', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Installments settings', 'wcmoip' ),
+                'default' => 'no'
+            ),
+            'installments_mininum' => array(
+                'title' => __( 'Minimum Installment', 'wcmoip' ),
+                'type' => 'select',
+                'description' => __( 'Indicate the minimum installments.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => '2',
+                'options' => array(
+                    2 => '2',
+                    3 => '3',
+                    4 => '4',
+                    5 => '5',
+                    6 => '6',
+                    7 => '7',
+                    8 => '8',
+                    9 => '9',
+                    10 => '10',
+                    11 => '11',
+                    12 => '12'
+                )
+            ),
+            'installments_maxium' => array(
+                'title' => __( 'Maximum Installment', 'wcmoip' ),
+                'type' => 'select',
+                'description' => __( 'Indicate the Maximum installments.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => '12',
+                'options' => array(
+                    2 => '2',
+                    3 => '3',
+                    4 => '4',
+                    5 => '5',
+                    6 => '6',
+                    7 => '7',
+                    8 => '8',
+                    9 => '9',
+                    10 => '10',
+                    11 => '11',
+                    12 => '12'
+                )
+            ),
+            'installments_receipt' => array(
+                'title' => __( 'Receipt', 'wcmoip' ),
+                'type' => 'select',
+                'description' => __( 'If the installment payment will in at sight (subject to additional costs) in your account MoIP (in one installment) or if it will be split (credited in the same number of parcels chosen by the payer).', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => 'yes',
+                'options' => array(
+                    'AVista' => __( 'At Sight', 'wcmoip' ),
+                    'Parcelado' => __( 'Installments', 'wcmoip' ),
+                )
+            ),
+            'installments_interest' => array(
+                'title' => __( 'Interest', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Interest to be applied to the installment.', 'wcmoip' ),
+                'desc_tip' => true,
+                'placeholder' => '0.00',
+                'default' => ''
+            ),
+            'installments_rehearse' => array(
+                'title' => __( 'Rehearse', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Rehearse', 'wcmoip' ),
+                'default' => 'no',
+                'description' => __( 'Defines if the installment will be paid by the payer.', 'wcmoip' ),
+            ),
+            'billet_section' => array(
+                'title' => __( 'Billet Settings', 'wcmoip' ),
+                'type' => 'title',
+                'description' => '',
+            ),
+            'billet' => array(
+                'title' => __( 'Billet settings', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Billet settings', 'wcmoip' ),
+                'default' => 'no'
+            ),
+            'billet_type_term' => array(
+                'title' => __( 'Type of Term', 'wcmoip' ),
+                'type' => 'select',
+                'description' => '',
+                'default' => 'no',
+                'options' => array(
+                    'no' => __( 'Default', 'wcmoip' ),
+                    'Corridos' => __( 'Calendar Days', 'wcmoip' ),
+                    'Uteis' => __( 'Working Days', 'wcmoip' )
+                )
+            ),
+            'billet_number_days' => array(
+                'title' => __( 'Number of Days', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Days of expiry of the billet after printed.', 'wcmoip' ),
+                'desc_tip' => true,
+                'placeholder' => '7',
+                'default' => '7'
+            ),
+            'billet_instruction_line1' => array(
+                'title' => __( 'Instruction Line 1', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'First line instruction for the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'billet_instruction_line2' => array(
+                'title' => __( 'Instruction Line 2', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Second line instruction for the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'billet_instruction_line3' => array(
+                'title' => __( 'Instruction Line 3', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Third line instruction for the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'billet_logo' => array(
+                'title' => __( 'Custom Logo URL', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'URL of the logo image to be shown on the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
             'testing' => array(
                 'title' => __( 'Gateway Testing', 'wcmoip' ),
                 'type' => 'title',
@@ -141,6 +394,22 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'description' => sprintf( __( 'Log MoIP events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/moip' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
             )
         );
+    }
+
+    /**
+     * Add error message in checkout.
+     *
+     * @param string $message Error message.
+     *
+     * @return string         Displays the error message.
+     */
+    protected function add_error( $message ) {
+        global $woocommerce;
+
+        if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) )
+            wc_add_error( $message );
+        else
+            $woocommerce->add_error( $message );
     }
 
     /**
@@ -173,11 +442,11 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             'pagador_logradouro'  => $order->billing_address_1,
             //'pagador_numero'
             'pagador_complemento' => $order->billing_address_2,
-            //'pagador_bairro'
+            // 'pagador_bairro'
             'pagador_cep'         => $order->billing_postcode,
             'pagador_cidade'      => $order->billing_city,
             'pagador_estado'      => $order->billing_state,
-            //'pagador_pais'        => $order->billing_country,
+            // 'pagador_pais'        => $order->billing_country,
 
             // Payment Info.
             'id_transacao'        => $this->invoice_prefix . $order->id,
@@ -209,6 +478,110 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $args = apply_filters( 'woocommerce_moip_args', $args, $order );
 
         return $args;
+    }
+
+    /**
+     * Generate XML payment args.
+     *
+     * @param  array $order Order data.
+     *
+     * @return string
+     */
+    protected function get_payment_xml( $order ) {
+        $data = $this->get_form_args( $order );
+
+        $number = isset( $data['pagador_numero'] ) ? $data['pagador_numero'] : 0;
+        $neighborhood = isset( $data['pagador_bairro'] ) ? $data['pagador_bairro'] : __( 'Not contained', 'wcmoip' );
+
+        $xml = new SimpleXmlElement( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
+        $instruction = $xml->addChild( 'InstrucaoUnica' );
+        $instruction->addAttribute( 'TipoValidacao', 'Transparente' );
+        $instruction->addChild( 'Razao', $data['descricao'] );
+        $values = $instruction->addChild( 'Valores' );
+        $values->addChild( 'Valor', $order->order_total );
+        $values->addAttribute( 'moeda', 'BRL' );
+        $instruction->addChild( 'IdProprio', $data['id_transacao'] );
+
+        // Payer.
+        $payer = $instruction->addChild( 'Pagador' );
+        $payer->addChild( 'Nome', $data['pagador_nome'] );
+        $payer->addChild( 'Email', $data['pagador_email'] );
+        $payer->addChild( 'IdPagador', $data['pagador_email'] );
+
+        // Address.
+        $address = $payer->addChild( 'EnderecoCobranca' );
+        $address->addChild( 'Logradouro', $data['pagador_logradouro'] );
+        $address->addChild( 'Numero', $number );
+        $address->addChild( 'Bairro', $neighborhood );
+        $address->addChild( 'Complemento', $data['pagador_complemento'] );
+        $address->addChild( 'Cidade', $data['pagador_cidade'] );
+        $address->addChild( 'Estado', $data['pagador_estado'] );
+        $address->addChild( 'Pais', 'BRA' );
+        $address->addChild( 'CEP', $data['pagador_cep'] );
+        $address->addChild( 'TelefoneFixo', $data['pagador_telefone'] );
+
+        // Payment info.
+        $payment = $instruction->addChild( 'FormasPagamento' );
+
+        if ( 'yes' == $this->billet_banking ) {
+            $payment->addChild( 'FormaPagamento', 'BoletoBancario' );
+
+            // Billet settings.
+            if ( 'yes' == $this->billet ) {
+                $billet = $instruction->addChild( 'Boleto' );
+                if ( 'no' != $billet->billet_type_term && ! empty( $this->billet_number_days ) ) {
+                    $days = $billet->addChild( 'DiasExpiracao', (int) $this->billet_number_days );
+                    $days->addAttribute( 'Tipo', $this->billet_type_term );
+                }
+
+                if ( ! empty( $this->billet_instruction_line1 ) )
+                    $billet->addChild( 'Instrucao1', $this->billet_instruction_line1 );
+                if ( ! empty( $this->billet_instruction_line2 ) )
+                    $billet->addChild( 'Instrucao2', $this->billet_instruction_line2 );
+                if ( ! empty( $this->billet_instruction_line3 ) )
+                    $billet->addChild( 'Instrucao3', $this->billet_instruction_line3 );
+                if ( ! empty( $this->billet_logo ) )
+                    $billet->addChild( 'URLLogo', $this->billet_logo );
+            }
+        }
+
+        if ( 'yes' == $this->credit_card ) {
+            $payment->addChild( 'FormaPagamento', 'CartaoCredito' );
+
+            // Installments info.
+            if ( 'yes' == $this->installments ) {
+                $installments = $instruction->addChild( 'Parcelamentos' );
+                $installment = $installments->addChild( 'Parcelamento' );
+                $installment->addChild( 'MinimoParcelas', $this->installments_mininum );
+                $installment->addChild( 'MaximoParcelas', $this->installments_maxium );
+                $installment->addChild( 'Recebimento', $this->receipt );
+                if ( ! empty( $this->installments_interest ) && $this->installments_interest > 0 )
+                    $installment->addChild( 'Juros', str_replace( ',', '.', $this->installments_interest ) );
+                if ( 'AVista' == $this->installments_receipt ) {
+                    $rehearse = ( 'yes' == $this->installments_rehearse ) ? 'true' : 'false';
+                    $installment->addChild( 'Recebimento', $this->installments_rehearse );
+                }
+            }
+        }
+
+        if ( 'yes' == $this->debit_card )
+            $payment->addChild( 'FormaPagamento', 'CartaoDebito' );
+        if ( 'yes' == $this->moip_wallet )
+            $payment->addChild( 'FormaPagamento', 'CarteiraMoIP' );
+        if ( 'yes' == $this->banking_debit )
+            $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
+        if ( 'yes' == $this->financing_banking )
+            $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
+
+        // Notification URL.
+        $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
+
+        // Return URL.
+        $instruction->addChild( 'URLRetorno', $this->get_return_url( $order ) );
+
+        $xml = apply_filters( 'woocommerce_moip_xml', $xml, $order );
+
+        return $xml->asXML();
     }
 
     /**
@@ -293,6 +666,61 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             </form>';
     }
 
+    protected function create_payment_token( $order ) {
+        $xml = $this->get_payment_xml( $order );
+
+        if ( 'yes' == $this->debug )
+            $this->log->add( 'moip', 'Requesting token for order ' . $order->get_order_number() );
+
+        if ( 'yes' == $this->sandbox )
+            $url = 'https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica';
+        else
+            $url = 'https://www.moip.com.br/ws/alpha/EnviarInstrucao/Unica';
+
+        $params = array(
+            'method'     => 'POST',
+            'body'       => $xml,
+            'sslverify'  => false,
+            'timeout'    => 30,
+            'headers'    => array(
+                'Expect' => '',
+                'Content-Type' => 'application/xml;charset=UTF-8',
+                'Authorization' => 'Basic ' . base64_encode( $this->token . ':' . $this->key )
+            )
+        );
+
+        $response = wp_remote_post( $url, $params );
+
+        if ( is_wp_error( $response ) ) {
+            if ( 'yes' == $this->debug )
+                $this->log->add( 'moip', 'WP_Error: ' . $response->get_error_message() );
+        } elseif ( $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
+            $body = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+
+            if ( 'Sucesso' == $body->Resposta->Status ) {
+                if ( 'yes' == $this->debug )
+                    $this->log->add( 'moip', 'MoIP Payment Token created with success! The Token is: ' . $body->Resposta->Token );
+
+                return $body->Resposta->Token;
+            } else {
+                if ( 'yes' == $this->debug )
+                    $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . print_r( $body->Resposta->Erro, true ) );
+
+                foreach ( $body->Resposta->Erro as $error )
+                    $this->add_error( '<strong>MoIP</strong>: ' . esc_attr( (string) $error ) );
+            }
+
+        } else {
+            if ( 'yes' == $this->debug ) {
+                $error = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+
+                $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . $response['response']['code'] . ' - ' . $response['response']['message'] );
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Process the payment and return the result.
      *
@@ -304,16 +732,33 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         $order = new WC_Order( $order_id );
 
-        if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
-            return array(
-                'result'   => 'success',
-                'redirect' => $order->get_checkout_payment_url( true )
-            );
+        if ( 'xml' == $this->api ) {
+
+            $token = $this->create_payment_token( $order );
+
+            if ( $token ) {
+                if ( 'yes' == $this->sandbox )
+                    $url = 'https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=' . $token;
+                else
+                    $url = 'https://www.moip.com.br/Instrucao.do?token=' . $token;
+
+                return array(
+                    'result'   => 'success',
+                    'redirect' => $url
+                );
+            }
         } else {
-            return array(
-                'result'   => 'success',
-                'redirect' => add_query_arg( 'order', $order->id, add_query_arg( 'key', $order->order_key, get_permalink( woocommerce_get_page_id( 'pay' ) ) ) )
-            );
+            if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+                return array(
+                    'result'   => 'success',
+                    'redirect' => $order->get_checkout_payment_url( true )
+                );
+            } else {
+                return array(
+                    'result'   => 'success',
+                    'redirect' => add_query_arg( 'order', $order->id, add_query_arg( 'key', $order->order_key, get_permalink( woocommerce_get_page_id( 'pay' ) ) ) )
+                );
+            }
         }
     }
 
@@ -450,6 +895,24 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function login_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+    }
+
+    /**
+     * Adds error message when not configured the token.
+     *
+     * @return string Error Mensage.
+     */
+    public function token_missing_message() {
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your Access Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+    }
+
+    /**
+     * Adds error message when not configured the key.
+     *
+     * @return string Error Mensage.
+     */
+    public function key_missing_message() {
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your Access Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
     }
 }
