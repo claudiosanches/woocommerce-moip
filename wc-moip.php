@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WooCommerce MoIP
- * Plugin URI: http://claudiosmweb.com/plugins/moip-para-woocommerce/
+ * Plugin URI: https://github.com/claudiosmweb/woocommerce-moip
  * Description: Gateway de pagamento MoIP para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://claudiosmweb.com/
- * Version: 1.3.1
+ * Version: 1.4.0
  * License: GPLv2 or later
  * Text Domain: wcmoip
  * Domain Path: /languages/
