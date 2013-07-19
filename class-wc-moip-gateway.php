@@ -27,27 +27,43 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->init_settings();
 
         // Define user set variables.
-        $this->title               = $this->settings['title'];
-        $this->description         = $this->settings['description'];
-        $this->login               = $this->settings['login'];
-        $this->invoice_prefix      = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
-        $this->api                 = isset( $this->settings['api'] ) ? $this->settings['api'] : 'html';
-        $this->token               = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
-        $this->key                 = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
-        $this->billet_banking      = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
-        $this->credit_card         = isset( $this->settings['credit_card'] ) ? $this->settings['credit_card'] : 'yes';
-        $this->debit_card          = isset( $this->settings['debit_card'] ) ? $this->settings['debit_card'] : 'yes';
-        $this->moip_wallet         = isset( $this->settings['moip_wallet'] ) ? $this->settings['moip_wallet'] : 'yes';
-        $this->banking_debit       = isset( $this->settings['banking_debit'] ) ? $this->settings['banking_debit'] : 'yes';
-        $this->financing_banking   = isset( $this->settings['financing_banking'] ) ? $this->settings['financing_banking'] : 'no';
+        $this->title       = $this->settings['title'];
+        $this->description = $this->settings['description'];
+
+        $this->login          = $this->settings['login'];
+        $this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
+
+        $this->api   = isset( $this->settings['api'] ) ? $this->settings['api'] : 'html';
+        $this->token = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
+        $this->key   = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
+
+        // Payment methods.
+        $this->billet_banking    = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
+        $this->credit_card       = isset( $this->settings['credit_card'] ) ? $this->settings['credit_card'] : 'yes';
+        $this->debit_card        = isset( $this->settings['debit_card'] ) ? $this->settings['debit_card'] : 'yes';
+        $this->moip_wallet       = isset( $this->settings['moip_wallet'] ) ? $this->settings['moip_wallet'] : 'yes';
+        $this->banking_debit     = isset( $this->settings['banking_debit'] ) ? $this->settings['banking_debit'] : 'yes';
+        $this->financing_banking = isset( $this->settings['financing_banking'] ) ? $this->settings['financing_banking'] : 'no';
+
+        // Installments options.
         $this->installments        = isset( $this->settings['installments'] ) ? $this->settings['installments'] : 'no';
         $this->installment_mininum = isset( $this->settings['installment_mininum'] ) ? $this->settings['installment_mininum'] : 2;
         $this->installment_maxium  = isset( $this->settings['installment_maxium'] ) ? $this->settings['installment_maxium'] : 12;
         $this->receipt             = isset( $this->settings['receipt'] ) ? $this->settings['receipt'] : 'AVista';
         $this->interest            = isset( $this->settings['interest'] ) ? $this->settings['interest'] : 0;
         $this->rehearse            = isset( $this->settings['rehearse'] ) ? $this->settings['rehearse'] : 'no';
-        $this->sandbox             = $this->settings['sandbox'];
-        $this->debug               = $this->settings['debug'];
+
+        $this->billet                   = isset( $this->settings['billet'] ) ? $this->settings['billet'] : 'no';
+        $this->billet_time              = isset( $this->settings['billet_time'] ) ? $this->settings['billet_time'] : 'no';
+        $this->billet_number_days       = isset( $this->settings['billet_number_days'] ) ? $this->settings['billet_number_days'] : '7';
+        $this->billet_instruction_line1 = isset( $this->settings['billet_instruction_line1'] ) ? $this->settings['billet_instruction_line1'] : '';
+        $this->billet_instruction_line2 = isset( $this->settings['billet_instruction_line2'] ) ? $this->settings['billet_instruction_line2'] : '';
+        $this->billet_instruction_line3 = isset( $this->settings['billet_instruction_line3'] ) ? $this->settings['billet_instruction_line3'] : '';
+        $this->billet_logo              = isset( $this->settings['billet_logo'] ) ? $this->settings['billet_logo'] : '';
+
+        // Debug options.
+        $this->sandbox = $this->settings['sandbox'];
+        $this->debug   = $this->settings['debug'];
 
         // Actions.
         add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
@@ -297,6 +313,64 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'default' => 'no',
                 'description' => __( 'Defines if the installment will be paid by the payer.', 'wcmoip' ),
             ),
+            'billet_section' => array(
+                'title' => __( 'Billet Settings', 'wcmoip' ),
+                'type' => 'title',
+                'description' => '',
+            ),
+            'billet' => array(
+                'title' => __( 'Billet settings', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Billet settings', 'wcmoip' ),
+                'default' => 'no'
+            ),
+            'billet_time' => array(
+                'title' => __( 'Custom Time', 'wcmoip' ),
+                'type' => 'select',
+                'description' => '',
+                'default' => 'no',
+                'options' => array(
+                    'no' => __( 'Default', 'wcmoip' ),
+                    'Corridos' => __( 'Calendar Days', 'wcmoip' ),
+                    'Uteis' => __( 'Working Days', 'wcmoip' )
+                )
+            ),
+            'billet_number_days' => array(
+                'title' => __( 'Number of Days', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Days of expiry of the billet after printed.', 'wcmoip' ),
+                'desc_tip' => true,
+                'placeholder' => '7',
+                'default' => '7'
+            ),
+            'billet_instruction_line1' => array(
+                'title' => __( 'Instruction Line 1', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'First line instruction for the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'billet_instruction_line2' => array(
+                'title' => __( 'Instruction Line 2', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Second line instruction for the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'billet_instruction_line3' => array(
+                'title' => __( 'Instruction Line 3', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Third line instruction for the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'billet_logo' => array(
+                'title' => __( 'Custom Logo URL', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'URL of the logo image to be shown on the billet.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
             'testing' => array(
                 'title' => __( 'Gateway Testing', 'wcmoip' ),
                 'type' => 'title',
@@ -449,13 +523,23 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         if ( 'yes' == $this->billet_banking ) {
             $payment->addChild( 'FormaPagamento', 'BoletoBancario' );
 
-            // <Boleto>
-            //     <DataVencimento>2000-12-31T12:00:00.000-03:00</DataVencimento>
-            //     <Instrucao1>Primeira linha de mensagem adicional</Instrucao1>
-            //     <Instrucao2>Segunda linha</Instrucao2>
-            //     <Instrucao3>Terceira linha</Instrucao3>
-            //     <URLLogo>http://meusite.com.br/meulogo.jpg</URLLogo>
-            // </Boleto>
+            // Billet settings.
+            if ( 'yes' == $this->billet ) {
+                $billet = $instruction->addChild( 'Boleto' );
+                if ( 'no' != $billet->billet_time && ! empty( $this->billet_number_days ) ) {
+                    $days = $billet->addChild( 'DiasExpiracao', (int) $this->billet_number_days );
+                    $days->addAttribute( 'Tipo', $this->billet_time );
+                }
+
+                if ( ! empty( $this->billet_instruction_line1 ) )
+                    $billet->addChild( 'Instrucao1', $this->billet_instruction_line1 );
+                if ( ! empty( $this->billet_instruction_line2 ) )
+                    $billet->addChild( 'Instrucao2', $this->billet_instruction_line2 );
+                if ( ! empty( $this->billet_instruction_line3 ) )
+                    $billet->addChild( 'Instrucao3', $this->billet_instruction_line3 );
+                if ( ! empty( $this->billet_logo ) )
+                    $billet->addChild( 'URLLogo', $this->billet_logo );
+            }
         }
 
         if ( 'yes' == $this->credit_card ) {
@@ -584,8 +668,6 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         if ( 'yes' == $this->debug )
             $this->log->add( 'moip', 'Requesting token for order ' . $order->get_order_number() );
-
-        $this->log->add( 'moip', 'Requesting token for order ' . $xml );
 
         if ( 'yes' == $this->sandbox )
             $url = 'https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica';
