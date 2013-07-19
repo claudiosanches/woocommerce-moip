@@ -1,5 +1,5 @@
-"use strict";
 module.exports = function(grunt) {
+"use strict";
 
     grunt.initConfig({
 
@@ -58,35 +58,18 @@ module.exports = function(grunt) {
                     }
                 }
             }
-        },
-
-        // creates a zip of the plugin
-        zipdir: {
-            "woocommerce-moip": {
-                src: ["./"],
-                dest: "./<%= pkg.name %>.zip",
-                exclude: "<%= svn_settings.exclude %>"
-            }
         }
-
     });
 
     // load tasks
     grunt.loadNpmTasks("grunt-rsync");
     grunt.loadNpmTasks("grunt-shell");
-    grunt.loadNpmTasks("grunt-wx-zipdir");
 
-    // deploy task
-    grunt.registerTask("deploy", [
+    // default task
+    grunt.registerTask("default", [
         "rsync:tag",
         "rsync:trunk",
         "shell:svn_add",
         "shell:svn_commit"
-    ]);
-
-    // zip task
-    grunt.registerTask("zip", [
-        "default",
-        "zipdir"
     ]);
 };
