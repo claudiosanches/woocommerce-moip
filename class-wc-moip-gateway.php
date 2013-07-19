@@ -462,12 +462,6 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         if ( 'yes' == $this->moip_wallet )
             $payment->addChild( 'FormaPagamento', 'CarteiraMoIP' );
 
-        // Notification URL.
-        $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
-
-        // Return URL.
-        $instruction->addChild( 'URLRetorno', $this->get_return_url( $order ) );
-
         // <Boleto>
         //     <DataVencimento>2000-12-31T12:00:00.000-03:00</DataVencimento>
         //     <Instrucao1>Primeira linha de mensagem adicional</Instrucao1>
@@ -475,6 +469,14 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         //     <Instrucao3>Terceira linha</Instrucao3>
         //     <URLLogo>http://meusite.com.br/meulogo.jpg</URLLogo>
         // </Boleto>
+
+        // Notification URL.
+        $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
+
+        // Return URL.
+        $instruction->addChild( 'URLRetorno', $this->get_return_url( $order ) );
+
+        $xml = apply_filters( 'woocommerce_moip_xml', $xml, $order );
 
         return $xml->asXML();
     }
@@ -641,7 +643,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
                 return array(
                     'result'   => 'success',
-                    'redirect' => $url
+                    // 'redirect' => $url
                 );
             }
         } else {
