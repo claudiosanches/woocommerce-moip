@@ -27,15 +27,20 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->init_settings();
 
         // Define user set variables.
-        $this->title          = $this->settings['title'];
-        $this->description    = $this->settings['description'];
-        $this->login          = $this->settings['login'];
-        $this->api            = isset( $this->settings['api'] ) ? $this->settings['api'] : 'no';
-        $this->token          = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
-        $this->key            = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
-        $this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
-        $this->sandbox        = $this->settings['sandbox'];
-        $this->debug          = $this->settings['debug'];
+        $this->title             = $this->settings['title'];
+        $this->description       = $this->settings['description'];
+        $this->login             = $this->settings['login'];
+        $this->invoice_prefix    = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
+        $this->api               = isset( $this->settings['api'] ) ? $this->settings['api'] : 'no';
+        $this->token             = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
+        $this->key               = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
+        $this->credit_card       = isset( $this->settings['credit_card'] ) ? $this->settings['credit_card'] : 'yes';
+        $this->debit_card        = isset( $this->settings['debit_card'] ) ? $this->settings['debit_card'] : 'yes';
+        $this->banking_debit     = isset( $this->settings['banking_debit'] ) ? $this->settings['banking_debit'] : 'yes';
+        $this->financing_banking = isset( $this->settings['financing_banking'] ) ? $this->settings['financing_banking'] : 'no';
+        $this->billet_banking    = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
+        $this->sandbox           = $this->settings['sandbox'];
+        $this->debug             = $this->settings['debug'];
 
         // Actions.
         add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
@@ -87,6 +92,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * Admin Panel Options.
      */
     public function admin_options() {
+        wp_enqueue_script( 'wc-correios', WOO_MOIP_URL . 'js/admin.js', array( 'jquery' ), '', true );
         ?>
         <h3><?php _e( 'MoIP standard', 'wcmoip' ); ?></h3>
         <p><?php _e( 'MoIP standard works by sending the user to MoIP to enter their payment information.', 'wcmoip' ); ?></p>
@@ -130,8 +136,20 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'desc_tip' => true,
                 'default' => ''
             ),
+            'invoice_prefix' => array(
+                'title' => __( 'Invoice Prefix', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Please enter a prefix for your invoice numbers. If you use your MoIP account for multiple stores ensure this prefix is unqiue as MoIP will not allow orders with the same invoice number.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => 'WC-'
+            ),
+            'api_section' => array(
+                'title' => __( 'Payment API', 'wcmoip' ),
+                'type' => 'title',
+                'description' => '',
+            ),
             'api' => array(
-                'title' => __( 'Payments via API', 'wcmoip' ),
+                'title' => __( 'Enable/Disable', 'wcmoip' ),
                 'type' => 'checkbox',
                 'label' => __( 'Enable MoIP Payment API', 'wcmoip' ),
                 'description' => __( 'API payment is safer and it is possible to use the transparent checkout.', 'wcmoip' ),
@@ -151,12 +169,40 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'desc_tip' => true,
                 'default' => ''
             ),
-            'invoice_prefix' => array(
-                'title' => __( 'Invoice Prefix', 'wcmoip' ),
-                'type' => 'text',
-                'description' => __( 'Please enter a prefix for your invoice numbers. If you use your MoIP account for multiple stores ensure this prefix is unqiue as MoIP will not allow orders with the same invoice number.', 'wcmoip' ),
-                'desc_tip' => true,
-                'default' => 'WC-'
+            'payment_section' => array(
+                'title' => __( 'Payment Settings', 'wcmoip' ),
+                'type' => 'title',
+                'description' => __( 'These options need to be available to you in your MoIP account.', 'wcmoip' ),
+            ),
+            'credit_card' => array(
+                'title' => __( 'Credit Card', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Credit Card', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'debit_card' => array(
+                'title' => __( 'Debit Card', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Debit Card', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'banking_debit' => array(
+                'title' => __( 'Banking Debit', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Banking Debit', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'financing_banking' => array(
+                'title' => __( 'Financing Banking', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Financing Banking', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'billet_banking' => array(
+                'title' => __( 'Billet Banking', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Billet Banking', 'wcmoip' ),
+                'default' => 'yes'
             ),
             'testing' => array(
                 'title' => __( 'Gateway Testing', 'wcmoip' ),
@@ -306,11 +352,16 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         // Payment info.
         $payment = $instruction->addChild( 'FormasPagamento' );
-        $payment->addChild( 'FormaPagamento', 'CartaoCredito' );
-        $payment->addChild( 'FormaPagamento', 'CartaoDebito' );
-        $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
-        $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
-        $payment->addChild( 'FormaPagamento', 'BoletoBancario' );
+        if ( 'yes' == $this->credit_card )
+            $payment->addChild( 'FormaPagamento', 'CartaoCredito' );
+        if ( 'yes' == $this->debit_card )
+            $payment->addChild( 'FormaPagamento', 'CartaoDebito' );
+        if ( 'yes' == $this->banking_debit )
+            $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
+        if ( 'yes' == $this->financing_banking )
+            $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
+        if ( 'yes' == $this->billet_banking )
+            $payment->addChild( 'FormaPagamento', 'BoletoBancario' );
 
         // Notification URL.
         $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
