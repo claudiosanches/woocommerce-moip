@@ -181,6 +181,22 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     }
 
     /**
+     * Add error message in checkout.
+     *
+     * @param string $message Error message.
+     *
+     * @return string         Displays the error message.
+     */
+    protected function add_error( $message ) {
+        global $woocommerce;
+
+        if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) )
+            wc_add_error( $message );
+        else
+            $woocommerce->add_error( $message );
+    }
+
+    /**
      * Generate the args to form.
      *
      * @param  array $order Order data.
@@ -210,11 +226,11 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             'pagador_logradouro'  => $order->billing_address_1,
             //'pagador_numero'
             'pagador_complemento' => $order->billing_address_2,
-            //'pagador_bairro'
+            // 'pagador_bairro'
             'pagador_cep'         => $order->billing_postcode,
             'pagador_cidade'      => $order->billing_city,
             'pagador_estado'      => $order->billing_state,
-            //'pagador_pais'        => $order->billing_country,
+            // 'pagador_pais'        => $order->billing_country,
 
             // Payment Info.
             'id_transacao'        => $this->invoice_prefix . $order->id,
@@ -246,6 +262,79 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $args = apply_filters( 'woocommerce_moip_args', $args, $order );
 
         return $args;
+    }
+
+    /**
+     * Generate XML payment args.
+     *
+     * @param  array $order Order data.
+     *
+     * @return string
+     */
+    protected function get_payment_xml( $order ) {
+        $data = $this->get_form_args( $order );
+
+        $number = isset( $data['pagador_numero'] ) ? $data['pagador_numero'] : 0;
+        $neighborhood = isset( $data['pagador_bairro'] ) ? $data['pagador_bairro'] : __( 'Not contained', 'wcmoip' );
+
+        $xml = new SimpleXmlElement( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
+        $instruction = $xml->addChild( 'InstrucaoUnica' );
+        $instruction->addAttribute( 'TipoValidacao', 'Transparente' );
+        $instruction->addChild( 'Razao', $data['descricao'] );
+        $values = $instruction->addChild( 'Valores' );
+        $values->addChild( 'Valor', $order->order_total );
+        $values->addAttribute( 'moeda', 'BRL' );
+        $instruction->addChild( 'IdProprio', $data['id_transacao'] );
+
+        // Payer.
+        $payer = $instruction->addChild( 'Pagador' );
+        $payer->addChild( 'Nome', $data['pagador_nome'] );
+        $payer->addChild( 'Email', $data['pagador_email'] );
+        $payer->addChild( 'IdPagador', $data['pagador_email'] );
+
+        // Address.
+        $address = $payer->addChild( 'EnderecoCobranca' );
+        $address->addChild( 'Logradouro', $data['pagador_logradouro'] );
+        $address->addChild( 'Numero', $number );
+        $address->addChild( 'Bairro', $neighborhood );
+        $address->addChild( 'Complemento', $data['pagador_complemento'] );
+        $address->addChild( 'Cidade', $data['pagador_cidade'] );
+        $address->addChild( 'Estado', $data['pagador_estado'] );
+        $address->addChild( 'Pais', 'BRA' );
+        $address->addChild( 'CEP', $data['pagador_cep'] );
+        $address->addChild( 'TelefoneFixo', $data['pagador_telefone'] );
+
+        // Payment info.
+        $payment = $instruction->addChild( 'FormasPagamento' );
+        $payment->addChild( 'FormaPagamento', 'CartaoCredito' );
+        $payment->addChild( 'FormaPagamento', 'CartaoDebito' );
+        $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
+        $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
+        $payment->addChild( 'FormaPagamento', 'BoletoBancario' );
+
+        // Notification URL.
+        $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
+
+        // Return URL.
+        $instruction->addChild( 'URLRetorno', $this->get_return_url( $order ) );
+
+        // <Parcelamentos>
+        //     <Parcelamento>
+        //         <MinimoParcelas>2</MinimoParcelas>
+        //         <MaximoParcelas>12</MaximoParcelas>
+        //         <Juros>1.99</Juros>
+        //     </Parcelamento>
+        // </Parcelamentos>
+
+        // <Boleto>
+        //     <DataVencimento>2000-12-31T12:00:00.000-03:00</DataVencimento>
+        //     <Instrucao1>Primeira linha de mensagem adicional</Instrucao1>
+        //     <Instrucao2>Segunda linha</Instrucao2>
+        //     <Instrucao3>Terceira linha</Instrucao3>
+        //     <URLLogo>http://meusite.com.br/meulogo.jpg</URLLogo>
+        // </Boleto>
+
+        return $xml->asXML();
     }
 
     /**
@@ -330,6 +419,61 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             </form>';
     }
 
+    protected function create_payment_token( $order ) {
+        $xml = $this->get_payment_xml( $order );
+
+        if ( 'yes' == $this->debug )
+            $this->log->add( 'moip', 'Requesting token for order ' . $order->get_order_number() );
+
+        if ( 'yes' == $this->sandbox )
+            $url = 'https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica';
+        else
+            $url = 'https://www.moip.com.br/ws/alpha/EnviarInstrucao/Unica';
+
+        $params = array(
+            'method'     => 'POST',
+            'body'       => $xml,
+            'sslverify'  => false,
+            'timeout'    => 30,
+            'headers'    => array(
+                'Expect' => '',
+                'Content-Type' => 'application/xml;charset=UTF-8',
+                'Authorization' => 'Basic ' . base64_encode( $this->token . ':' . $this->key )
+            )
+        );
+
+        $response = wp_remote_post( $url, $params );
+
+        if ( is_wp_error( $response ) ) {
+            if ( 'yes' == $this->debug )
+                $this->log->add( 'moip', 'WP_Error: ' . $response->get_error_message() );
+        } elseif ( $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
+            $body = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+
+            if ( 'Sucesso' == $body->Resposta->Status ) {
+                if ( 'yes' == $this->debug )
+                    $this->log->add( 'moip', 'MoIP Payment Token created with success! The Token is: ' . $body->Resposta->Token );
+
+                return $body->Resposta->Token;
+            } else {
+                if ( 'yes' == $this->debug )
+                    $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . print_r( $body->Resposta->Erro, true ) );
+
+                foreach ( $body->Resposta->Erro as $error )
+                    $this->add_error( '<strong>MoIP</strong>: ' . esc_attr( (string) $error ) );
+            }
+
+        } else {
+            if ( 'yes' == $this->debug ) {
+                $error = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+
+                $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . $response['response']['code'] . ' - ' . $response['response']['message'] );
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Process the payment and return the result.
      *
@@ -341,16 +485,33 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         $order = new WC_Order( $order_id );
 
-        if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
-            return array(
-                'result'   => 'success',
-                'redirect' => $order->get_checkout_payment_url( true )
-            );
+        if ( 'yes' == $this->api ) {
+
+            $token = $this->create_payment_token( $order );
+
+            if ( $token ) {
+                if ( 'yes' == $this->sandbox )
+                    $url = 'https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=' . $token;
+                else
+                    $url = 'https://www.moip.com.br/Instrucao.do?token=' . $token;
+
+                return array(
+                    'result'   => 'success',
+                    'redirect' => $url
+                );
+            }
         } else {
-            return array(
-                'result'   => 'success',
-                'redirect' => add_query_arg( 'order', $order->id, add_query_arg( 'key', $order->order_key, get_permalink( woocommerce_get_page_id( 'pay' ) ) ) )
-            );
+            if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+                return array(
+                    'result'   => 'success',
+                    'redirect' => $order->get_checkout_payment_url( true )
+                );
+            } else {
+                return array(
+                    'result'   => 'success',
+                    'redirect' => add_query_arg( 'order', $order->id, add_query_arg( 'key', $order->order_key, get_permalink( woocommerce_get_page_id( 'pay' ) ) ) )
+                );
+            }
         }
     }
 
