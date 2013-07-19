@@ -1,7 +1,7 @@
 === WooCommerce MoIP ===
 Contributors: claudiosanches
 Donate link: http://claudiosmweb.com/doacoes/
-Tags: ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, moip
+Tags: ecommerce, e-commerce, commerce, woocommerce, checkout, payment, moip
 Requires at least: 3.0
 Tested up to: 3.6
 Stable tag: 1.5.0
@@ -53,13 +53,13 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 * Upload plugin files to your plugins folder, or install using WordPress built-in Add New Plugin installer;
 * Activate the plugin;
-* Navigate to WooCommerce -> Settings -> Payment Gateways, choose MoIP and fill in your MoIP Email or Username.
+* Navigate to WooCommerce -> Settings -> Payment Gateways, choose MoIP and fill the options.
 
 ### Instalação e configuração em Português: ###
 
 = Instalação do plugin: =
 
-* Envie os arquivos do plugin para a pasta wp-content/plugins ou usando o instalador de plugins do WordPress.
+* Envie os arquivos do plugin para a pasta wp-content/plugins ou usando o instalador de plugins do WordPress;
 * Ative o plugin.
 
 = Requerimentos: =
@@ -78,9 +78,11 @@ Para que seja possível receber notificações sobre as transações direto no s
 
 Com o plugin instalado acesse o admin do WordPress e entre em `WooCommerce > Configurações > Portais de pagamento > MoIP`.
 
-Habilite o MoIP, adicione o seu e-mail.
+Você tem duas opções de API de pagamento, a versão em **HTML** que é a padrão e menos segura ou a versão em **XML** (recomendado) que é mais segura e flexível.
 
-Pronto, sua loja já pode receber pagamentos pelo MoIP.
+Para a versão em **HTML** basta adicionar o seu nome de usuário ou e-mail em **MoIP Login** para habilitar.
+
+Já a versão em **XML** deve ser configurada com o **Token de Acesso** e a **Chave de Acesso**. Você pode obter estas informações utilizando o seguinte tutorial: [Pergunta do usuário: Como obter o token e a chave de acesso da API do MoIP?](https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/).
 
 = Configurações no WooCommerce =
 
