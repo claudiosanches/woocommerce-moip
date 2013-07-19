@@ -4,7 +4,7 @@
 **Tags:** ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, moip  
 **Requires at least:** 3.0  
 **Tested up to:** 3.6  
-**Stable tag:** 1.4.0  
+**Stable tag:** 1.5.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -148,6 +148,13 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 
 ## Changelog ##
+
+### 1.5.0 - 19/07/2013 ###
+
+* Adicionada a API de pagamentos em XML do MoIP.
+* Adicionadas opções para controle dos métodos de pagamento (apenas para API em XML).
+* Adicionadas opções de parcelamento (apenas para API em XML).
+* Adicionadas opções para customização do boleto bancário (apenas para API em XML).
 
 ### 1.4.0 - 18/07/2013 ###
 
