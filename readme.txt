@@ -3,8 +3,8 @@ Contributors: claudiosanches
 Donate link: http://claudiosmweb.com/doacoes/
 Tags: ecommerce, e-commerce, commerce, wordpress ecommerce, checkout, payment, payment gateway, moip
 Requires at least: 3.0
-Tested up to: 3.5.1
-Stable tag: 1.3.1
+Tested up to: 3.6
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,10 @@ Adds MoIP gateway to the WooCommerce plugin
 This plugin adds MoIP gateway to WooCommerce.
 
 Please notice that WooCommerce must be installed and active.
+
+= Contribute =
+
+You can contribute to the source code in our [GitHub](https://github.com/claudiosmweb/woocommerce-moip) page.
 
 ### Descrição em Português: ###
 
@@ -38,7 +42,12 @@ Você pode esclarecer suas dúvidas usando:
 
 * A nossa sessão de [FAQ](http://wordpress.org/extend/plugins/woocommerce-moip/faq/).
 * Criando um tópico no [fórum de ajuda do WordPress](http://wordpress.org/support/plugin/woocommerce-moip) (apenas em inglês).
+* Criando um tópico no [GitHub](https://github.com/claudiosmweb/woocommerce-moip/issues).
 * Ou entre em contato com os desenvolvedores do plugin em nossa [página](http://claudiosmweb.com/plugins/moip-para-woocommerce/).
+
+= Coloborar =
+
+Você pode contribuir com código-fonte em nossa página no [GitHub](https://github.com/claudiosmweb/woocommerce-moip).
 
 == Installation ==
 
@@ -136,7 +145,12 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 == Changelog ==
 
-= 1.3.1 - 18/07/2013 =
+= 1.4.0 - 18/07/2013 =
+
+* Melhoria no código.
+* Adicionada compatibilidade com o WooCommerce 2.1 ou superior.
+
+= 1.3.1 - 18/06/2013 =
 
 * Correção do retorno automático de dados para o status `Concluido`.
 
