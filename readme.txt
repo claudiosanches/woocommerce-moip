@@ -191,14 +191,12 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 == Upgrade Notice ==
 
-= 1.1 =
+= 1.5.0 =
 
-* Added error logs.
-* Added sandbox option.
-
-= 1.0 =
-
-* Enjoy it.
+* Adicionada a API de pagamentos em XML do MoIP.
+* Adicionadas opções para controle dos métodos de pagamento (apenas para API em XML).
+* Adicionadas opções de parcelamento (apenas para API em XML).
+* Adicionadas opções para customização do boleto bancário (apenas para API em XML).
 
 == License ==
 
