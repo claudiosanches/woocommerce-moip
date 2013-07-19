@@ -26,13 +26,15 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         // Load the settings.
         $this->init_settings();
 
-        // Define user set variables.
+        // Display options.
         $this->title       = $this->settings['title'];
         $this->description = $this->settings['description'];
 
+        // Gateway options.
         $this->login          = $this->settings['login'];
         $this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
 
+        // API options.
         $this->api   = isset( $this->settings['api'] ) ? $this->settings['api'] : 'html';
         $this->token = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
         $this->key   = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
@@ -46,13 +48,14 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->financing_banking = isset( $this->settings['financing_banking'] ) ? $this->settings['financing_banking'] : 'no';
 
         // Installments options.
-        $this->installments        = isset( $this->settings['installments'] ) ? $this->settings['installments'] : 'no';
-        $this->installment_mininum = isset( $this->settings['installment_mininum'] ) ? $this->settings['installment_mininum'] : 2;
-        $this->installment_maxium  = isset( $this->settings['installment_maxium'] ) ? $this->settings['installment_maxium'] : 12;
-        $this->receipt             = isset( $this->settings['receipt'] ) ? $this->settings['receipt'] : 'AVista';
-        $this->interest            = isset( $this->settings['interest'] ) ? $this->settings['interest'] : 0;
-        $this->rehearse            = isset( $this->settings['rehearse'] ) ? $this->settings['rehearse'] : 'no';
+        $this->installments          = isset( $this->settings['installments'] ) ? $this->settings['installments'] : 'no';
+        $this->installments_mininum  = isset( $this->settings['installments_mininum'] ) ? $this->settings['installments_mininum'] : 2;
+        $this->installments_maxium   = isset( $this->settings['installments_maxium'] ) ? $this->settings['installments_maxium'] : 12;
+        $this->installments_receipt  = isset( $this->settings['installments_receipt'] ) ? $this->settings['installments_receipt'] : 'AVista';
+        $this->installments_interest = isset( $this->settings['installments_interest'] ) ? $this->settings['installments_interest'] : 0;
+        $this->installments_rehearse = isset( $this->settings['installments_rehearse'] ) ? $this->settings['installments_rehearse'] : 'no';
 
+        // Billet options.
         $this->billet                   = isset( $this->settings['billet'] ) ? $this->settings['billet'] : 'no';
         $this->billet_time              = isset( $this->settings['billet_time'] ) ? $this->settings['billet_time'] : 'no';
         $this->billet_number_days       = isset( $this->settings['billet_number_days'] ) ? $this->settings['billet_number_days'] : '7';
@@ -247,7 +250,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'label' => __( 'Enable Custom installments', 'wcmoip' ),
                 'default' => 'no'
             ),
-            'installment_mininum' => array(
+            'installments_mininum' => array(
                 'title' => __( 'Minimum Installment', 'wcmoip' ),
                 'type' => 'select',
                 'description' => __( 'Indicate the minimum installments.', 'wcmoip' ),
@@ -267,7 +270,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                     12 => '12'
                 )
             ),
-            'installment_maxium' => array(
+            'installments_maxium' => array(
                 'title' => __( 'Maximum Installment', 'wcmoip' ),
                 'type' => 'select',
                 'description' => __( 'Indicate the Maximum installments.', 'wcmoip' ),
@@ -287,7 +290,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                     12 => '12'
                 )
             ),
-            'receipt' => array(
+            'installments_receipt' => array(
                 'title' => __( 'Receipt', 'wcmoip' ),
                 'type' => 'select',
                 'description' => __( 'If the installment payment will in at sight (subject to additional costs) in your account MoIP (in one installment) or if it will be split (credited in the same number of parcels chosen by the payer).', 'wcmoip' ),
@@ -298,7 +301,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                     'Parcelado' => __( 'Installments', 'wcmoip' ),
                 )
             ),
-            'interest' => array(
+            'installments_interest' => array(
                 'title' => __( 'Interest', 'wcmoip' ),
                 'type' => 'text',
                 'description' => __( 'Interest to be applied to the installment.', 'wcmoip' ),
@@ -306,7 +309,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'placeholder' => '0.00',
                 'default' => ''
             ),
-            'rehearse' => array(
+            'installments_rehearse' => array(
                 'title' => __( 'Rehearse', 'wcmoip' ),
                 'type' => 'checkbox',
                 'label' => __( 'Enable Rehearse', 'wcmoip' ),
@@ -549,14 +552,14 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             if ( 'yes' == $this->installments ) {
                 $installments = $instruction->addChild( 'Parcelamentos' );
                 $installment = $installments->addChild( 'Parcelamento' );
-                $installment->addChild( 'MinimoParcelas', $this->installment_mininum );
-                $installment->addChild( 'MaximoParcelas', $this->installment_maxium );
+                $installment->addChild( 'MinimoParcelas', $this->installments_mininum );
+                $installment->addChild( 'MaximoParcelas', $this->installments_maxium );
                 $installment->addChild( 'Recebimento', $this->receipt );
-                if ( ! empty( $this->interest ) && $this->interest > 0 )
-                    $installment->addChild( 'Juros', str_replace( ',', '.', $this->interest ) );
-                if ( 'AVista' == $this->receipt ) {
-                    $rehearse = ( 'yes' == $this->rehearse ) ? 'true' : 'false';
-                    $installment->addChild( 'Recebimento', $this->rehearse );
+                if ( ! empty( $this->installments_interest ) && $this->installments_interest > 0 )
+                    $installment->addChild( 'Juros', str_replace( ',', '.', $this->installments_interest ) );
+                if ( 'AVista' == $this->installments_receipt ) {
+                    $rehearse = ( 'yes' == $this->installments_rehearse ) ? 'true' : 'false';
+                    $installment->addChild( 'Recebimento', $this->installments_rehearse );
                 }
             }
         }
