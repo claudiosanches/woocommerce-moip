@@ -30,8 +30,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->title          = $this->settings['title'];
         $this->description    = $this->settings['description'];
         $this->login          = $this->settings['login'];
-        $this->token          = $this->settings['token'];
-        $this->key            = $this->settings['key'];
+        $this->api            = isset( $this->settings['api'] ) ? $this->settings['api'] : 'no';
+        $this->token          = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
+        $this->key            = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
         $this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
         $this->sandbox        = $this->settings['sandbox'];
         $this->debug          = $this->settings['debug'];
@@ -46,11 +47,24 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
 
         // Valid for use.
-        $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->login ) && $this->is_valid_for_use();
+        if ( 'yes' == $this->api ) {
+            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->token ) && ! empty( $this->key ) && $this->is_valid_for_use();
 
-        // Checks if login is not empty.
-        if ( empty( $this->login ) )
-            add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
+            // Checks if token is not empty.
+            if ( empty( $this->token ) )
+                add_action( 'admin_notices', array( &$this, 'token_missing_message' ) );
+
+            // Checks if key is not empty.
+            if ( empty( $this->key ) )
+                add_action( 'admin_notices', array( &$this, 'key_missing_message' ) );
+
+        } else {
+            $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->login ) && $this->is_valid_for_use();
+
+            // Checks if login is not empty.
+            if ( empty( $this->login ) )
+                add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
+        }
 
         // Active logs.
         if ( 'yes' == $this->debug )
@@ -115,6 +129,13 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'description' => __( 'Please enter your MoIP email address or username; this is needed in order to take payment.', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => ''
+            ),
+            'api' => array(
+                'title' => __( 'Payments via API', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable MoIP Payment API', 'wcmoip' ),
+                'description' => __( 'API payment is safer and it is possible to use the transparent checkout.', 'wcmoip' ),
+                'default' => 'no'
             ),
             'token' => array(
                 'title' => __( 'MoIP API Token', 'wcmoip' ),
@@ -466,6 +487,24 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function login_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>Gateway Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+    }
+
+    /**
+     * Adds error message when not configured the token.
+     *
+     * @return string Error Mensage.
+     */
+    public function token_missing_message() {
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your MoIP API Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+    }
+
+    /**
+     * Adds error message when not configured the key.
+     *
+     * @return string Error Mensage.
+     */
+    public function key_missing_message() {
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your MoIP API Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
     }
 }
