@@ -415,9 +415,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     /**
      * Generate the args to form.
      *
-     * @param  array $order Order data.
+     * @param  object $order Order data.
      *
-     * @return array
+     * @return array         Form arguments.
      */
     public function get_form_args( $order ) {
 
@@ -483,9 +483,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     /**
      * Generate XML payment args.
      *
-     * @param  array $order Order data.
+     * @param  object $order Order data.
      *
-     * @return string
+     * @return string        Payment xml.
      */
     protected function get_payment_xml( $order ) {
         $data = $this->get_form_args( $order );
@@ -587,9 +587,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     /**
      * Generate the form.
      *
-     * @param mixed $order_id
+     * @param int     $order_id Order ID.
      *
-     * @return string
+     * @return string           Payment form.
      */
     public function generate_form( $order_id ) {
         global $woocommerce;
@@ -666,6 +666,13 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             </form>';
     }
 
+    /**
+     * Gets the MoIP Payment Token
+     *
+     * @param  object $order Order data.
+     *
+     * @return string        Payment token.
+     */
     protected function create_payment_token( $order ) {
         $xml = $this->get_payment_xml( $order );
 
@@ -724,9 +731,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     /**
      * Process the payment and return the result.
      *
-     * @param int $order_id
+     * @param int    $order_id Order ID.
      *
-     * @return array
+     * @return array           Redirect.
      */
     public function process_payment( $order_id ) {
 
@@ -765,6 +772,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     /**
      * Output for the order received page.
      *
+     * @param  object $order Order data.
+     *
      * @return void
      */
     public function receipt_page( $order ) {
@@ -800,7 +809,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     /**
      * Successful Payment!
      *
-     * @param array $posted
+     * @param array $posted MoIP post data.
      *
      * @return void
      */

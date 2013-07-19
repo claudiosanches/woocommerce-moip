@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce MoIP v1.4.0\n"
+"Project-Id-Version: WooCommerce MoIP v1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-19 23:21:12+0000\n"
+"PO-Revision-Date: 2013-07-19 23:26:53+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -132,58 +132,58 @@ msgstr "Obrigado por fazer seu pedido. Agora estamos redirecionando você para o
 msgid "Cancel order &amp; restore cart"
 msgstr "Cancelar pedido e restaurar carrinho"
 
-#: class-wc-moip-gateway.php:773
+#: class-wc-moip-gateway.php:782
 #@ wcmoip
 msgid "Thank you for your order, please click the button below to pay with MoIP."
 msgstr "Obrigado por seu pedido, por favor clique no botão abaixo para pagar com MoIP."
 
-#: class-wc-moip-gateway.php:855
+#: class-wc-moip-gateway.php:864
 #@ wcmoip
 msgid "Payment has already been made but not yet credited to Carteira MoIP."
 msgstr "O pagamento já foi feito, mas ainda não foi creditado na sua Carteira MoIP."
 
-#: class-wc-moip-gateway.php:860
-#: class-wc-moip-gateway.php:876
+#: class-wc-moip-gateway.php:869
+#: class-wc-moip-gateway.php:885
 #@ wcmoip
 msgid "Payment under review by MoIP."
 msgstr "Pagamento aguardando revisão do MoIP"
 
-#: class-wc-moip-gateway.php:864
+#: class-wc-moip-gateway.php:873
 #@ wcmoip
 msgid "Billet was printed and has not been paid yet."
 msgstr "O boleto foi impresso e não foi pago ainda."
 
-#: class-wc-moip-gateway.php:828
+#: class-wc-moip-gateway.php:837
 #@ wcmoip
 msgid "MoIP Transaction ID"
 msgstr "MoIP: ID da transação"
 
-#: class-wc-moip-gateway.php:835
+#: class-wc-moip-gateway.php:844
 #@ wcmoip
 msgid "Payer email"
 msgstr "E-mail do comprador"
 
-#: class-wc-moip-gateway.php:842
+#: class-wc-moip-gateway.php:851
 #@ wcmoip
 msgid "Payment type"
 msgstr "Tipo de pagamento"
 
-#: class-wc-moip-gateway.php:849
+#: class-wc-moip-gateway.php:858
 #@ wcmoip
 msgid "Number of parcels"
 msgstr "Número de parcelas"
 
-#: class-wc-moip-gateway.php:872
+#: class-wc-moip-gateway.php:881
 #@ wcmoip
 msgid "Payment canceled by MoIP."
 msgstr "Pagamento cancelado pelo MoIP."
 
-#: class-wc-moip-gateway.php:880
+#: class-wc-moip-gateway.php:889
 #@ wcmoip
 msgid "Payment was reversed by the payer, payee, payment institution or MoIP."
 msgstr "Pagamento foi estornado pelo pagador, recebedor, instituição de pagamento ou MoIP."
 
-#: class-wc-moip-gateway.php:868
+#: class-wc-moip-gateway.php:877
 #@ wcmoip
 msgid "Payment completed and credited in your Carteira MoIP."
 msgstr "Pagamento completo e creditado na sua Carteira MoIP."
@@ -225,7 +225,7 @@ msgstr "Habilitar log"
 msgid "http://claudiosmweb.com/"
 msgstr "http://claudiosmweb.com/"
 
-#: class-wc-moip-gateway.php:796
+#: class-wc-moip-gateway.php:805
 #@ wcmoip
 msgid "MoIP Request Failure"
 msgstr "MoIP falha no pedido"
@@ -373,7 +373,7 @@ msgstr "Ativar Repassar"
 msgid "Not contained"
 msgstr "Não consta"
 
-#: class-wc-moip-gateway.php:898
+#: class-wc-moip-gateway.php:907
 #, php-format
 #@ wcmoip
 msgid "<strong>MoIP Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s"
@@ -440,13 +440,13 @@ msgstr "Chave de Acesso"
 msgid "Please enter your Access Key; this is needed in order to take payment."
 msgstr "Por favor, digite o seu Chave de Acesso que é necessário para receber o pagamento."
 
-#: class-wc-moip-gateway.php:907
+#: class-wc-moip-gateway.php:916
 #, php-format
 #@ wcmoip
 msgid "<strong>MoIP Disabled</strong> You should inform your Access Token. %sClick here to configure!%s"
 msgstr "<strong>MoIP Desativado</strong> Você deve informar o seu Token de Acesso. %sClique aqui para configurar!%s"
 
-#: class-wc-moip-gateway.php:916
+#: class-wc-moip-gateway.php:925
 #, php-format
 #@ wcmoip
 msgid "<strong>MoIP Disabled</strong> You should inform your Access Key. %sClick here to configure!%s"
