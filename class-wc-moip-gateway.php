@@ -34,12 +34,13 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->api                 = isset( $this->settings['api'] ) ? $this->settings['api'] : 'no';
         $this->token               = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
         $this->key                 = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
+        $this->billet_banking      = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
         $this->credit_card         = isset( $this->settings['credit_card'] ) ? $this->settings['credit_card'] : 'yes';
         $this->debit_card          = isset( $this->settings['debit_card'] ) ? $this->settings['debit_card'] : 'yes';
+        $this->moip_wallet         = isset( $this->settings['moip_wallet'] ) ? $this->settings['moip_wallet'] : 'yes';
         $this->banking_debit       = isset( $this->settings['banking_debit'] ) ? $this->settings['banking_debit'] : 'yes';
         $this->financing_banking   = isset( $this->settings['financing_banking'] ) ? $this->settings['financing_banking'] : 'no';
-        $this->billet_banking      = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
-        $this->moip_wallet         = isset( $this->settings['moip_wallet'] ) ? $this->settings['moip_wallet'] : 'yes';
+        $this->installments        = isset( $this->settings['installments'] ) ? $this->settings['installments'] : 'no';
         $this->installment_mininum = isset( $this->settings['installment_mininum'] ) ? $this->settings['installment_mininum'] : 2;
         $this->installment_maxium  = isset( $this->settings['installment_maxium'] ) ? $this->settings['installment_maxium'] : 12;
         $this->receipt             = isset( $this->settings['receipt'] ) ? $this->settings['receipt'] : 'AVista';
@@ -180,6 +181,12 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'type' => 'title',
                 'description' => __( 'These options need to be available to you in your MoIP account.', 'wcmoip' ),
             ),
+            'billet_banking' => array(
+                'title' => __( 'Billet Banking', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Billet Banking', 'wcmoip' ),
+                'default' => 'yes'
+            ),
             'credit_card' => array(
                 'title' => __( 'Credit Card', 'wcmoip' ),
                 'type' => 'checkbox',
@@ -190,6 +197,12 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'title' => __( 'Debit Card', 'wcmoip' ),
                 'type' => 'checkbox',
                 'label' => __( 'Enable Debit Card', 'wcmoip' ),
+                'default' => 'yes'
+            ),
+            'moip_wallet' => array(
+                'title' => __( 'MoIP Wallet', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable MoIP Wallet', 'wcmoip' ),
                 'default' => 'yes'
             ),
             'banking_debit' => array(
@@ -204,22 +217,16 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'label' => __( 'Enable Financing Banking', 'wcmoip' ),
                 'default' => 'yes'
             ),
-            'billet_banking' => array(
-                'title' => __( 'Billet Banking', 'wcmoip' ),
-                'type' => 'checkbox',
-                'label' => __( 'Enable Billet Banking', 'wcmoip' ),
-                'default' => 'yes'
-            ),
-            'moip_wallet' => array(
-                'title' => __( 'MoIP Wallet', 'wcmoip' ),
-                'type' => 'checkbox',
-                'label' => __( 'Enable MoIP Wallet', 'wcmoip' ),
-                'default' => 'yes'
-            ),
             'installments_section' => array(
                 'title' => __( 'Credit Card Installments', 'wcmoip' ),
                 'type' => 'title',
                 'description' => '',
+            ),
+            'installments' => array(
+                'title' => __( 'Custom installments', 'wcmoip' ),
+                'type' => 'checkbox',
+                'label' => __( 'Enable Custom installments', 'wcmoip' ),
+                'default' => 'no'
             ),
             'installment_mininum' => array(
                 'title' => __( 'Minimum Installment', 'wcmoip' ),
@@ -435,28 +442,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         // Payment info.
         $payment = $instruction->addChild( 'FormasPagamento' );
-        if ( 'yes' == $this->credit_card ) {
-            $payment->addChild( 'FormaPagamento', 'CartaoCredito' );
 
-            // Installments info.
-            $installments = $instruction->addChild( 'Parcelamentos' );
-            $installment = $installments->addChild( 'Parcelamento' );
-            $installment->addChild( 'MinimoParcelas', $this->installment_mininum );
-            $installment->addChild( 'MaximoParcelas', $this->installment_maxium );
-            $installment->addChild( 'Recebimento', $this->receipt );
-            if ( ! empty( $this->interest ) && $this->interest > 0 )
-                $installment->addChild( 'Juros', str_replace( ',', '.', $this->interest ) );
-            if ( 'AVista' == $this->receipt ) {
-                $rehearse = ( 'yes' == $this->rehearse ) ? 'true' : 'false';
-                $installment->addChild( 'Recebimento', $this->rehearse );
-            }
-        }
-        if ( 'yes' == $this->debit_card )
-            $payment->addChild( 'FormaPagamento', 'CartaoDebito' );
-        if ( 'yes' == $this->banking_debit )
-            $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
-        if ( 'yes' == $this->financing_banking )
-            $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
         if ( 'yes' == $this->billet_banking ) {
             $payment->addChild( 'FormaPagamento', 'BoletoBancario' );
 
@@ -469,8 +455,33 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             // </Boleto>
         }
 
+        if ( 'yes' == $this->credit_card ) {
+            $payment->addChild( 'FormaPagamento', 'CartaoCredito' );
+
+            // Installments info.
+            if ( 'yes' == $this->installments ) {
+                $installments = $instruction->addChild( 'Parcelamentos' );
+                $installment = $installments->addChild( 'Parcelamento' );
+                $installment->addChild( 'MinimoParcelas', $this->installment_mininum );
+                $installment->addChild( 'MaximoParcelas', $this->installment_maxium );
+                $installment->addChild( 'Recebimento', $this->receipt );
+                if ( ! empty( $this->interest ) && $this->interest > 0 )
+                    $installment->addChild( 'Juros', str_replace( ',', '.', $this->interest ) );
+                if ( 'AVista' == $this->receipt ) {
+                    $rehearse = ( 'yes' == $this->rehearse ) ? 'true' : 'false';
+                    $installment->addChild( 'Recebimento', $this->rehearse );
+                }
+            }
+        }
+
+        if ( 'yes' == $this->debit_card )
+            $payment->addChild( 'FormaPagamento', 'CartaoDebito' );
         if ( 'yes' == $this->moip_wallet )
             $payment->addChild( 'FormaPagamento', 'CarteiraMoIP' );
+        if ( 'yes' == $this->banking_debit )
+            $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
+        if ( 'yes' == $this->financing_banking )
+            $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
 
         // Notification URL.
         $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
