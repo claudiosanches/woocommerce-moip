@@ -138,7 +138,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'type' => 'checkbox',
                 'label' => __( 'Enable logging', 'wcmoip' ),
                 'default' => 'no',
-                'description' => sprintf( __( 'Log MoIP events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/mercadopago' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
+                'description' => sprintf( __( 'Log MoIP events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/moip' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
             )
         );
     }
