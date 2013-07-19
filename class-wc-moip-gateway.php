@@ -495,7 +495,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         $xml = new SimpleXmlElement( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
         $instruction = $xml->addChild( 'InstrucaoUnica' );
-        $instruction->addAttribute( 'TipoValidacao', 'Transparente' );
+        // $instruction->addAttribute( 'TipoValidacao', 'Transparente' );
         $instruction->addChild( 'Razao', $data['descricao'] );
         $values = $instruction->addChild( 'Valores' );
         $values->addChild( 'Valor', $order->order_total );
