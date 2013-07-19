@@ -30,6 +30,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->title          = $this->settings['title'];
         $this->description    = $this->settings['description'];
         $this->login          = $this->settings['login'];
+        $this->token          = $this->settings['token'];
+        $this->key            = $this->settings['key'];
         $this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
         $this->sandbox        = $this->settings['sandbox'];
         $this->debug          = $this->settings['debug'];
@@ -111,6 +113,20 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'title' => __( 'MoIP Login', 'wcmoip' ),
                 'type' => 'text',
                 'description' => __( 'Please enter your MoIP email address or username; this is needed in order to take payment.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'token' => array(
+                'title' => __( 'MoIP API Token', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Please enter your MoIP API Token; this is needed in order to take payment.', 'wcmoip' ),
+                'desc_tip' => true,
+                'default' => ''
+            ),
+            'key' => array(
+                'title' => __( 'MoIP API Key', 'wcmoip' ),
+                'type' => 'text',
+                'description' => __( 'Please enter your MoIP API Key; this is needed in order to take payment.', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => ''
             ),
