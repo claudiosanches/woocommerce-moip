@@ -4,11 +4,11 @@ jQuery(document).ready(function($) {
         receipt = $("#woocommerce_moip_receipt");
 
     // API Fields.
-    function apiFieldsDisplay() {
+    function apiFieldsDisplay(api) {
         var api_fields = $(".form-table:eq(1) tr"),
             payment_fields = $(".form-table:eq(2), #mainform h4:eq(1), #mainform h4:eq(1) + p, .form-table:eq(3), #mainform h4:eq(2)");
 
-        if (api.is(":checked")) {
+        if ('xml' == api) {
             api_fields.show();
             payment_fields.show();
         } else {
@@ -16,10 +16,10 @@ jQuery(document).ready(function($) {
             payment_fields.not("tr:eq(0)").hide();
         }
     }
-    apiFieldsDisplay();
+    apiFieldsDisplay(api.val());
 
-    api.on("click", function() {
-        apiFieldsDisplay();
+    api.on("change", function() {
+        apiFieldsDisplay($(this).val());
     });
 
     // Rehearse field.

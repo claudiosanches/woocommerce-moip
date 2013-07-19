@@ -31,7 +31,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->description         = $this->settings['description'];
         $this->login               = $this->settings['login'];
         $this->invoice_prefix      = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
-        $this->api                 = isset( $this->settings['api'] ) ? $this->settings['api'] : 'no';
+        $this->api                 = isset( $this->settings['api'] ) ? $this->settings['api'] : 'html';
         $this->token               = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
         $this->key                 = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
         $this->billet_banking      = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
@@ -59,7 +59,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
 
         // Valid for use.
-        if ( 'yes' == $this->api ) {
+        if ( 'xml' == $this->api ) {
             $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->token ) && ! empty( $this->key ) && $this->is_valid_for_use();
 
             // Checks if token is not empty.
@@ -156,23 +156,26 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'description' => '',
             ),
             'api' => array(
-                'title' => __( 'Enable/Disable', 'wcmoip' ),
-                'type' => 'checkbox',
-                'label' => __( 'Enable MoIP Payment API', 'wcmoip' ),
-                'description' => __( 'API payment is safer and it is possible to use the transparent checkout.', 'wcmoip' ),
-                'default' => 'no'
+                'title' => __( 'MoIP Payment API', 'wcmoip' ),
+                'type' => 'select',
+                'description' => sprintf( __( 'The XML API requires Access Token and Access Key. %sHere\'s how to get this information%s.', 'wcmoip' ), '<a href="https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/" target="_blank">', '</a>' ),
+                'default' => 'form',
+                'options' => array(
+                    'html' => __( 'HTML - Basic and less safe', 'wcmoip' ),
+                    'xml' => __( 'XML - Safe and with more options', 'wcmoip' )
+                )
             ),
             'token' => array(
-                'title' => __( 'MoIP API Token', 'wcmoip' ),
+                'title' => __( 'Access Token', 'wcmoip' ),
                 'type' => 'text',
-                'description' => __( 'Please enter your MoIP API Token; this is needed in order to take payment.', 'wcmoip' ),
+                'description' => __( 'Please enter your Access Token; this is needed in order to take payment.', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => ''
             ),
             'key' => array(
-                'title' => __( 'MoIP API Key', 'wcmoip' ),
+                'title' => __( 'Access Key', 'wcmoip' ),
                 'type' => 'text',
-                'description' => __( 'Please enter your MoIP API Key; this is needed in order to take payment.', 'wcmoip' ),
+                'description' => __( 'Please enter your Access Key; this is needed in order to take payment.', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => ''
             ),
@@ -644,7 +647,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         $order = new WC_Order( $order_id );
 
-        if ( 'yes' == $this->api ) {
+        if ( 'xml' == $this->api ) {
 
             $token = $this->create_payment_token( $order );
 
@@ -816,7 +819,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function token_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your MoIP API Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your Access Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
     }
 
     /**
@@ -825,6 +828,6 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function key_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your MoIP API Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your Access Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
     }
 }
