@@ -895,7 +895,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 $html .= '</div>';
                 $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoipSuccess" callback-method-error="wcMoipFail"></div>';
                 $html .= '<input type="hidden" name="redirect" id="woocommerce-moip-redirect" value="' . $this->get_return_url( $order ) . '" />';
-                $html .= '<input type="submit" class="button alt" id="woocommerce-moip-submit" value="' . __( 'Pay order', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
+                $html .= '<button type="submit" class="button alt" id="woocommerce-moip-submit">' . __( 'Pay order', 'wcmoip' ) . '</button> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
             $html .= '</form>';
 
             // Add Moip Transparent Checkout JS.
