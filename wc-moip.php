@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WooCommerce MoIP
+ * Plugin Name: WooCommerce Moip
  * Plugin URI: https://github.com/claudiosmweb/woocommerce-moip
- * Description: Gateway de pagamento MoIP para WooCommerce.
+ * Description: Gateway de pagamento Moip para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://claudiosmweb.com/
  * Version: 1.5.0
@@ -15,7 +15,7 @@
  * WooCommerce fallback notice.
  */
 function wcmoip_woocommerce_fallback_notice() {
-    echo '<div class="error"><p>' . sprintf( __( 'WooCommerce MoIP Gateway depends on the last version of %s to work!', 'wcmoip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
+    echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Moip Gateway depends on the last version of %s to work!', 'wcmoip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
 }
 
 /**
@@ -44,12 +44,12 @@ function wcmoip_gateway_load() {
     add_filter( 'woocommerce_payment_gateways', 'wcmoip_add_gateway' );
 
     function wcmoip_add_gateway( $methods ) {
-        $methods[] = 'WC_MOIP_Gateway';
+        $methods[] = 'WC_Moip_Gateway';
 
         return $methods;
     }
 
-    // Include the WC_MOIP_Gateway class.
+    // Include the WC_Moip_Gateway class.
     require_once plugin_dir_path( __FILE__ ) . 'class-wc-moip-gateway.php';
 }
 
@@ -84,7 +84,7 @@ function wcmoip_action_links( $links ) {
     $settings = array(
         'settings' => sprintf(
             '<a href="%s">%s</a>',
-            admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ),
+            admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ),
             __( 'Settings', 'wcmoip' )
         )
     );

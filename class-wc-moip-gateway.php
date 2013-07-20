@@ -1,10 +1,10 @@
 <?php
 /**
- * WC MoIP Gateway Class.
+ * WC Moip Gateway Class.
  *
- * Built the MoIP method.
+ * Built the Moip method.
  */
-class WC_MOIP_Gateway extends WC_Payment_Gateway {
+class WC_Moip_Gateway extends WC_Payment_Gateway {
 
     /**
      * Constructor for the gateway.
@@ -18,7 +18,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $this->icon           = apply_filters( 'woocommerce_moip_icon', plugins_url( 'assets/images/moip.png', __FILE__ ) );
         $this->has_fields     = false;
 
-        $this->method_title   = __( 'MoIP', 'wcmoip' );
+        $this->method_title   = __( 'Moip', 'wcmoip' );
 
         // Load the form fields.
         $this->init_form_fields();
@@ -145,8 +145,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     public function admin_options() {
         wp_enqueue_script( 'wc-correios', plugins_url( 'assets/js/admin.min.js', __FILE__ ), array( 'jquery' ), '', true );
         ?>
-        <h3><?php _e( 'MoIP standard', 'wcmoip' ); ?></h3>
-        <p><?php _e( 'MoIP standard works by sending the user to MoIP to enter their payment information.', 'wcmoip' ); ?></p>
+        <h3><?php _e( 'Moip standard', 'wcmoip' ); ?></h3>
+        <p><?php _e( 'Moip standard works by sending the user to Moip to enter their payment information.', 'wcmoip' ); ?></p>
         <table class="form-table">
             <?php $this->generate_settings_html(); ?>
         </table>
@@ -164,7 +164,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             'enabled' => array(
                 'title' => __( 'Enable/Disable', 'wcmoip' ),
                 'type' => 'checkbox',
-                'label' => __( 'Enable MoIP standard', 'wcmoip' ),
+                'label' => __( 'Enable Moip standard', 'wcmoip' ),
                 'default' => 'yes'
             ),
             'title' => array(
@@ -172,25 +172,25 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'type' => 'text',
                 'description' => __( 'This controls the title which the user sees during checkout.', 'wcmoip' ),
                 'desc_tip' => true,
-                'default' => __( 'MoIP', 'wcmoip' )
+                'default' => __( 'Moip', 'wcmoip' )
             ),
             'description' => array(
                 'title' => __( 'Description', 'wcmoip' ),
                 'type' => 'textarea',
                 'description' => __( 'This controls the description which the user sees during checkout.', 'wcmoip' ),
-                'default' => __( 'Pay via MoIP', 'wcmoip' )
+                'default' => __( 'Pay via Moip', 'wcmoip' )
             ),
             'login' => array(
-                'title' => __( 'MoIP Login', 'wcmoip' ),
+                'title' => __( 'Moip Login', 'wcmoip' ),
                 'type' => 'text',
-                'description' => __( 'Please enter your MoIP email address or username; this is needed in order to take payment.', 'wcmoip' ),
+                'description' => __( 'Please enter your Moip email address or username; this is needed in order to take payment.', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => ''
             ),
             'invoice_prefix' => array(
                 'title' => __( 'Invoice Prefix', 'wcmoip' ),
                 'type' => 'text',
-                'description' => __( 'Please enter a prefix for your invoice numbers. If you use your MoIP account for multiple stores ensure this prefix is unqiue as MoIP will not allow orders with the same invoice number.', 'wcmoip' ),
+                'description' => __( 'Please enter a prefix for your invoice numbers. If you use your Moip account for multiple stores ensure this prefix is unqiue as Moip will not allow orders with the same invoice number.', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => 'WC-'
             ),
@@ -200,7 +200,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'description' => '',
             ),
             'api' => array(
-                'title' => __( 'MoIP Payment API', 'wcmoip' ),
+                'title' => __( 'Moip Payment API', 'wcmoip' ),
                 'type' => 'select',
                 'description' => sprintf( __( 'The XML API requires Access Token and Access Key. %sHere\'s how to get this information%s.', 'wcmoip' ), '<a href="https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/" target="_blank">', '</a>' ),
                 'default' => 'form',
@@ -227,7 +227,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             'payment_section' => array(
                 'title' => __( 'Payment Settings', 'wcmoip' ),
                 'type' => 'title',
-                'description' => __( 'These options need to be available to you in your MoIP account.', 'wcmoip' ),
+                'description' => __( 'These options need to be available to you in your Moip account.', 'wcmoip' ),
             ),
             'billet_banking' => array(
                 'title' => __( 'Billet Banking', 'wcmoip' ),
@@ -250,9 +250,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'default' => 'yes'
             ),
             'moip_wallet' => array(
-                'title' => __( 'MoIP Wallet', 'wcmoip' ),
+                'title' => __( 'Moip Wallet', 'wcmoip' ),
                 'type' => 'checkbox',
-                'label' => __( 'Enable MoIP Wallet', 'wcmoip' ),
+                'label' => __( 'Enable Moip Wallet', 'wcmoip' ),
                 'description' => __( 'Not available for Transparent Checkout.', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => 'yes'
@@ -325,7 +325,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             'installments_receipt' => array(
                 'title' => __( 'Receipt', 'wcmoip' ),
                 'type' => 'select',
-                'description' => __( 'If the installment payment will in at sight (subject to additional costs) in your account MoIP (in one installment) or if it will be split (credited in the same number of parcels chosen by the payer).', 'wcmoip' ),
+                'description' => __( 'If the installment payment will in at sight (subject to additional costs) in your account Moip (in one installment) or if it will be split (credited in the same number of parcels chosen by the payer).', 'wcmoip' ),
                 'desc_tip' => true,
                 'default' => 'yes',
                 'options' => array(
@@ -412,18 +412,18 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'description' => '',
             ),
             'sandbox' => array(
-                'title' => __( 'MoIP sandbox', 'wcmoip' ),
+                'title' => __( 'Moip sandbox', 'wcmoip' ),
                 'type' => 'checkbox',
-                'label' => __( 'Enable MoIP sandbox', 'wcmoip' ),
+                'label' => __( 'Enable Moip sandbox', 'wcmoip' ),
                 'default' => 'no',
-                'description' => sprintf( __( 'MoIP sandbox can be used to test payments. Sign up for a developer account <a href="%s">here</a>.', 'wcmoip' ), 'http://labs.moip.com.br/' ),
+                'description' => sprintf( __( 'Moip sandbox can be used to test payments. Sign up for a developer account <a href="%s">here</a>.', 'wcmoip' ), 'http://labs.moip.com.br/' ),
             ),
             'debug' => array(
                 'title' => __( 'Debug Log', 'wcmoip' ),
                 'type' => 'checkbox',
                 'label' => __( 'Enable logging', 'wcmoip' ),
                 'default' => 'no',
-                'description' => sprintf( __( 'Log MoIP events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/moip' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
+                'description' => sprintf( __( 'Log Moip events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/moip' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
             )
         );
     }
@@ -600,14 +600,14 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         if ( 'yes' == $this->debit_card )
             $payment->addChild( 'FormaPagamento', 'CartaoDebito' );
         if ( 'yes' == $this->moip_wallet )
-            $payment->addChild( 'FormaPagamento', 'CarteiraMoIP' );
+            $payment->addChild( 'FormaPagamento', 'CarteiraMoip' );
         if ( 'yes' == $this->banking_debit )
             $payment->addChild( 'FormaPagamento', 'DebitoBancario' );
         if ( 'yes' == $this->financing_banking )
             $payment->addChild( 'FormaPagamento', 'FinanciamentoBancario' );
 
         // Notification URL.
-        $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_MOIP_Gateway' ) );
+        $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_Moip_Gateway' ) );
 
         // Return URL.
         $instruction->addChild( 'URLRetorno', $this->get_return_url( $order ) );
@@ -618,7 +618,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     }
 
     /**
-     * Gets the MoIP Payment Token
+     * Gets the Moip Payment Token
      *
      * @param  object $order Order data.
      *
@@ -657,22 +657,22 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
             if ( 'Sucesso' == $body->Resposta->Status ) {
                 if ( 'yes' == $this->debug )
-                    $this->log->add( 'moip', 'MoIP Payment Token created with success! The Token is: ' . $body->Resposta->Token );
+                    $this->log->add( 'moip', 'Moip Payment Token created with success! The Token is: ' . $body->Resposta->Token );
 
                 return esc_attr( (string) $body->Resposta->Token );
             } else {
                 if ( 'yes' == $this->debug )
-                    $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . print_r( $body->Resposta->Erro, true ) );
+                    $this->log->add( 'moip', 'Failed to generate the Moip Payment Token: ' . print_r( $body->Resposta->Erro, true ) );
 
                 foreach ( $body->Resposta->Erro as $error )
-                    $this->add_error( '<strong>MoIP</strong>: ' . esc_attr( (string) $error ) );
+                    $this->add_error( '<strong>Moip</strong>: ' . esc_attr( (string) $error ) );
             }
 
         } else {
             if ( 'yes' == $this->debug ) {
                 $error = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
 
-                $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . $response['response']['code'] . ' - ' . $response['response']['message'] );
+                $this->log->add( 'moip', 'Failed to generate the Moip Payment Token: ' . $response['response']['code'] . ' - ' . $response['response']['message'] );
             }
         }
 
@@ -704,7 +704,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
             $woocommerce->get_helper( 'inline-javascript' )->add_inline_js( '
                 jQuery.blockUI({
-                        message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ) ) . '",
+                        message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
                         baseZ: 99999,
                         overlayCSS:
                         {
@@ -727,7 +727,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         } else {
             $woocommerce->add_inline_js( '
                 jQuery("body").block({
-                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ) . '",
+                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) . '",
                         overlayCSS:
                         {
                             background: "#fff",
@@ -750,15 +750,15 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         // Payment URL or Sandbox URL.
         if ( 'yes' == $this->sandbox )
-            $payment_url = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
+            $payment_url = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoip.do';
         else
-            $payment_url = 'https://www.moip.com.br/PagamentoMoIP.do';
+            $payment_url = 'https://www.moip.com.br/PagamentoMoip.do';
 
-        $html = '<p>' . __( 'Thank you for your order, please click the button below to pay with MoIP.', 'wcmoip' ) . '</p>';
+        $html = '<p>' . __( 'Thank you for your order, please click the button below to pay with Moip.', 'wcmoip' ) . '</p>';
 
         $html .= '<form action="' . esc_url( $payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
                 ' . implode( '', $args_array ) . '
-                <input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via MoIP', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>
+                <input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via Moip', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>
             </form>';
 
         return $html;
@@ -782,7 +782,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         if ( $token ) {
 
             // Display the transparent checkout.
-            $html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by MoIP Payments.', 'wcmoip' ) ) . '</p>';
+            $html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by Moip Payments.', 'wcmoip' ) ) . '</p>';
 
             $html .= '<form action="" method="post" id="woocommerce-moip-payment-form">';
                 $html .= '<div class="product">';
@@ -893,12 +893,12 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
                     $html .= '</div>';
                 $html .= '</div>';
-                $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoIPSuccess" callback-method-error="wcMoIPFail"></div>';
+                $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoipSuccess" callback-method-error="wcMoipFail"></div>';
                 $html .= '<input type="hidden" name="redirect" id="woocommerce-moip-redirect" value="' . $this->get_return_url( $order ) . '" />';
                 $html .= '<input type="submit" class="button alt" id="woocommerce-moip-submit" value="' . __( 'Pay order', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
             $html .= '</form>';
 
-            // Add MoIP Transparent Checkout JS.
+            // Add Moip Transparent Checkout JS.
             if ( 'yes' == $this->sandbox )
                 $html .= '<script type="text/javascript" src="https://desenvolvedor.moip.com.br/sandbox/transparente/MoipWidget-v2.js" charset="ISO-8859-1"></script>';
             else
@@ -988,14 +988,14 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             do_action( 'valid_moip_ipn_request', $posted );
 
         } else {
-            wp_die( __( 'MoIP Request Failure', 'wcmoip' ) );
+            wp_die( __( 'Moip Request Failure', 'wcmoip' ) );
         }
     }
 
     /**
      * Successful Payment!
      *
-     * @param array $posted MoIP post data.
+     * @param array $posted Moip post data.
      *
      * @return void
      */
@@ -1020,7 +1020,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                         if ( ! empty( $posted['cod_moip'] ) ) {
                             update_post_meta(
                                 $order_id,
-                                __( 'MoIP Transaction ID', 'wcmoip' ),
+                                __( 'Moip Transaction ID', 'wcmoip' ),
                                 $posted['cod_moip']
                             );
                         }
@@ -1047,12 +1047,12 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                         }
 
                         // Payment completed.
-                        $order->add_order_note( __( 'Payment has already been made but not yet credited to Carteira MoIP.', 'wcmoip' ) );
+                        $order->add_order_note( __( 'Payment has already been made but not yet credited to Carteira Moip.', 'wcmoip' ) );
                         $order->payment_complete();
 
                         break;
                     case '2':
-                        $order->update_status( 'on-hold', __( 'Payment under review by MoIP.', 'wcmoip' ) );
+                        $order->update_status( 'on-hold', __( 'Payment under review by Moip.', 'wcmoip' ) );
 
                         break;
                     case '3':
@@ -1060,19 +1060,19 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
                         break;
                     case '4':
-                        $order->add_order_note( __( 'Payment completed and credited in your Carteira MoIP.', 'wcmoip' ) );
+                        $order->add_order_note( __( 'Payment completed and credited in your Carteira Moip.', 'wcmoip' ) );
 
                         break;
                     case '5':
-                        $order->update_status( 'cancelled', __( 'Payment canceled by MoIP.', 'wcmoip' ) );
+                        $order->update_status( 'cancelled', __( 'Payment canceled by Moip.', 'wcmoip' ) );
 
                         break;
                     case '6':
-                        $order->update_status( 'on-hold', __( 'Payment under review by MoIP.', 'wcmoip' ) );
+                        $order->update_status( 'on-hold', __( 'Payment under review by Moip.', 'wcmoip' ) );
 
                         break;
                     case '7':
-                        $order->update_status( 'refunded', __( 'Payment was reversed by the payer, payee, payment institution or MoIP.', 'wcmoip' ) );
+                        $order->update_status( 'refunded', __( 'Payment was reversed by the payer, payee, payment institution or Moip.', 'wcmoip' ) );
 
                         break;
 
@@ -1090,7 +1090,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function login_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your email address in MoIP. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your email address in Moip. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ) . '">', '</a>' ) . '</p></div>';
     }
 
     /**
@@ -1099,7 +1099,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function token_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your Access Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your Access Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ) . '">', '</a>' ) . '</p></div>';
     }
 
     /**
@@ -1108,6 +1108,6 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function key_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>MoIP Disabled</strong> You should inform your Access Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_MOIP_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your Access Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ) . '">', '</a>' ) . '</p></div>';
     }
 }

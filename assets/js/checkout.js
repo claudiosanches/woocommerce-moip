@@ -39,9 +39,9 @@ function redirectTimer(time) {
 }
 
 /**
- * MoIP Success functions.
+ * Moip Success functions.
  */
-var wcMoIPSuccess = function(data) {
+var wcMoipSuccess = function(data) {
     var method = jQuery("#woocommerce-moip-payment-form .panel:visible").data("payment-method"),
         message_wrap = jQuery(".woocommerce-message"),
         timer = 10;
@@ -68,9 +68,9 @@ var wcMoIPSuccess = function(data) {
 };
 
 /**
- * MoIP Fail functions.
+ * Moip Fail functions.
  */
-var wcMoIPFail = function(data) {
+var wcMoipFail = function(data) {
     var response = JSON.stringify(data),
         message_wrap = jQuery("#woocommerce-moip-error");
 
@@ -112,7 +112,7 @@ jQuery(document).ready(function($) {
     });
 
     /**
-     * MoIP Submit.
+     * Moip Submit.
      */
     $("#woocommerce-moip-payment-form").on("submit", function(e) {
         e.preventDefault();
@@ -146,7 +146,7 @@ jQuery(document).ready(function($) {
         // Display a blockUI.
         blockMessage();
 
-        // Process the MoIP transparent checkout.
+        // Process the Moip transparent checkout.
         new MoipWidget(settings);
     });
 });
