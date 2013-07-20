@@ -245,12 +245,16 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'title' => __( 'Debit Card', 'wcmoip' ),
                 'type' => 'checkbox',
                 'label' => __( 'Enable Debit Card', 'wcmoip' ),
+                'description' => __( 'Not available for Transparent Checkout.', 'wcmoip' ),
+                'desc_tip' => true,
                 'default' => 'yes'
             ),
             'moip_wallet' => array(
                 'title' => __( 'MoIP Wallet', 'wcmoip' ),
                 'type' => 'checkbox',
                 'label' => __( 'Enable MoIP Wallet', 'wcmoip' ),
+                'description' => __( 'Not available for Transparent Checkout.', 'wcmoip' ),
+                'desc_tip' => true,
                 'default' => 'yes'
             ),
             'banking_debit' => array(
@@ -263,6 +267,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'title' => __( 'Financing Banking', 'wcmoip' ),
                 'type' => 'checkbox',
                 'label' => __( 'Enable Financing Banking', 'wcmoip' ),
+                'description' => __( 'Not available for Transparent Checkout.', 'wcmoip' ),
+                'desc_tip' => true,
                 'default' => 'yes'
             ),
             'installments_section' => array(
