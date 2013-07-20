@@ -1,0 +1,19 @@
+// Compass CSS3
+@import "compass/css3";
+
+// Compass clearfix.
+@import "compass/utilities/general/clearfix";
+
+#woocommerce-moip-tc {
+    ul {
+        @include pie-clearfix;
+        list-style: none;
+        margin: 0 0 10px;
+        padding: 0;
+    }
+
+    li {
+        margin: 0 10px 0 0;
+        float: left;
+    }
+}

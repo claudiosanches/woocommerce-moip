@@ -1,10 +1,11 @@
+/*global woocommerce_moip_params*/
 var wcMoIPSuccess = function(data){
-    alert("Sucesso\n" + JSON.stringify(data));
+    alert(woocommerce_moip_params.message_success + "\n" + JSON.stringify(data));
     window.open(data.url);
 };
 
 var wcMoIPFail = function(data) {
-    alert("Falha\n" + JSON.stringify(data));
+    alert(woocommerce_moip_params.message_fail + "\n" + JSON.stringify(data));
 };
 
 jQuery(document).ready(function($) {

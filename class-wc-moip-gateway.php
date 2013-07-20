@@ -72,6 +72,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
         add_action( 'valid_moip_ipn_request', array( &$this, 'successful_request' ) );
         add_action( 'woocommerce_receipt_moip', array( &$this, 'receipt_page' ) );
+        add_action( 'wp_enqueue_scripts', array( &$this, 'scripts' ) );
         if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '>=' ) )
             add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( &$this, 'process_admin_options' ) );
         else
@@ -112,6 +113,26 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             return false;
 
         return true;
+    }
+
+    /**
+     * Call plugin scripts in front-end.
+     *
+     * @return void
+     */
+    public function scripts() {
+        if ( 'tc' == $this->api && is_checkout() ) {
+            wp_enqueue_style( 'wc-moip-checkout', plugins_url( 'assets/css/checkout.css', __FILE__ ), array(), '', 'all' );
+            wp_enqueue_script( 'wc-moip-checkout', plugins_url( 'assets/js/checkout.min.js', __FILE__ ), array( 'jquery' ), '', true );
+            wp_localize_script(
+                'wc-moip-checkout',
+                'woocommerce_moip_params',
+                array(
+                    'message_success' => __( 'Success', 'wcmoip' ),
+                    'message_fail' => __( 'Fail', 'wcmoip' )
+                )
+            );
+        }
     }
 
     /**
@@ -751,9 +772,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         if ( 'yes' == $this->debug )
             $this->log->add( 'moip', 'Generating transparent checkout for order ' . $order->get_order_number() );
 
-        if ( $token ) {
-        // if ( true ) {
-            wp_enqueue_script( 'wc-moip-checkout', plugins_url( 'assets/js/checkout.min.js', __FILE__ ), array( 'jquery' ), '', true );
+        // if ( $token ) {
+        if ( true ) {
 
             // Display the transparent checkout.
             $html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by MoIP Payments.', 'wcmoip' ) ) . '</p>';
@@ -793,15 +813,6 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoIPSuccess" callback-method-error="wcMoIPFail"></div>';
                 $html .= '<input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay order', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
             $html .= '</form>';
-
-
-
-
-
-
-
-
-
 
             // Add MoIP Transparent Checkout JS.
             if ( 'yes' == $this->sandbox )
