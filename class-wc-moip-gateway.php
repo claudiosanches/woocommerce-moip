@@ -78,7 +78,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
 
         // Valid for use.
-        if ( 'xml' == $this->api ) {
+        if ( 'html' == $this->api ) {
             $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->token ) && ! empty( $this->key ) && $this->is_valid_for_use();
 
             // Checks if token is not empty.
@@ -181,7 +181,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 'default' => 'form',
                 'options' => array(
                     'html' => __( 'HTML - Basic and less safe', 'wcmoip' ),
-                    'xml' => __( 'XML - Safe and with more options', 'wcmoip' )
+                    'xml' => __( 'XML - Safe and with more options', 'wcmoip' ),
+                    'tc' => __( 'Transparent Checkout', 'wcmoip' )
                 )
             ),
             'token' => array(
@@ -495,7 +496,8 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
 
         $xml = new SimpleXmlElement( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
         $instruction = $xml->addChild( 'InstrucaoUnica' );
-        // $instruction->addAttribute( 'TipoValidacao', 'Transparente' );
+        if ( 'tc' == $this->api )
+            $instruction->addAttribute( 'TipoValidacao', 'Transparente' );
         $instruction->addChild( 'Razao', $data['descricao'] );
         $values = $instruction->addChild( 'Valores' );
         $values->addChild( 'Valor', $order->order_total );
@@ -585,13 +587,75 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
     }
 
     /**
+     * Gets the MoIP Payment Token
+     *
+     * @param  object $order Order data.
+     *
+     * @return string        Payment token.
+     */
+    protected function create_payment_token( $order ) {
+        $xml = $this->get_payment_xml( $order );
+
+        if ( 'yes' == $this->debug )
+            $this->log->add( 'moip', 'Requesting token for order ' . $order->get_order_number() );
+
+        if ( 'yes' == $this->sandbox )
+            $url = 'https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica';
+        else
+            $url = 'https://www.moip.com.br/ws/alpha/EnviarInstrucao/Unica';
+
+        $params = array(
+            'method'     => 'POST',
+            'body'       => $xml,
+            'sslverify'  => false,
+            'timeout'    => 30,
+            'headers'    => array(
+                'Expect' => '',
+                'Content-Type' => 'application/xml;charset=UTF-8',
+                'Authorization' => 'Basic ' . base64_encode( $this->token . ':' . $this->key )
+            )
+        );
+
+        $response = wp_remote_post( $url, $params );
+
+        if ( is_wp_error( $response ) ) {
+            if ( 'yes' == $this->debug )
+                $this->log->add( 'moip', 'WP_Error: ' . $response->get_error_message() );
+        } elseif ( $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
+            $body = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+
+            if ( 'Sucesso' == $body->Resposta->Status ) {
+                if ( 'yes' == $this->debug )
+                    $this->log->add( 'moip', 'MoIP Payment Token created with success! The Token is: ' . $body->Resposta->Token );
+
+                return esc_attr( (string) $body->Resposta->Token );
+            } else {
+                if ( 'yes' == $this->debug )
+                    $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . print_r( $body->Resposta->Erro, true ) );
+
+                foreach ( $body->Resposta->Erro as $error )
+                    $this->add_error( '<strong>MoIP</strong>: ' . esc_attr( (string) $error ) );
+            }
+
+        } else {
+            if ( 'yes' == $this->debug ) {
+                $error = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+
+                $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . $response['response']['code'] . ' - ' . $response['response']['message'] );
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Generate the form.
      *
      * @param int     $order_id Order ID.
      *
      * @return string           Payment form.
      */
-    public function generate_form( $order_id ) {
+    protected function generate_form( $order_id ) {
         global $woocommerce;
 
         $order = new WC_Order( $order_id );
@@ -599,7 +663,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $args = $this->get_form_args( $order );
 
         if ( 'yes' == $this->debug )
-            $this->log->add( 'moip', 'Payment arguments for order #' . $order_id . ': ' . print_r( $args, true ) );
+            $this->log->add( 'moip', 'Payment arguments for order ' . $order->get_order_number() . ': ' . print_r( $args, true ) );
 
         $args_array = array();
 
@@ -660,72 +724,58 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         else
             $payment_url = 'https://www.moip.com.br/PagamentoMoIP.do';
 
-        return '<form action="' . esc_url( $payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
+        $html = '<p>' . __( 'Thank you for your order, please click the button below to pay with MoIP.', 'wcmoip' ) . '</p>';
+
+        $html .= '<form action="' . esc_url( $payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
                 ' . implode( '', $args_array ) . '
                 <input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via MoIP', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>
             </form>';
+
+        return $html;
     }
 
     /**
-     * Gets the MoIP Payment Token
+     * Generate the form.
      *
-     * @param  object $order Order data.
+     * @param int     $order_id Order ID.
      *
-     * @return string        Payment token.
+     * @return string           Payment form.
      */
-    protected function create_payment_token( $order ) {
-        $xml = $this->get_payment_xml( $order );
+    protected function generate_transparent_checkout( $order_id ) {
+        // global $woocommerce;
+
+        $order = new WC_Order( $order_id );
+
+        $token = $this->create_payment_token( $order );
 
         if ( 'yes' == $this->debug )
-            $this->log->add( 'moip', 'Requesting token for order ' . $order->get_order_number() );
+            $this->log->add( 'moip', 'Generating transparent checkout for order ' . $order->get_order_number() );
 
-        if ( 'yes' == $this->sandbox )
-            $url = 'https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica';
-        else
-            $url = 'https://www.moip.com.br/ws/alpha/EnviarInstrucao/Unica';
+        if ( $token ) {
+            wp_enqueue_script( 'wc-moip-checkout', plugins_url( 'js/checkout.js', __FILE__ ), array( 'jquery' ), '', true );
 
-        $params = array(
-            'method'     => 'POST',
-            'body'       => $xml,
-            'sslverify'  => false,
-            'timeout'    => 30,
-            'headers'    => array(
-                'Expect' => '',
-                'Content-Type' => 'application/xml;charset=UTF-8',
-                'Authorization' => 'Basic ' . base64_encode( $this->token . ':' . $this->key )
-            )
-        );
+            // Display the transparent checkout.
+            $html = '<p>' . __( 'This payment will be processed by MoIP Payments.', 'wcmoip' ) . '</p>';
 
-        $response = wp_remote_post( $url, $params );
+            $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoIPSuccess" callback-method-error="wcMoIPFail"></div>';
 
-        if ( is_wp_error( $response ) ) {
-            if ( 'yes' == $this->debug )
-                $this->log->add( 'moip', 'WP_Error: ' . $response->get_error_message() );
-        } elseif ( $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
-            $body = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+            $html .= '<a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
 
-            if ( 'Sucesso' == $body->Resposta->Status ) {
-                if ( 'yes' == $this->debug )
-                    $this->log->add( 'moip', 'MoIP Payment Token created with success! The Token is: ' . $body->Resposta->Token );
+            // Add MoIP Transparent Checkout JS.
+            if ( 'yes' == $this->sandbox )
+                $html .= '<script type="text/javascript" src="https://desenvolvedor.moip.com.br/sandbox/transparente/MoipWidget-v2.js" charset="ISO-8859-1"></script>';
+            else
+                $html .= '<script type="text/javascript" src="https://www.moip.com.br/transparente/MoipWidget-v2.js" charset="ISO-8859-1"></script>';
 
-                return $body->Resposta->Token;
-            } else {
-                if ( 'yes' == $this->debug )
-                    $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . print_r( $body->Resposta->Erro, true ) );
-
-                foreach ( $body->Resposta->Erro as $error )
-                    $this->add_error( '<strong>MoIP</strong>: ' . esc_attr( (string) $error ) );
-            }
-
+            return $html;
         } else {
-            if ( 'yes' == $this->debug ) {
-                $error = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
+            // Display message if a problem occurs.
+            $html = '<p>' . __( 'An error has occurred while processing your payment, please try again. Or contact us for assistance.', 'wcmoip' ) . '</p>';
 
-                $this->log->add( 'moip', 'Failed to generate the MoIP Payment Token: ' . $response['response']['code'] . ' - ' . $response['response']['message'] );
-            }
+            $html .= '<a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Click to try again', 'wcmoip' ) . '</a>';
+
+            return $html;
         }
-
-        return false;
     }
 
     /**
@@ -777,11 +827,10 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return void
      */
     public function receipt_page( $order ) {
-        global $woocommerce;
-
-        echo '<p>' . __( 'Thank you for your order, please click the button below to pay with MoIP.', 'wcmoip' ) . '</p>';
-
-        echo $this->generate_form( $order );
+        if ( 'tc' == $this->api )
+            echo $this->generate_transparent_checkout( $order );
+        else
+            echo $this->generate_form( $order );
     }
 
     /**

@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
         var api_fields = $(".form-table:eq(1) tr"),
             payment_fields = $(".form-table:eq(2), #mainform h4:eq(1), #mainform h4:eq(1) + p, .form-table:eq(3), #mainform h4:eq(2), .form-table:eq(4), #mainform h4:eq(3)");
 
-        if ('xml' == api) {
+        if ('html' != api) {
             api_fields.show();
             payment_fields.show();
         } else {
