@@ -133,7 +133,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
                 array(
                     'processing' => __( 'Processing the payment...', 'wcmoip' ),
                     'loader' => esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ),
-                    'redirecting' => sprintf( __( 'Thank you for your order, we are redirecting you in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' )
+                    'redirecting' => sprintf( __( 'Thank you for your order, we are redirecting you to finish the order in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' )
                 )
             );
         }
