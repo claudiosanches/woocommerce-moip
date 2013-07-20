@@ -122,14 +122,18 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      */
     public function scripts() {
         if ( 'tc' == $this->api && is_checkout() ) {
+            global $woocommerce;
+
             wp_enqueue_style( 'wc-moip-checkout', plugins_url( 'assets/css/checkout.css', __FILE__ ), array(), '', 'all' );
+            wp_enqueue_script( 'jquery' );
             wp_enqueue_script( 'wc-moip-checkout', plugins_url( 'assets/js/checkout.min.js', __FILE__ ), array( 'jquery' ), '', true );
             wp_localize_script(
                 'wc-moip-checkout',
                 'woocommerce_moip_params',
                 array(
-                    'message_success' => __( 'Success', 'wcmoip' ),
-                    'message_fail' => __( 'Fail', 'wcmoip' )
+                    'processing' => __( 'Processing the payment...', 'wcmoip' ),
+                    'loader' => esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ),
+                    'redirecting' => sprintf( __( 'Thank you for your order, we are redirecting you in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' )
                 )
             );
         }
@@ -523,7 +527,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         $values = $instruction->addChild( 'Valores' );
         $values->addChild( 'Valor', $order->order_total );
         $values->addAttribute( 'moeda', 'BRL' );
-        $instruction->addChild( 'IdProprio', $data['id_transacao'] );
+        $instruction->addChild( 'IdProprio', $data['id_transacao'] . time() );
 
         // Payer.
         $payer = $instruction->addChild( 'Pagador' );
@@ -691,10 +695,9 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         foreach ( $args as $key => $value )
             $args_array[] = '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value ) . '" />';
 
-
         if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
             $woocommerce->get_helper( 'inline-javascript' )->add_inline_js( '
-                $.blockUI({
+                jQuery.blockUI({
                         message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to MoIP to make payment.', 'wcmoip' ) ) . '",
                         baseZ: 99999,
                         overlayCSS:
@@ -763,8 +766,6 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * @return string           Payment form.
      */
     protected function generate_transparent_checkout( $order_id ) {
-        // global $woocommerce;
-
         $order = new WC_Order( $order_id );
 
         $token = $this->create_payment_token( $order );
@@ -772,46 +773,123 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         if ( 'yes' == $this->debug )
             $this->log->add( 'moip', 'Generating transparent checkout for order ' . $order->get_order_number() );
 
-        // if ( $token ) {
-        if ( true ) {
+        if ( $token ) {
 
             // Display the transparent checkout.
             $html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by MoIP Payments.', 'wcmoip' ) ) . '</p>';
 
-            $html .= '<form action="" method="post" id="payment-form">';
-                $html .= '<div class="product" id="woocommerce-moip-tc">';
+            $html .= '<form action="" method="post" id="woocommerce-moip-payment-form">';
+                $html .= '<div class="product">';
                     $html .= '<div class="woocommerce-tabs">';
+
                         $html .= '<ul class="tabs">';
-                            $html .= '<li class="active"><a href="#tab-credit-card">' .  __( 'Credit Card', 'wcmoip' ) . '</a></li>';
-                            $html .= '<li><a href="#tab-banking-debit">' .  __( 'Banking Debit', 'wcmoip' ) . '</a></li>';
-                            $html .= '<li><a href="#tab-billet">' .  __( 'Billet Banking', 'wcmoip' ) . '</a></li>';
+                            if ( 'yes' == $this->credit_card )
+                                $html .= '<li class="active"><a href="#tab-credit-card">' . __( 'Credit Card', 'wcmoip' ) . '</a></li>';
+                            if ( 'yes' == $this->banking_debit )
+                                $html .= '<li><a href="#tab-banking-debit">' . __( 'Banking Debit', 'wcmoip' ) . '</a></li>';
+                            if ( 'yes' == $this->billet_banking )
+                                $html .= '<li><a href="#tab-billet">' . __( 'Billet Banking', 'wcmoip' ) . '</a></li>';
                         $html .= '</ul>';
-                        $html .= '<div id="tab-credit-card" class="panel entry-content" data-payment-method="CartaoCredito">';
-                            $html .= '<ul>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="Mastercard" /> ' . __( 'Master Card', 'wcmoip' ) . '</label></li>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="Visa" /> ' . __( 'Visa', 'wcmoip' ) . '</label></li>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="AmericanExpress" /> ' . __( 'American Express', 'wcmoip' ) . '</label></li>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="Diners" /> ' . __( 'Diners', 'wcmoip' ) . '</label></li>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="Hipercard" /> ' . __( 'Hipercard', 'wcmoip' ) . '</label></li>';
-                            $html .= '</ul>';
-                        $html .= '</div>';
-                        $html .= '<div id="tab-banking-debit" class="panel entry-content" data-payment-method="DebitoBancario">';
-                            $html .= '<ul>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="BancoDoBrasil" /> ' . __( 'Banco do Brasil', 'wcmoip' ) . '</label></li>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="Bradesco" /> ' . __( 'Bradesco', 'wcmoip' ) . '</label></li>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="Banrisul" /> ' . __( 'Banrisul', 'wcmoip' ) . '</label></li>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="Itau" /> ' . __( 'Itau', 'wcmoip' ) . '</label></li>';
-                            $html .= '</ul>';
-                        $html .= '</div>';
-                        $html .= '<div id="tab-billet" class="panel entry-content" data-payment-method="BoletoBancario">';
-                            $html .= '<ul>';
-                                $html .= '<li><label><input type="radio" name="payment_method" value="BoletoBancario" /> ' . __( 'Billet Banking', 'wcmoip' ) . '</label></li>';
-                            $html .= '</ul>';
-                        $html .= '</div>';
+
+                        if ( 'yes' == $this->credit_card ) {
+                            $html .= '<div id="tab-credit-card" class="panel entry-content" data-payment-method="CartaoCredito">';
+                                $html .= '<ul>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Mastercard" /> ' . __( 'Master Card', 'wcmoip' ) . '</label></li>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Visa" /> ' . __( 'Visa', 'wcmoip' ) . '</label></li>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="AmericanExpress" /> ' . __( 'American Express', 'wcmoip' ) . '</label></li>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Diners" /> ' . __( 'Diners', 'wcmoip' ) . '</label></li>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Hipercard" /> ' . __( 'Hipercard', 'wcmoip' ) . '</label></li>';
+                                $html .= '</ul>';
+                                $html .= '<div class="form-group-wrap">';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-number">' . __( 'Credit card number', 'wcmoip' ) . '</label>';
+                                        $html .= '<input type="text" name="credit_card_number" id="credit-card-number" />';
+                                        $html .= '<span class="description">' . __( 'Only digits', 'wcmoip' ) . '</span>';
+                                    $html .= '</div>';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-expiration-month">' . __( 'Expiration', 'wcmoip' ) . '</label>';
+                                        $html .= '<select name="credit_card_expiration_month" id="credit-card-expiration-month">';
+                                        for ( $expiration_month = 1; $expiration_month <= 12; $expiration_month++ )
+                                            $html .= sprintf( '<option value="%1$s">%1$s</option>', ( ( $expiration_month < 10 ) ? '0' . $expiration_month : $expiration_month ) );
+                                        $html .= '</select>';
+                                        $html .= '<select name="credit_card_expiration_year" id="credit-card-expiration-year">';
+                                        for ( $expiration_year = date( 'Y' ); $expiration_year < ( date( 'Y' ) + 15 ); $expiration_year++ )
+                                            $html .= sprintf( '<option value="%1$s">%1$s</option>', $expiration_year );
+                                        $html .= '</select>';
+                                    $html .= '</div>';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-security-code">' . __( 'Security code', 'wcmoip' ) . '</label>';
+                                        $html .= '<input type="text" name="credit_card_security_code" id="credit-card-security-code" />';
+                                    $html .= '</div>';
+                                $html .= '</div>';
+                                $html .= '<div class="form-group-wrap">';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-name">' . __( 'Holder name', 'wcmoip' ) . '</label>';
+                                        $html .= '<input type="text" name="credit_card_name" id="credit-card-name" />';
+                                        $html .= '<span class="description">' . __( 'As recorded on this card', 'wcmoip' ) . '</span>';
+                                    $html .= '</div>';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-birthdate-day">' . __( 'Holder birth date', 'wcmoip' ) . '</label>';
+                                        $html .= '<select name="credit_card_birthdate_day" id="credit-card-birthdate-day">';
+                                        for ( $birthdate_day = 1; $birthdate_day <= 31; $birthdate_day++ )
+                                            $html .= sprintf( '<option value="%1$s">%1$s</option>', ( ( $birthdate_day < 10 ) ? '0' . $birthdate_day : $birthdate_day ) );
+                                        $html .= '</select>';
+                                        $html .= '<select name="credit_card_birthdate_month" id="credit-card-birthdate-month">';
+                                        for ( $birthdate_month = 1; $birthdate_month <= 12; $birthdate_month++ )
+                                            $html .= sprintf( '<option value="%1$s">%1$s</option>', ( ( $birthdate_month < 10 ) ? '0' . $birthdate_month : $birthdate_month ) );
+                                        $html .= '</select>';
+                                        $html .= '<select name="credit_card_birthdate_year" id="credit-card-birthdate-year">';
+                                        for ( $birthdate_year = ( date( 'Y' ) - 15 ); $birthdate_year > ( date( 'Y' ) - 100 ); $birthdate_year-- )
+                                            $html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_year );
+                                        $html .= '</select>';
+                                    $html .= '</div>';
+                                $html .= '</div>';
+                                $html .= '<div class="form-group-wrap">';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-installments">' . __( 'Installments in', 'wcmoip' ) . '</label>';
+                                        $html .= '<select name="credit_card_installments" id="credit-card-installments">';
+                                        for ( $installments = 1; $installments <= 12; $installments++ )
+                                            $html .= sprintf( '<option value="%1$s">%1$sx</option>', $installments );
+                                        $html .= '</select>';
+                                    $html .= '</div>';
+                                $html .= '</div>';
+                                $html .= '<div class="form-group-wrap">';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-phone">' . __( 'Holder phone', 'wcmoip' ) . '</label>';
+                                        $html .= '<input type="text" name="credit_card_phone" id="credit-card-phone" value="' . $order->billing_phone . '" />';
+                                    $html .= '</div>';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-cpf">' . __( 'Holder CPF', 'wcmoip' ) . '</label>';
+                                        $html .= '<input type="text" name="credit_card_cpf" id="credit-card-cpf" value="' . apply_filters( 'woocommerce_moip_cpf', '' ) . '" />';
+                                    $html .= '</div>';
+                                $html .= '</div>';
+                            $html .= '</div>';
+                        }
+
+                        if ( 'yes' == $this->banking_debit ) {
+                            $html .= '<div id="tab-banking-debit" class="panel entry-content" data-payment-method="DebitoBancario">';
+                                $html .= '<ul>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="BancoDoBrasil" /> ' . __( 'Banco do Brasil', 'wcmoip' ) . '</label></li>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Bradesco" /> ' . __( 'Bradesco', 'wcmoip' ) . '</label></li>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Banrisul" /> ' . __( 'Banrisul', 'wcmoip' ) . '</label></li>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Itau" /> ' . __( 'Itau', 'wcmoip' ) . '</label></li>';
+                                $html .= '</ul>';
+                            $html .= '</div>';
+                        }
+
+                        if ( 'yes' == $this->billet_banking ) {
+                            $html .= '<div id="tab-billet" class="panel entry-content" data-payment-method="BoletoBancario">';
+                                $html .= '<ul>';
+                                    $html .= '<li><label><input type="radio" name="payment_institution" value="BoletoBancario" /> ' . __( 'Billet Banking', 'wcmoip' ) . '</label></li>';
+                                $html .= '</ul>';
+                            $html .= '</div>';
+                        }
+
                     $html .= '</div>';
                 $html .= '</div>';
                 $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoIPSuccess" callback-method-error="wcMoIPFail"></div>';
-                $html .= '<input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay order', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
+                $html .= '<input type="hidden" name="redirect" id="woocommerce-moip-redirect" value="' . $this->get_return_url( $order ) . '" />';
+                $html .= '<input type="submit" class="button alt" id="woocommerce-moip-submit" value="' . __( 'Pay order', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
             $html .= '</form>';
 
             // Add MoIP Transparent Checkout JS.
