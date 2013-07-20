@@ -15,7 +15,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
         global $woocommerce;
 
         $this->id             = 'moip';
-        $this->icon           = apply_filters( 'woocommerce_moip_icon', plugins_url( 'images/moip.png', __FILE__ ) );
+        $this->icon           = apply_filters( 'woocommerce_moip_icon', plugins_url( 'assets/images/moip.png', __FILE__ ) );
         $this->has_fields     = false;
 
         $this->method_title   = __( 'MoIP', 'wcmoip' );
@@ -118,7 +118,7 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
      * Admin Panel Options.
      */
     public function admin_options() {
-        wp_enqueue_script( 'wc-correios', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), '', true );
+        wp_enqueue_script( 'wc-correios', plugins_url( 'assets/js/admin.min.js', __FILE__ ), array( 'jquery' ), '', true );
         ?>
         <h3><?php _e( 'MoIP standard', 'wcmoip' ); ?></h3>
         <p><?php _e( 'MoIP standard works by sending the user to MoIP to enter their payment information.', 'wcmoip' ); ?></p>
@@ -752,14 +752,56 @@ class WC_MOIP_Gateway extends WC_Payment_Gateway {
             $this->log->add( 'moip', 'Generating transparent checkout for order ' . $order->get_order_number() );
 
         if ( $token ) {
-            wp_enqueue_script( 'wc-moip-checkout', plugins_url( 'js/checkout.js', __FILE__ ), array( 'jquery' ), '', true );
+        // if ( true ) {
+            wp_enqueue_script( 'wc-moip-checkout', plugins_url( 'assets/js/checkout.min.js', __FILE__ ), array( 'jquery' ), '', true );
 
             // Display the transparent checkout.
-            $html = '<p>' . __( 'This payment will be processed by MoIP Payments.', 'wcmoip' ) . '</p>';
+            $html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by MoIP Payments.', 'wcmoip' ) ) . '</p>';
 
-            $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoIPSuccess" callback-method-error="wcMoIPFail"></div>';
+            $html .= '<form action="" method="post" id="payment-form">';
+                $html .= '<div class="product" id="woocommerce-moip-tc">';
+                    $html .= '<div class="woocommerce-tabs">';
+                        $html .= '<ul class="tabs">';
+                            $html .= '<li class="active"><a href="#tab-credit-card">' .  __( 'Credit Card', 'wcmoip' ) . '</a></li>';
+                            $html .= '<li><a href="#tab-banking-debit">' .  __( 'Banking Debit', 'wcmoip' ) . '</a></li>';
+                            $html .= '<li><a href="#tab-billet">' .  __( 'Billet Banking', 'wcmoip' ) . '</a></li>';
+                        $html .= '</ul>';
+                        $html .= '<div id="tab-credit-card" class="panel entry-content" data-payment-method="CartaoCredito">';
+                            $html .= '<ul>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="Mastercard" /> ' . __( 'Master Card', 'wcmoip' ) . '</label></li>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="Visa" /> ' . __( 'Visa', 'wcmoip' ) . '</label></li>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="AmericanExpress" /> ' . __( 'American Express', 'wcmoip' ) . '</label></li>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="Diners" /> ' . __( 'Diners', 'wcmoip' ) . '</label></li>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="Hipercard" /> ' . __( 'Hipercard', 'wcmoip' ) . '</label></li>';
+                            $html .= '</ul>';
+                        $html .= '</div>';
+                        $html .= '<div id="tab-banking-debit" class="panel entry-content" data-payment-method="DebitoBancario">';
+                            $html .= '<ul>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="BancoDoBrasil" /> ' . __( 'Banco do Brasil', 'wcmoip' ) . '</label></li>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="Bradesco" /> ' . __( 'Bradesco', 'wcmoip' ) . '</label></li>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="Banrisul" /> ' . __( 'Banrisul', 'wcmoip' ) . '</label></li>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="Itau" /> ' . __( 'Itau', 'wcmoip' ) . '</label></li>';
+                            $html .= '</ul>';
+                        $html .= '</div>';
+                        $html .= '<div id="tab-billet" class="panel entry-content" data-payment-method="BoletoBancario">';
+                            $html .= '<ul>';
+                                $html .= '<li><label><input type="radio" name="payment_method" value="BoletoBancario" /> ' . __( 'Billet Banking', 'wcmoip' ) . '</label></li>';
+                            $html .= '</ul>';
+                        $html .= '</div>';
+                    $html .= '</div>';
+                $html .= '</div>';
+                $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoIPSuccess" callback-method-error="wcMoIPFail"></div>';
+                $html .= '<input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay order', 'wcmoip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
+            $html .= '</form>';
 
-            $html .= '<a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
+
+
+
+
+
+
+
+
 
             // Add MoIP Transparent Checkout JS.
             if ( 'yes' == $this->sandbox )
