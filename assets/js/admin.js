@@ -1,8 +1,10 @@
 jQuery(document).ready(function($) {
     var api = $("#woocommerce_moip_api"),
+        creditcard = $("#woocommerce_moip_credit_card"),
         installments = $("#woocommerce_moip_installments"),
         receipt = $("#woocommerce_moip_installments_receipt"),
-        billet = $("#woocommerce_moip_billet"),
+        billet = $("#woocommerce_moip_billet_banking"),
+        billet_active = $("#woocommerce_moip_billet"),
         billet_time = $("#woocommerce_moip_billet_type_term");
 
     // API Fields.
@@ -57,6 +59,24 @@ jQuery(document).ready(function($) {
         installmentsDisplay();
     });
 
+    // Installments section.
+    function installmentsSectionDisplay() {
+        var fields = $(".form-table:eq(3), #mainform h4:eq(2)");
+
+        if (creditcard.is(":checked")) {
+            fields.show();
+
+            installmentsDisplay();
+        } else {
+            fields.not("tr:eq(0)").hide();
+        }
+    }
+    installmentsSectionDisplay();
+
+    creditcard.on("click", function() {
+        installmentsSectionDisplay();
+    });
+
     // Billet Time field.
     function billetTimeDisplay(billet_time) {
         var field = $(".form-table:eq(4) tr:eq(2)");
@@ -76,7 +96,7 @@ jQuery(document).ready(function($) {
     function billetDisplay() {
         var fields = $(".form-table:eq(4) tr");
 
-        if (billet.is(":checked")) {
+        if (billet_active.is(":checked")) {
             fields.show();
 
             billetTimeDisplay(billet_time.val());
@@ -86,7 +106,25 @@ jQuery(document).ready(function($) {
     }
     billetDisplay();
 
-    billet.on("click", function() {
+    billet_active.on("click", function() {
         billetDisplay();
+    });
+
+    // Billet section.
+    function billetSectionDisplay() {
+        var fields = $(".form-table:eq(4) tr, #mainform h4:eq(3)");
+
+        if (billet.is(":checked")) {
+            fields.show();
+
+            billetDisplay();
+        } else {
+            fields.hide();
+        }
+    }
+    billetSectionDisplay();
+
+    billet.on("click", function() {
+        billetSectionDisplay();
     });
 });
