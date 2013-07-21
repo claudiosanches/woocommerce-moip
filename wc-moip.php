@@ -174,50 +174,50 @@ function wcmoip_transparent_checkout_ajax() {
 
         // Update the order status.
         $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made ​​by credit card.', 'wcmoip' ) );
+    } else if ( 'DebitoBancario' == $method ) {
+        // Add payment information.
+        update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
+        update_post_meta( $order_id, 'woocommerce_moip_url', esc_url( $_POST['url'] ) );
+
+        // Send email with payment information.
+        $url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
+        $message_body = '<p>';
+        $message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
+        $message_body .= __( 'If you have not made ​​the payment, please use the link below to pay.', 'wcmoip' ) . '<br />';
+        $message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+        $message_body .= '</p>';
+
+        $message = $mailer->wrap_message(
+            sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ),
+            apply_filters( 'woocommerce_moip_thankyou_debit_email_message', $message_body, $order_id ) . $url
+        );
+
+        $mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
+
+        // Update the order status.
+        $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made by banking debit.', 'wcmoip' ) );
     } else {
         // Add payment information.
         update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
         update_post_meta( $order_id, 'woocommerce_moip_url', esc_url( $_POST['url'] ) );
 
-        if ( 'DebitoBancario' == $method ) {
+        // Send email with payment information.
+        $url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
+        $message_body = '<p>';
+        $message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
+        $message_body .= __( 'If you have not yet received the billet, please use the link below to print it.', 'wcmoip' ) . '<br />';
+        $message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+        $message_body .= '</p>';
 
-            // Send email with payment information.
-            $url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
-            $message_body = '<p>';
-            $message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-            $message_body .= __( 'If you have not made ​​the payment, please use the link below to pay.', 'wcmoip' ) . '<br />';
-            $message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
-            $message_body .= '</p>';
+        $message = $mailer->wrap_message(
+            sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ),
+            apply_filters( 'woocommerce_moip_thankyou_billet_email_message', $message_body, $order_id ) . $url
+        );
 
-            $message = $mailer->wrap_message(
-                sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ),
-                apply_filters( 'woocommerce_moip_thankyou_debit_email_message', $message_body, $order_id ) . $url
-            );
+        $mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
 
-            $mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
-
-            // Update the order status.
-            $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made by banking debit.', 'wcmoip' ) );
-        } else {
-
-            // Send email with payment information.
-            $url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
-            $message_body = '<p>';
-            $message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-            $message_body .= __( 'If you have not yet received the billet, please use the link below to print it.', 'wcmoip' ) . '<br />';
-            $message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
-            $message_body .= '</p>';
-
-            $message = $mailer->wrap_message(
-                sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ),
-                apply_filters( 'woocommerce_moip_thankyou_billet_email_message', $message_body, $order_id ) . $url
-            );
-
-            $mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
-
-            // Update the order status.
-            $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made by billet.', 'wcmoip' ) );
-        }
+        // Update the order status.
+        $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made by billet.', 'wcmoip' ) );
     }
 
     die();
