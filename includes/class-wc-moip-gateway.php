@@ -535,8 +535,8 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
         $data = $this->get_form_args( $order );
 
-        $number = isset( $data['pagador_numero'] ) ? $data['pagador_numero'] : 0;
-        $neighborhood = isset( $data['pagador_bairro'] ) ? $data['pagador_bairro'] : __( 'Not contained', 'wcmoip' );
+        $number = isset( $data['pagador_numero'] ) && ! empty( $data['pagador_numero'] ) ? $data['pagador_numero'] : 0;
+        $neighborhood = isset( $data['pagador_bairro'] ) && ! empty( $data['pagador_bairro'] ) ? $data['pagador_bairro'] : __( 'Not contained', 'wcmoip' );
 
         $xml = new WC_Moip_SimpleXML( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
         $instruction = $xml->addChild( 'InstrucaoUnica' );
