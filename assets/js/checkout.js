@@ -167,7 +167,7 @@ jQuery(document).ready(function($) {
                     Expiracao: $("#credit-card-expiration-month").val() + "/" + $("#credit-card-expiration-year").val(),
                     CodigoSeguranca: $("#credit-card-security-code").val(),
                     Portador: {
-                        Nome: $("#credit-card-name").val(),
+                        Nome: $("#credit-card-name").val().toUpperCase(),
                         DataNascimento: $("#credit-card-birthdate-day").val() + "/" + $("#credit-card-birthdate-month").val() + "/" + $("#credit-card-birthdate-year").val(),
                         Telefone: $("#credit-card-phone").val(),
                         Identidade: $("#credit-card-cpf").val()

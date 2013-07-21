@@ -839,29 +839,42 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 $html .= '<div class="form-group-wrap">';
                 $html .= '<div class="form-group">';
                 $html .= '<label for="credit-card-name">' . __( 'Holder name', 'wcmoip' ) . '</label>';
-                $html .= '<input type="text" name="credit_card_name" id="credit-card-name" />';
+                $html .= '<input type="text" name="credit_card_name" id="credit-card-name" value="' . apply_filters( 'woocommerce_moip_holdername', $order->billing_first_name . ' ' . $order->billing_last_name ) . '" />';
                 $html .= '<span class="description">' . __( 'As recorded on this card', 'wcmoip' ) . '</span>';
                 $html .= '</div>';
                 $html .= '<div class="form-group">';
                 $html .= '<label for="credit-card-birthdate-day">' . __( 'Holder birth date', 'wcmoip' ) . '</label>';
+
+                $birthdate_day_default = apply_filters( 'woocommerce_moip_birthdate_day', '' );
                 $html .= '<select name="credit_card_birthdate_day" id="credit-card-birthdate-day">';
-                for ( $birthdate_day = 1; $birthdate_day <= 31; $birthdate_day++ )
-                    $html .= sprintf( '<option value="%1$s">%1$s</option>', ( ( $birthdate_day < 10 ) ? '0' . $birthdate_day : $birthdate_day ) );
+                for ( $birthdate_day = 1; $birthdate_day <= 31; $birthdate_day++ ) {
+                    $birthdate_day = ( $birthdate_day < 10 ) ? '0' . $birthdate_day : $birthdate_day;
+
+                    $html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_day, selected( $birthdate_day_default, $birthdate_day, false ) );
+                }
                 $html .= '</select>';
+
+                $birthdate_month_default = apply_filters( 'woocommerce_moip_birthdate_month', '' );
                 $html .= '<select name="credit_card_birthdate_month" id="credit-card-birthdate-month">';
-                for ( $birthdate_month = 1; $birthdate_month <= 12; $birthdate_month++ )
-                    $html .= sprintf( '<option value="%1$s">%1$s</option>', ( ( $birthdate_month < 10 ) ? '0' . $birthdate_month : $birthdate_month ) );
+                for ( $birthdate_month = 1; $birthdate_month <= 12; $birthdate_month++ ) {
+                    $birthdate_month = ( $birthdate_month < 10 ) ? '0' . $birthdate_month : $birthdate_month;
+
+                    $html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_month, selected( $birthdate_month_default, $birthdate_month, false ) );
+                }
                 $html .= '</select>';
+
+                $birthdate_year_default = apply_filters( 'woocommerce_moip_birthdate_year', '' );
                 $html .= '<select name="credit_card_birthdate_year" id="credit-card-birthdate-year">';
                 for ( $birthdate_year = ( date( 'Y' ) - 15 ); $birthdate_year > ( date( 'Y' ) - 100 ); $birthdate_year-- )
-                    $html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_year );
+                    $html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_year, selected( $birthdate_year_default, $birthdate_year, false ) );
                 $html .= '</select>';
+
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '<div class="form-group-wrap">';
                 $html .= '<div class="form-group">';
                 $html .= '<label for="credit-card-phone">' . __( 'Holder phone', 'wcmoip' ) . '</label>';
-                $html .= '<input type="text" name="credit_card_phone" id="credit-card-phone" value="' . $order->billing_phone . '" />';
+                $html .= '<input type="text" name="credit_card_phone" id="credit-card-phone" value="' . apply_filters( 'woocommerce_moip_phone', $order->billing_phone ) . '" />';
                 $html .= '</div>';
                 $html .= '<div class="form-group">';
                 $html .= '<label for="credit-card-cpf">' . __( 'Holder CPF', 'wcmoip' ) . '</label>';
