@@ -117,6 +117,13 @@ var wcMoipFail = function(data) {
 jQuery(document).ready(function($) {
 
     /**
+     * Hijax.
+     */
+    var submit_button = $("#woocommerce-moip-submit");
+    submit_button.replaceWith('<button type="submit" class="button alt" id="woocommerce-moip-submit">' + submit_button.text() + '</button>');
+    $("#woocommerce-moip-payment-form .product").fadeIn();
+
+    /**
      * Messages.
      */
     $(".woocommerce").prepend('<div id="woocommerce-moip-error" class="woocommerce-error" style="display: none;"></div>');
@@ -147,34 +154,42 @@ jQuery(document).ready(function($) {
 
         var method = $("#woocommerce-moip-payment-form .panel:visible").data("payment-method"),
             institution = $("#woocommerce-moip-payment-form input[name='payment_institution']:checked").val(),
+            message_wrap = jQuery("#woocommerce-moip-error"),
             settings = {};
 
-        if ("CartaoCredito" === method) {
-            settings.Forma = "CartaoCredito";
-            settings.Instituicao = institution;
-            settings.Parcelas = $("#credit-card-installments").val();
-            settings.CartaoCredito = {
-                Numero: $("#credit-card-number").val(),
-                Expiracao: $("#credit-card-expiration-month").val() + "/" + $("#credit-card-expiration-year").val(),
-                CodigoSeguranca: $("#credit-card-security-code").val(),
-                Portador: {
-                    Nome: $("#credit-card-name").val(),
-                    DataNascimento: $("#credit-card-birthdate-day").val() + "/" + $("#credit-card-birthdate-month").val() + "/" + $("#credit-card-birthdate-year").val(),
-                    Telefone: $("#credit-card-phone").val(),
-                    Identidade: $("#credit-card-cpf").val()
-                }
-            };
-        } else if ("DebitoBancario" === method) {
-            settings.Forma = "DebitoBancario";
-            settings.Instituicao = institution;
+        if (institution) {
+            if ("CartaoCredito" === method) {
+                settings.Forma = "CartaoCredito";
+                settings.Instituicao = institution;
+                settings.Parcelas = $("#credit-card-installments").val();
+                settings.CartaoCredito = {
+                    Numero: $("#credit-card-number").val(),
+                    Expiracao: $("#credit-card-expiration-month").val() + "/" + $("#credit-card-expiration-year").val(),
+                    CodigoSeguranca: $("#credit-card-security-code").val(),
+                    Portador: {
+                        Nome: $("#credit-card-name").val(),
+                        DataNascimento: $("#credit-card-birthdate-day").val() + "/" + $("#credit-card-birthdate-month").val() + "/" + $("#credit-card-birthdate-year").val(),
+                        Telefone: $("#credit-card-phone").val(),
+                        Identidade: $("#credit-card-cpf").val()
+                    }
+                };
+            } else if ("DebitoBancario" === method) {
+                settings.Forma = "DebitoBancario";
+                settings.Instituicao = institution;
+            } else {
+                settings.Forma = "BoletoBancario";
+            }
+
+            // Display a blockUI.
+            blockMessage();
+
+            // Process the Moip transparent checkout.
+            new MoipWidget(settings);
         } else {
-            settings.Forma = "BoletoBancario";
+            // Display de error messages.
+            message_wrap.empty();
+            message_wrap.prepend(woocommerce_moip_params.method_empty);
+            message_wrap.show();
         }
-
-        // Display a blockUI.
-        blockMessage();
-
-        // Process the Moip transparent checkout.
-        new MoipWidget(settings);
     });
 });
