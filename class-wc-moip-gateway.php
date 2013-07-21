@@ -800,11 +800,11 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                         if ( 'yes' == $this->credit_card ) {
                             $html .= '<div id="tab-credit-card" class="panel entry-content" data-payment-method="CartaoCredito">';
                                 $html .= '<ul>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Mastercard" /> ' . __( 'Master Card', 'wcmoip' ) . '</label></li>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Visa" /> ' . __( 'Visa', 'wcmoip' ) . '</label></li>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="AmericanExpress" /> ' . __( 'American Express', 'wcmoip' ) . '</label></li>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Diners" /> ' . __( 'Diners', 'wcmoip' ) . '</label></li>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Hipercard" /> ' . __( 'Hipercard', 'wcmoip' ) . '</label></li>';
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Mastercard" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/mastercard.png', __FILE__ ) ), __( 'Master Card', 'wcmoip' ) );
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Visa" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/visa.png', __FILE__ ) ), __( 'Visa', 'wcmoip' ) );
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="AmericanExpress" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/americanexpress.png', __FILE__ ) ), __( 'American Express', 'wcmoip' ) );
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Diners" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/diners.png', __FILE__ ) ), __( 'Diners', 'wcmoip' ) );
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Hipercard" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/hipercard.png', __FILE__ ) ), __( 'Hipercard', 'wcmoip' ) );
                                 $html .= '</ul>';
                                 $html .= '<div class="form-group-wrap">';
                                     $html .= '<div class="form-group">';
@@ -875,10 +875,10 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                         if ( 'yes' == $this->banking_debit ) {
                             $html .= '<div id="tab-banking-debit" class="panel entry-content" data-payment-method="DebitoBancario">';
                                 $html .= '<ul>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="BancoDoBrasil" /> ' . __( 'Banco do Brasil', 'wcmoip' ) . '</label></li>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Bradesco" /> ' . __( 'Bradesco', 'wcmoip' ) . '</label></li>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Banrisul" /> ' . __( 'Banrisul', 'wcmoip' ) . '</label></li>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="Itau" /> ' . __( 'Itau', 'wcmoip' ) . '</label></li>';
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="BancoDoBrasil" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/bancodobrasil.png', __FILE__ ) ), __( 'Banco do Brasil', 'wcmoip' ) );
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Bradesco" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/bradesco.png', __FILE__ ) ), __( 'Bradesco', 'wcmoip' ) );
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Banrisul" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/banrisul.png', __FILE__ ) ), __( 'Banrisul', 'wcmoip' ) );
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Itau" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/itau.png', __FILE__ ) ), __( 'Itau', 'wcmoip' ) );
                                 $html .= '</ul>';
                             $html .= '</div>';
                         }
@@ -886,7 +886,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                         if ( 'yes' == $this->billet_banking ) {
                             $html .= '<div id="tab-billet" class="panel entry-content" data-payment-method="BoletoBancario">';
                                 $html .= '<ul>';
-                                    $html .= '<li><label><input type="radio" name="payment_institution" value="BoletoBancario" /> ' . __( 'Billet Banking', 'wcmoip' ) . '</label></li>';
+                                    $html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="BoletoBancario" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/boleto.png', __FILE__ ) ), __( 'Billet Banking', 'wcmoip' ) );
                                 $html .= '</ul>';
                             $html .= '</div>';
                         }

@@ -4,11 +4,8 @@
 // Compass clearfix.
 @import "compass/utilities/general/clearfix";
 
-#woocommerce-moip-payment-form {
-
-    .panel {
-        display: none;
-    }
+#woocommerce-moip-payment-form .panel {
+    display: none;
 
     input[type="text"] {
         width: 200px;
@@ -26,10 +23,14 @@
     }
 
     li {
-        margin: 0 10px 0 0;
+        margin: 0 20px 0 0;
         float: left;
+        text-align: center;
     }
 
+    label img {
+        display: block;
+    }
 
     .form-group-wrap {
         @include pie-clearfix;
