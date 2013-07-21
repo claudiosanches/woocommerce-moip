@@ -43,47 +43,75 @@ function redirectTimer(time) {
  */
 var wcMoipSuccess = function(data) {
     var method = jQuery("#woocommerce-moip-payment-form .panel:visible").data("payment-method"),
-        message_wrap = jQuery(".woocommerce-message"),
-        timer = 10;
+        message_wrap = jQuery("#woocommerce-moip-error"),
+        timer = 10,
+        ajax_data = {
+            action: "woocommerce_moip_transparent_checkout",
+            security: woocommerce_moip_params.security,
+            order_id: jQuery("#woocommerce-moip-order-id").val(),
+            method: method
+        };
 
-    // Remove the blockUI.
-    jQuery.unblockUI();
-
-    // Add meu blockUI.
-    blockMessage(woocommerce_moip_params.redirecting);
-    setInterval(function() {
-        redirectTimer(timer--);
-    }, 1000);
-
-    // alert(JSON.stringify(data));
-
-    if ("CartaoCredito" !== method) {
-        window.open(data.url, 'Moip', 'width=750, height=550, scrollbars=1');
+    if ("CartaoCredito" === method) {
+        ajax_data.code = data.CodigoMoIP;
+        ajax_data.status = data.Status;
+    } else {
+        ajax_data.url = data.url;
     }
 
-    // Redirect.
-    setTimeout(function() {
-        window.location.href=jQuery("#woocommerce-moip-redirect").val();
-    }, 10000);
+    jQuery.ajax({
+        type: "POST",
+        url: woocommerce_moip_params.ajax_url,
+        cache: false,
+        data: ajax_data,
+        success: function(result) {
+            // Remove the blockUI.
+            jQuery.unblockUI();
+
+            // Open new window if is billet or banking debit.
+            if ("CartaoCredito" !== method) {
+                window.open(data.url, 'Moip', 'width=750, height=550, scrollbars=1');
+            }
+
+            // Add meu blockUI.
+            blockMessage(woocommerce_moip_params.redirecting);
+            setInterval(function() {
+                redirectTimer(timer--);
+            }, 1000);
+
+            // Redirect.
+            setTimeout(function() {
+                window.location.href=jQuery("#woocommerce-moip-redirect").val();
+            }, 10000);
+        },
+        error: function() {
+            // Display de error message.
+            message_wrap.empty();
+            message_wrap.prepend(woocommerce_moip_params.ajax_fail);
+            message_wrap.show();
+
+            // Remove the blockUI.
+            jQuery.unblockUI();
+        }
+    });
 };
 
 /**
  * Moip Fail functions.
  */
 var wcMoipFail = function(data) {
-    var response = JSON.stringify(data),
-        message_wrap = jQuery("#woocommerce-moip-error");
+    var message_wrap = jQuery("#woocommerce-moip-error");
 
-    // Remove the blockUI.
-    jQuery.unblockUI();
-
-    // Add the error messages.
+    // Display de error messages.
     message_wrap.empty();
     message_wrap.prepend('<ul style="margin: 0;"></ul>');
     jQuery.each(data, function(key, value) {
         jQuery("ul", message_wrap).prepend("<li>" + value.Mensagem + "</li>");
     });
     message_wrap.show();
+
+    // Remove the blockUI.
+    jQuery.unblockUI();
 };
 
 jQuery(document).ready(function($) {
@@ -130,7 +158,7 @@ jQuery(document).ready(function($) {
                 Expiracao: $("#credit-card-expiration-month").val() + "/" + $("#credit-card-expiration-year").val(),
                 CodigoSeguranca: $("#credit-card-security-code").val(),
                 Portador: {
-                    Nome: $("#ccredit-card-name").val(),
+                    Nome: $("#credit-card-name").val(),
                     DataNascimento: $("#credit-card-birthdate-day").val() + "/" + $("#credit-card-birthdate-month").val() + "/" + $("#credit-card-birthdate-year").val(),
                     Telefone: $("#credit-card-phone").val(),
                     Identidade: $("#credit-card-cpf").val()

@@ -93,3 +93,71 @@ function wcmoip_action_links( $links ) {
 }
 
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'wcmoip_action_links' );
+
+/**
+ * Processes the Moip status message.
+ *
+ * @param  string $status Moip status message.
+ *
+ * @return string         Status message.
+ */
+function wcmoip_status( $status ) {
+    switch ( $status ) {
+        case 'Autorizado':
+            return __( 'Authorized', 'wcmoip' );
+            break;
+        case 'Iniciado':
+            return __( 'Initiate', 'wcmoip' );
+            break;
+        case 'BoletoImpresso':
+            return __( 'Billet Printed', 'wcmoip' );
+            break;
+        case 'Concluido':
+            return __( 'Concluded', 'wcmoip' );
+            break;
+        case 'Cancelado':
+            return __( 'Canceled', 'wcmoip' );
+            break;
+        case 'EmAnalise':
+            return __( 'In Review', 'wcmoip' );
+            break;
+        case 'Estornado':
+            return __( 'Reversed', 'wcmoip' );
+            break;
+        case 'Reembolsado':
+            return __( 'Refunded', 'wcmoip' );
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ * Saved by ajax the order information.
+ *
+ * @return void
+ */
+function wcmoip_transparent_checkout_ajax() {
+    $settings = get_option( 'woocommerce_moip_settings' );
+
+    if ( 'tc' != $settings['api'] )
+        die();
+
+    check_ajax_referer( 'woocommerce_moip_transparent_checkout', 'security' );
+
+    $order_id = (int) $_POST['order_id'];
+
+    if ( 'CartaoCredito' == $_POST['method'] ) {
+        update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
+        update_post_meta( $order_id, 'woocommerce_moip_code', esc_attr( $_POST['code'] ) );
+        update_post_meta( $order_id, 'woocommerce_moip_status', wcmoip_status( esc_attr( $_POST['status'] ) ) );
+    } else {
+        update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
+        update_post_meta( $order_id, 'woocommerce_moip_url', esc_url( $_POST['url'] ) );
+    }
+
+    die();
+}
+
+add_action( 'wp_ajax_woocommerce_moip_transparent_checkout', 'wcmoip_transparent_checkout_ajax' );
+add_action( 'wp_ajax_nopriv_woocommerce_moip_transparent_checkout', 'wcmoip_transparent_checkout_ajax' );

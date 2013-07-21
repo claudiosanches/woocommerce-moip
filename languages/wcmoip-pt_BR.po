@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Moip v1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-20 23:46:41+0000\n"
+"PO-Revision-Date: 2013-07-21 05:39:19+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,183 +39,183 @@ msgid "claudiosanches"
 msgstr "claudiosanches"
 
 #: class-wc-moip-gateway.php:21
-#: class-wc-moip-gateway.php:175
+#: class-wc-moip-gateway.php:184
 #@ wcmoip
 msgid "Moip"
 msgstr "Moip"
 
-#: class-wc-moip-gateway.php:148
+#: class-wc-moip-gateway.php:157
 #@ wcmoip
 msgid "Moip standard"
 msgstr "Moip padrão"
 
-#: class-wc-moip-gateway.php:149
+#: class-wc-moip-gateway.php:158
 #@ wcmoip
 msgid "Moip standard works by sending the user to Moip to enter their payment information."
 msgstr "Moip padrão funciona enviando o usuário para o site do Moip, onde ele irá fazer o pagamento."
 
-#: class-wc-moip-gateway.php:165
+#: class-wc-moip-gateway.php:174
 #@ wcmoip
 msgid "Enable/Disable"
 msgstr "Habilita/Desabilita"
 
-#: class-wc-moip-gateway.php:167
+#: class-wc-moip-gateway.php:176
 #@ wcmoip
 msgid "Enable Moip standard"
 msgstr "Habilitar Moip padrão"
 
-#: class-wc-moip-gateway.php:171
+#: class-wc-moip-gateway.php:180
 #@ wcmoip
 msgid "Title"
 msgstr "Título"
 
-#: class-wc-moip-gateway.php:173
+#: class-wc-moip-gateway.php:182
 #@ wcmoip
 msgid "This controls the title which the user sees during checkout."
 msgstr "Isto controla o título que o usuário vê durante o checkout."
 
-#: class-wc-moip-gateway.php:178
+#: class-wc-moip-gateway.php:187
 #@ wcmoip
 msgid "Description"
 msgstr "Descrição"
 
-#: class-wc-moip-gateway.php:180
+#: class-wc-moip-gateway.php:189
 #@ wcmoip
 msgid "This controls the description which the user sees during checkout."
 msgstr "Isso controla a descrição que o usuário vê durante o checkout."
 
-#: class-wc-moip-gateway.php:181
-#: class-wc-moip-gateway.php:761
+#: class-wc-moip-gateway.php:190
+#: class-wc-moip-gateway.php:770
 #@ wcmoip
 msgid "Pay via Moip"
 msgstr "Pagar com Moip"
 
-#: class-wc-moip-gateway.php:184
+#: class-wc-moip-gateway.php:193
 #@ wcmoip
 msgid "Moip Login"
 msgstr "Moip Login"
 
-#: class-wc-moip-gateway.php:186
+#: class-wc-moip-gateway.php:195
 #@ wcmoip
 msgid "Please enter your Moip email address or username; this is needed in order to take payment."
 msgstr "Por favor, digite o seu endereço de email ou nome de usuário do Moip, que é necessário para receber o pagamento."
 
-#: class-wc-moip-gateway.php:191
+#: class-wc-moip-gateway.php:200
 #@ wcmoip
 msgid "Invoice Prefix"
 msgstr "Prefixo de pedido"
 
-#: class-wc-moip-gateway.php:193
+#: class-wc-moip-gateway.php:202
 #@ wcmoip
 msgid "Please enter a prefix for your invoice numbers. If you use your Moip account for multiple stores ensure this prefix is unqiue as Moip will not allow orders with the same invoice number."
 msgstr "Por favor informe um prefixo para utilizar com os números de pedidos. Caso você utilize sua conta do Moip em mais de uma loja, procure utilizar um prefixo único para cada loja."
 
-#: class-wc-moip-gateway.php:504
+#: class-wc-moip-gateway.php:513
 #, php-format
 #@ wcmoip
 msgid "Order %s"
 msgstr "Pedido %s"
 
-#: class-wc-moip-gateway.php:508
+#: class-wc-moip-gateway.php:517
 #@ wcmoip
 msgid "Shipping via"
 msgstr "Entrega via"
 
-#: class-wc-moip-gateway.php:707
-#: class-wc-moip-gateway.php:730
+#: class-wc-moip-gateway.php:716
+#: class-wc-moip-gateway.php:739
 #@ wcmoip
 msgid "Thank you for your order. We are now redirecting you to Moip to make payment."
 msgstr "Obrigado por fazer seu pedido. Agora estamos redirecionando você para o Moip para efetuar o pagamento."
 
-#: class-wc-moip-gateway.php:761
-#: class-wc-moip-gateway.php:898
+#: class-wc-moip-gateway.php:770
+#: class-wc-moip-gateway.php:908
 #@ wcmoip
 msgid "Cancel order &amp; restore cart"
 msgstr "Cancelar pedido e restaurar carrinho"
 
-#: class-wc-moip-gateway.php:757
+#: class-wc-moip-gateway.php:766
 #@ wcmoip
 msgid "Thank you for your order, please click the button below to pay with Moip."
 msgstr "Obrigado por seu pedido, por favor clique no botão abaixo para pagar com Moip."
 
-#: class-wc-moip-gateway.php:1050
+#: class-wc-moip-gateway.php:1060
 #@ wcmoip
 msgid "Payment has already been made but not yet credited to Carteira Moip."
 msgstr "O pagamento já foi feito, mas ainda não foi creditado na sua Carteira Moip."
 
-#: class-wc-moip-gateway.php:1055
-#: class-wc-moip-gateway.php:1071
+#: class-wc-moip-gateway.php:1065
+#: class-wc-moip-gateway.php:1081
 #@ wcmoip
 msgid "Payment under review by Moip."
 msgstr "Pagamento aguardando revisão do Moip"
 
-#: class-wc-moip-gateway.php:1059
+#: class-wc-moip-gateway.php:1069
 #@ wcmoip
 msgid "Billet was printed and has not been paid yet."
 msgstr "O boleto foi impresso e não foi pago ainda."
 
-#: class-wc-moip-gateway.php:1023
+#: class-wc-moip-gateway.php:1033
 #@ wcmoip
 msgid "Moip Transaction ID"
 msgstr "Moip: ID da transação"
 
-#: class-wc-moip-gateway.php:1030
+#: class-wc-moip-gateway.php:1040
 #@ wcmoip
 msgid "Payer email"
 msgstr "E-mail do comprador"
 
-#: class-wc-moip-gateway.php:1037
+#: class-wc-moip-gateway.php:1047
 #@ wcmoip
 msgid "Payment type"
 msgstr "Tipo de pagamento"
 
-#: class-wc-moip-gateway.php:1044
+#: class-wc-moip-gateway.php:1054
 #@ wcmoip
 msgid "Number of parcels"
 msgstr "Número de parcelas"
 
-#: class-wc-moip-gateway.php:1067
+#: class-wc-moip-gateway.php:1077
 #@ wcmoip
 msgid "Payment canceled by Moip."
 msgstr "Pagamento cancelado pelo Moip."
 
-#: class-wc-moip-gateway.php:1075
+#: class-wc-moip-gateway.php:1085
 #@ wcmoip
 msgid "Payment was reversed by the payer, payee, payment institution or Moip."
 msgstr "Pagamento foi estornado pelo pagador, recebedor, instituição de pagamento ou Moip."
 
-#: class-wc-moip-gateway.php:1063
+#: class-wc-moip-gateway.php:1073
 #@ wcmoip
 msgid "Payment completed and credited in your Carteira Moip."
 msgstr "Pagamento completo e creditado na sua Carteira Moip."
 
-#: class-wc-moip-gateway.php:410
+#: class-wc-moip-gateway.php:419
 #@ wcmoip
 msgid "Gateway Testing"
 msgstr "Teste de Gateway"
 
-#: class-wc-moip-gateway.php:415
+#: class-wc-moip-gateway.php:424
 #@ wcmoip
 msgid "Moip sandbox"
 msgstr "Moip sandbox"
 
-#: class-wc-moip-gateway.php:417
+#: class-wc-moip-gateway.php:426
 #@ wcmoip
 msgid "Enable Moip sandbox"
 msgstr "Ativar o Moip sandbox"
 
-#: class-wc-moip-gateway.php:419
+#: class-wc-moip-gateway.php:428
 #, php-format
 #@ wcmoip
 msgid "Moip sandbox can be used to test payments. Sign up for a developer account <a href=\"%s\">here</a>."
 msgstr "Moip sandbox pode fazer pagamentos de testes. Faça login a sua conta de desenvolvedor no <a href=\"%s\">Moip Labs</a>."
 
-#: class-wc-moip-gateway.php:422
+#: class-wc-moip-gateway.php:431
 #@ wcmoip
 msgid "Debug Log"
 msgstr "Log de depuração"
 
-#: class-wc-moip-gateway.php:424
+#: class-wc-moip-gateway.php:433
 #@ wcmoip
 msgid "Enable logging"
 msgstr "Habilitar log"
@@ -226,12 +226,12 @@ msgstr "Habilitar log"
 msgid "http://claudiosmweb.com/"
 msgstr "http://claudiosmweb.com/"
 
-#: class-wc-moip-gateway.php:991
+#: class-wc-moip-gateway.php:1001
 #@ wcmoip
 msgid "Moip Request Failure"
 msgstr "Moip falha no pedido"
 
-#: class-wc-moip-gateway.php:426
+#: class-wc-moip-gateway.php:435
 #, php-format
 #@ wcmoip
 msgid "Log Moip events, such as API requests, inside %s"
@@ -254,310 +254,310 @@ msgstr "Configurações"
 msgid "https://github.com/claudiosmweb/woocommerce-moip"
 msgstr "https://github.com/claudiosmweb/woocommerce-moip"
 
-#: class-wc-moip-gateway.php:198
+#: class-wc-moip-gateway.php:207
 #@ wcmoip
 msgid "Payment API"
 msgstr "API de Pagamentos"
 
-#: class-wc-moip-gateway.php:228
+#: class-wc-moip-gateway.php:237
 #@ wcmoip
 msgid "Payment Settings"
 msgstr "Configurações de Pagamento"
 
-#: class-wc-moip-gateway.php:230
+#: class-wc-moip-gateway.php:239
 #@ wcmoip
 msgid "These options need to be available to you in your Moip account."
 msgstr "Estas opções devem estar disponíveis para você na sua conta Moip também."
 
-#: class-wc-moip-gateway.php:239
-#: class-wc-moip-gateway.php:793
+#: class-wc-moip-gateway.php:248
+#: class-wc-moip-gateway.php:802
 #@ wcmoip
 msgid "Credit Card"
 msgstr "Cartão de Crédito"
 
-#: class-wc-moip-gateway.php:241
+#: class-wc-moip-gateway.php:250
 #@ wcmoip
 msgid "Enable Credit Card"
 msgstr "Ativar Cartão de Crédito"
 
-#: class-wc-moip-gateway.php:245
+#: class-wc-moip-gateway.php:254
 #@ wcmoip
 msgid "Debit Card"
 msgstr "Cartão de Debito"
 
-#: class-wc-moip-gateway.php:247
+#: class-wc-moip-gateway.php:256
 #@ wcmoip
 msgid "Enable Debit Card"
 msgstr "Ativar Cartão de Debito"
 
-#: class-wc-moip-gateway.php:261
-#: class-wc-moip-gateway.php:795
+#: class-wc-moip-gateway.php:270
+#: class-wc-moip-gateway.php:804
 #@ wcmoip
 msgid "Banking Debit"
 msgstr "Débito em Conta"
 
-#: class-wc-moip-gateway.php:263
+#: class-wc-moip-gateway.php:272
 #@ wcmoip
 msgid "Enable Banking Debit"
 msgstr "Ativar Débito em Conta"
 
-#: class-wc-moip-gateway.php:267
+#: class-wc-moip-gateway.php:276
 #@ wcmoip
 msgid "Financing Banking"
 msgstr "Financiamento Bancário"
 
-#: class-wc-moip-gateway.php:269
+#: class-wc-moip-gateway.php:278
 #@ wcmoip
 msgid "Enable Financing Banking"
 msgstr "Ativar Financiamento Bancário"
 
-#: class-wc-moip-gateway.php:233
-#: class-wc-moip-gateway.php:797
-#: class-wc-moip-gateway.php:889
+#: class-wc-moip-gateway.php:242
+#: class-wc-moip-gateway.php:806
+#: class-wc-moip-gateway.php:898
 #@ wcmoip
 msgid "Billet Banking"
 msgstr "Boleto Bancário"
 
-#: class-wc-moip-gateway.php:235
+#: class-wc-moip-gateway.php:244
 #@ wcmoip
 msgid "Enable Billet Banking"
 msgstr "Ativar Boleto Bancário"
 
-#: class-wc-moip-gateway.php:286
+#: class-wc-moip-gateway.php:295
 #@ wcmoip
 msgid "Minimum Installment"
 msgstr "Parcela Mínima"
 
-#: class-wc-moip-gateway.php:306
+#: class-wc-moip-gateway.php:315
 #@ wcmoip
 msgid "Maximum Installment"
 msgstr "Parcela Máxima"
 
-#: class-wc-moip-gateway.php:326
+#: class-wc-moip-gateway.php:335
 #@ wcmoip
 msgid "Receipt"
 msgstr "Recebimento"
 
-#: class-wc-moip-gateway.php:328
+#: class-wc-moip-gateway.php:337
 #@ wcmoip
 msgid "If the installment payment will in at sight (subject to additional costs) in your account Moip (in one installment) or if it will be split (credited in the same number of parcels chosen by the payer)."
 msgstr "Se o pagamento parcelado será credito à vista (está sujeito a custos adicionais) na sua conta Moip (em apenas um parcela) ou se ele será parcelado (creditado no mesmo número de parcelas escolhidas pelo pagador)."
 
-#: class-wc-moip-gateway.php:332
+#: class-wc-moip-gateway.php:341
 #@ wcmoip
 msgid "At Sight"
 msgstr "À Vista"
 
-#: class-wc-moip-gateway.php:333
+#: class-wc-moip-gateway.php:342
 #@ wcmoip
 msgid "Installments"
 msgstr "Parcelado"
 
-#: class-wc-moip-gateway.php:337
+#: class-wc-moip-gateway.php:346
 #@ wcmoip
 msgid "Interest"
 msgstr "Juros"
 
-#: class-wc-moip-gateway.php:339
+#: class-wc-moip-gateway.php:348
 #@ wcmoip
 msgid "Interest to be applied to the installment."
 msgstr "Juros que será aplicado na parcela."
 
-#: class-wc-moip-gateway.php:345
+#: class-wc-moip-gateway.php:354
 #@ wcmoip
 msgid "Rehearse"
 msgstr "Repassar"
 
-#: class-wc-moip-gateway.php:347
+#: class-wc-moip-gateway.php:356
 #@ wcmoip
 msgid "Enable Rehearse"
 msgstr "Ativar Repassar"
 
-#: class-wc-moip-gateway.php:526
+#: class-wc-moip-gateway.php:535
 #@ wcmoip
 msgid "Not contained"
 msgstr "Não consta"
 
-#: class-wc-moip-gateway.php:1093
+#: class-wc-moip-gateway.php:1138
 #, php-format
 #@ wcmoip
 msgid "<strong>Moip Disabled</strong> You should inform your email address in Moip. %sClick here to configure!%s"
 msgstr "<strong>Moip Desativado</strong> Você deve informar seu endereço de e-mail do Moip. %sClique aqui para configurar!%s"
 
-#: class-wc-moip-gateway.php:253
+#: class-wc-moip-gateway.php:262
 #@ wcmoip
 msgid "Moip Wallet"
 msgstr "Carteira Moip"
 
-#: class-wc-moip-gateway.php:255
+#: class-wc-moip-gateway.php:264
 #@ wcmoip
 msgid "Enable Moip Wallet"
 msgstr "Ativar Carteira Moip"
 
-#: class-wc-moip-gateway.php:288
+#: class-wc-moip-gateway.php:297
 #@ wcmoip
 msgid "Indicate the minimum installments."
 msgstr "Indicar o valor da parcela mínima."
 
-#: class-wc-moip-gateway.php:308
+#: class-wc-moip-gateway.php:317
 #@ wcmoip
 msgid "Indicate the Maximum installments."
 msgstr "Indicar o valor da parcela máxima."
 
-#: class-wc-moip-gateway.php:349
+#: class-wc-moip-gateway.php:358
 #@ wcmoip
 msgid "Defines if the installment will be paid by the payer."
 msgstr "Define se a parcela será paga pelo cliente."
 
-#: class-wc-moip-gateway.php:203
+#: class-wc-moip-gateway.php:212
 #@ wcmoip
 msgid "Moip Payment API"
 msgstr "API de Pagamentos do Moip"
 
-#: class-wc-moip-gateway.php:205
+#: class-wc-moip-gateway.php:214
 #, php-format
 #@ wcmoip
 msgid "The XML API requires Access Token and Access Key. %sHere's how to get this information%s."
 msgstr "A API em XML exige Token de Acesso e Chave de Acesso. %sVeja aqui como obter estas informações%s."
 
-#: class-wc-moip-gateway.php:209
+#: class-wc-moip-gateway.php:218
 #@ wcmoip
 msgid "XML - Safe and with more options"
 msgstr "XML - Segura e com mais opções"
 
-#: class-wc-moip-gateway.php:214
+#: class-wc-moip-gateway.php:223
 #@ wcmoip
 msgid "Access Token"
 msgstr "Token de Acesso"
 
-#: class-wc-moip-gateway.php:216
+#: class-wc-moip-gateway.php:225
 #@ wcmoip
 msgid "Please enter your Access Token; this is needed in order to take payment."
 msgstr "Por favor, digite o seu Token de Acesso que é necessário para receber o pagamento."
 
-#: class-wc-moip-gateway.php:221
+#: class-wc-moip-gateway.php:230
 #@ wcmoip
 msgid "Access Key"
 msgstr "Chave de Acesso"
 
-#: class-wc-moip-gateway.php:223
+#: class-wc-moip-gateway.php:232
 #@ wcmoip
 msgid "Please enter your Access Key; this is needed in order to take payment."
 msgstr "Por favor, digite o seu Chave de Acesso que é necessário para receber o pagamento."
 
-#: class-wc-moip-gateway.php:1102
+#: class-wc-moip-gateway.php:1147
 #, php-format
 #@ wcmoip
 msgid "<strong>Moip Disabled</strong> You should inform your Access Token. %sClick here to configure!%s"
 msgstr "<strong>Moip Desativado</strong> Você deve informar o seu Token de Acesso. %sClique aqui para configurar!%s"
 
-#: class-wc-moip-gateway.php:1111
+#: class-wc-moip-gateway.php:1156
 #, php-format
 #@ wcmoip
 msgid "<strong>Moip Disabled</strong> You should inform your Access Key. %sClick here to configure!%s"
 msgstr "<strong>Moip Desativado</strong> Você deve informar a sua Chave de Acesso. %sClique aqui para configurar!%s"
 
-#: class-wc-moip-gateway.php:208
+#: class-wc-moip-gateway.php:217
 #@ wcmoip
 msgid "HTML - Basic and less safe"
 msgstr "HTML - Básica e menos segura"
 
-#: class-wc-moip-gateway.php:275
+#: class-wc-moip-gateway.php:284
 #@ wcmoip
 msgid "Credit Card Installments Settings"
 msgstr "Configurações de Parcelamento do Cartão de Crédito"
 
-#: class-wc-moip-gateway.php:280
+#: class-wc-moip-gateway.php:289
 #@ wcmoip
 msgid "Installments settings"
 msgstr "Configurações de Parcelamento"
 
-#: class-wc-moip-gateway.php:282
+#: class-wc-moip-gateway.php:291
 #@ wcmoip
 msgid "Enable Installments settings"
 msgstr "Ativar as configurações de Parcelamento"
 
-#: class-wc-moip-gateway.php:352
+#: class-wc-moip-gateway.php:361
 #@ wcmoip
 msgid "Billet Settings"
 msgstr "Configurações do Boleto"
 
-#: class-wc-moip-gateway.php:357
+#: class-wc-moip-gateway.php:366
 #@ wcmoip
 msgid "Billet settings"
 msgstr "Configurações do Boleto"
 
-#: class-wc-moip-gateway.php:359
+#: class-wc-moip-gateway.php:368
 #@ wcmoip
 msgid "Enable Billet settings"
 msgstr "Ativar as configurações de Boleto"
 
-#: class-wc-moip-gateway.php:368
+#: class-wc-moip-gateway.php:377
 #@ wcmoip
 msgid "Default"
 msgstr "Padrão"
 
-#: class-wc-moip-gateway.php:369
+#: class-wc-moip-gateway.php:378
 #@ wcmoip
 msgid "Calendar Days"
 msgstr "Dias Corridos"
 
-#: class-wc-moip-gateway.php:370
+#: class-wc-moip-gateway.php:379
 #@ wcmoip
 msgid "Working Days"
 msgstr "Dias Úteis"
 
-#: class-wc-moip-gateway.php:374
+#: class-wc-moip-gateway.php:383
 #@ wcmoip
 msgid "Number of Days"
 msgstr "Número de Dias"
 
-#: class-wc-moip-gateway.php:376
+#: class-wc-moip-gateway.php:385
 #@ wcmoip
 msgid "Days of expiry of the billet after printed."
 msgstr "Dias de expiração do boleto, depois de impresso."
 
-#: class-wc-moip-gateway.php:382
+#: class-wc-moip-gateway.php:391
 #@ wcmoip
 msgid "Instruction Line 1"
 msgstr "Primeira Linha de Instrução"
 
-#: class-wc-moip-gateway.php:384
+#: class-wc-moip-gateway.php:393
 #@ wcmoip
 msgid "First line instruction for the billet."
 msgstr "Primeira linha de instrução para o boleto."
 
-#: class-wc-moip-gateway.php:389
+#: class-wc-moip-gateway.php:398
 #@ wcmoip
 msgid "Instruction Line 2"
 msgstr "Segunda Linha de Instrução"
 
-#: class-wc-moip-gateway.php:391
+#: class-wc-moip-gateway.php:400
 #@ wcmoip
 msgid "Second line instruction for the billet."
 msgstr "Segunda linha de instrução para o boleto."
 
-#: class-wc-moip-gateway.php:396
+#: class-wc-moip-gateway.php:405
 #@ wcmoip
 msgid "Instruction Line 3"
 msgstr "Terceira Linha de Instrução"
 
-#: class-wc-moip-gateway.php:398
+#: class-wc-moip-gateway.php:407
 #@ wcmoip
 msgid "Third line instruction for the billet."
 msgstr "Terceira linha de instrução para o boleto."
 
-#: class-wc-moip-gateway.php:403
+#: class-wc-moip-gateway.php:412
 #@ wcmoip
 msgid "Custom Logo URL"
 msgstr "URL para Logo Customizado"
 
-#: class-wc-moip-gateway.php:405
+#: class-wc-moip-gateway.php:414
 #@ wcmoip
 msgid "URL of the logo image to be shown on the billet."
 msgstr "URL da imagem do logo a ser mostrado no boleto."
 
-#: class-wc-moip-gateway.php:363
+#: class-wc-moip-gateway.php:372
 #@ wcmoip
 msgid "Type of Term"
 msgstr "Tipo de Prazo"
@@ -568,141 +568,226 @@ msgstr "Tipo de Prazo"
 msgid "1.5.0"
 msgstr "1.5.0"
 
-#: class-wc-moip-gateway.php:134
+#: class-wc-moip-gateway.php:140
 #@ wcmoip
 msgid "Processing the payment..."
 msgstr "Processando o pagamento..."
 
-#: class-wc-moip-gateway.php:210
+#: class-wc-moip-gateway.php:219
 #@ wcmoip
 msgid "Transparent Checkout"
 msgstr "Checkout Transparente"
 
-#: class-wc-moip-gateway.php:248
-#: class-wc-moip-gateway.php:256
-#: class-wc-moip-gateway.php:270
+#: class-wc-moip-gateway.php:257
+#: class-wc-moip-gateway.php:265
+#: class-wc-moip-gateway.php:279
 #@ wcmoip
 msgid "Not available for Transparent Checkout."
 msgstr "Não esta disponível para Checkout Transparente."
 
-#: class-wc-moip-gateway.php:785
+#: class-wc-moip-gateway.php:794
 #@ wcmoip
-msgid "This payment will be processed by Moip Payments."
-msgstr "Este pagamento será processado por Moip Pagamentos."
+msgid "This payment will be processed by Moip Payments S/A."
+msgstr "Este pagamento será processado por Moip Pagamentos S/A."
 
-#: class-wc-moip-gateway.php:803
+#: class-wc-moip-gateway.php:812
 #@ wcmoip
 msgid "Master Card"
 msgstr "Master Card"
 
-#: class-wc-moip-gateway.php:804
+#: class-wc-moip-gateway.php:813
 #@ wcmoip
 msgid "Visa"
 msgstr "Visa"
 
-#: class-wc-moip-gateway.php:805
+#: class-wc-moip-gateway.php:814
 #@ wcmoip
 msgid "American Express"
 msgstr "American Express"
 
-#: class-wc-moip-gateway.php:806
+#: class-wc-moip-gateway.php:815
 #@ wcmoip
 msgid "Diners"
 msgstr "Diners"
 
-#: class-wc-moip-gateway.php:807
+#: class-wc-moip-gateway.php:816
 #@ wcmoip
 msgid "Hipercard"
 msgstr "Hipercard"
 
-#: class-wc-moip-gateway.php:811
+#: class-wc-moip-gateway.php:820
 #@ wcmoip
 msgid "Credit card number"
 msgstr "Número do cartão"
 
-#: class-wc-moip-gateway.php:813
+#: class-wc-moip-gateway.php:822
 #@ wcmoip
 msgid "Only digits"
 msgstr "Apenas números"
 
-#: class-wc-moip-gateway.php:816
+#: class-wc-moip-gateway.php:825
 #@ wcmoip
 msgid "Expiration"
 msgstr "Validade do cartão"
 
-#: class-wc-moip-gateway.php:827
+#: class-wc-moip-gateway.php:836
 #@ wcmoip
 msgid "Security code"
 msgstr "Código de segurança (CVV)"
 
-#: class-wc-moip-gateway.php:833
+#: class-wc-moip-gateway.php:842
 #@ wcmoip
 msgid "Holder name"
 msgstr "Nome do titular"
 
-#: class-wc-moip-gateway.php:835
+#: class-wc-moip-gateway.php:844
 #@ wcmoip
 msgid "As recorded on this card"
 msgstr "Como impresso no cartão"
 
-#: class-wc-moip-gateway.php:838
+#: class-wc-moip-gateway.php:847
 #@ wcmoip
 msgid "Holder birth date"
 msgstr "Data de nascimento do titular"
 
-#: class-wc-moip-gateway.php:865
+#: class-wc-moip-gateway.php:874
 #@ wcmoip
 msgid "Installments in"
 msgstr "Parcelar em"
 
-#: class-wc-moip-gateway.php:855
+#: class-wc-moip-gateway.php:864
 #@ wcmoip
 msgid "Holder phone"
 msgstr "Telefone do titular"
 
-#: class-wc-moip-gateway.php:859
+#: class-wc-moip-gateway.php:868
 #@ wcmoip
 msgid "Holder CPF"
 msgstr "CPF do titular"
 
-#: class-wc-moip-gateway.php:878
+#: class-wc-moip-gateway.php:887
 #@ wcmoip
 msgid "Banco do Brasil"
 msgstr "Banco do Brasil"
 
-#: class-wc-moip-gateway.php:879
+#: class-wc-moip-gateway.php:888
 #@ wcmoip
 msgid "Bradesco"
 msgstr "Bradesco"
 
-#: class-wc-moip-gateway.php:880
+#: class-wc-moip-gateway.php:889
 #@ wcmoip
 msgid "Banrisul"
 msgstr "Banrisul"
 
-#: class-wc-moip-gateway.php:881
+#: class-wc-moip-gateway.php:890
 #@ wcmoip
 msgid "Itau"
 msgstr "Itaú"
 
-#: class-wc-moip-gateway.php:898
+#: class-wc-moip-gateway.php:908
 #@ wcmoip
 msgid "Pay order"
 msgstr "Pagar pedido"
 
-#: class-wc-moip-gateway.php:910
+#: class-wc-moip-gateway.php:920
 #@ wcmoip
 msgid "An error has occurred while processing your payment, please try again. Or contact us for assistance."
 msgstr "Um erro ocorreu ao processando o seu pagamento, por favor tente novamente. Ou entre em contato conosco para conseguir ajuda."
 
-#: class-wc-moip-gateway.php:912
+#: class-wc-moip-gateway.php:922
 #@ wcmoip
 msgid "Click to try again"
 msgstr "Clique para tentar novamente"
 
-#: class-wc-moip-gateway.php:136
+#: class-wc-moip-gateway.php:142
 #, php-format
 #@ wcmoip
 msgid "Thank you for your order, we are redirecting you to finish the order in %s seconds..."
 msgstr "Obrigado pela sua compra, iremos redirecionar você para concluir a compra em %s segundos..."
+
+#: class-wc-moip-gateway.php:145
+#@ wcmoip
+msgid "There was an error in the request, please cancel the order and contact us to place your order."
+msgstr "Aconteceu um erro na solicitação, por favor cancele o pedido e entre em contato para finalizar o pedido."
+
+#: wc-moip.php:107
+#@ wcmoip
+msgid "Authorized"
+msgstr "Autorizado"
+
+#: wc-moip.php:110
+#@ wcmoip
+msgid "Initiate"
+msgstr "Iniciado"
+
+#: wc-moip.php:113
+#@ wcmoip
+msgid "Billet Printed"
+msgstr "Boleto Impresso"
+
+#: wc-moip.php:116
+#@ wcmoip
+msgid "Concluded"
+msgstr "Concluído"
+
+#: wc-moip.php:119
+#@ wcmoip
+msgid "Canceled"
+msgstr "Cancelado"
+
+#: wc-moip.php:122
+#@ wcmoip
+msgid "In Review"
+msgstr "Em Analise"
+
+#: wc-moip.php:125
+#@ wcmoip
+msgid "Reversed"
+msgstr "Estornado"
+
+#: wc-moip.php:128
+#@ wcmoip
+msgid "Refunded"
+msgstr "Reembolsado"
+
+#: class-wc-moip-gateway.php:1109
+#: class-wc-moip-gateway.php:1115
+#: class-wc-moip-gateway.php:1121
+#@ wcmoip
+msgid "Your transaction has been processed by Moip Payments S/A."
+msgstr "Sua transação foi processada pelo Moip Pagamentos S/A."
+
+#: class-wc-moip-gateway.php:1110
+#, php-format
+#@ wcmoip
+msgid "The status of your transaction is %s and the MoIP code is"
+msgstr " A sua transação está %s e o código Moip é"
+
+#: class-wc-moip-gateway.php:1111
+#: class-wc-moip-gateway.php:1117
+#: class-wc-moip-gateway.php:1123
+#@ wcmoip
+msgid "If you have any questions regarding the transaction, please contact the Moip."
+msgstr " Caso tenha alguma dúvida referente a transação, entre em contato com o Moip."
+
+#: class-wc-moip-gateway.php:1114
+#@ wcmoip
+msgid "Pay the order &rarr;"
+msgstr "Pagar o pedido &rarr;"
+
+#: class-wc-moip-gateway.php:1120
+#@ wcmoip
+msgid "Print the billet &rarr;"
+msgstr "Pagar o boleto &rarr;"
+
+#: class-wc-moip-gateway.php:1122
+#@ wcmoip
+msgid "If you have not yet received the billet, please click the button to the left to print it."
+msgstr "Caso o você não recebeu ainda o boleto, por favor, clique no botão a sua esquerda para imprimi-lo."
+
+#: class-wc-moip-gateway.php:1116
+#@ wcmoip
+msgid "If you have not made ​​the payment, please click the button to your left to pay."
+msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua esquerda para pagar."
 

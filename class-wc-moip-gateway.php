@@ -79,7 +79,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
             add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
 
         // Valid for use.
-        if ( 'html' == $this->api ) {
+        if ( 'html' != $this->api ) {
             $this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->token ) && ! empty( $this->key ) && $this->is_valid_for_use();
 
             // Checks if token is not empty.
@@ -96,6 +96,12 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
             // Checks if login is not empty.
             if ( empty( $this->login ) )
                 add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
+        }
+
+        // Transparent checkout actions.
+        if ( 'tc' == $this->api ) {
+            // Custom Thank You message.
+            add_action( 'woocommerce_thankyou_moip', array( $this, 'transparent_checkout_thankyou_page' ) );
         }
 
         // Active logs.
@@ -133,7 +139,10 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 array(
                     'processing' => __( 'Processing the payment...', 'wcmoip' ),
                     'loader' => esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ),
-                    'redirecting' => sprintf( __( 'Thank you for your order, we are redirecting you to finish the order in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' )
+                    'redirecting' => sprintf( __( 'Thank you for your order, we are redirecting you to finish the order in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' ),
+                    'ajax_url' => admin_url( 'admin-ajax.php' ),
+                    'security' => wp_create_nonce( 'woocommerce_moip_transparent_checkout' ),
+                    'ajax_fail' => __( 'There was an error in the request, please cancel the order and contact us to place your order.', 'wcmoip' )
                 )
             );
         }
@@ -782,7 +791,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
         if ( $token ) {
 
             // Display the transparent checkout.
-            $html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by Moip Payments.', 'wcmoip' ) ) . '</p>';
+            $html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by Moip Payments S/A.', 'wcmoip' ) ) . '</p>';
 
             $html .= '<form action="" method="post" id="woocommerce-moip-payment-form">';
                 $html .= '<div class="product">';
@@ -894,6 +903,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                     $html .= '</div>';
                 $html .= '</div>';
                 $html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoipSuccess" callback-method-error="wcMoipFail"></div>';
+                $html .= '<input type="hidden" name="order_id" id="woocommerce-moip-order-id" value="' . $order->id . '" />';
                 $html .= '<input type="hidden" name="redirect" id="woocommerce-moip-redirect" value="' . $this->get_return_url( $order ) . '" />';
                 $html .= '<button type="submit" class="button alt" id="woocommerce-moip-submit">' . __( 'Pay order', 'wcmoip' ) . '</button> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'wcmoip' ) . '</a>';
             $html .= '</form>';
@@ -1082,6 +1092,41 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 }
             }
         }
+    }
+
+    /**
+     * Transparent checkout custom Thank You message.
+     *
+     * @return void
+     */
+    public function transparent_checkout_thankyou_page() {
+        $order_id = woocommerce_get_order_id_by_order_key( esc_attr( $_GET['key'] ) );
+        $method = get_post_meta( $order_id, 'woocommerce_moip_method', true );
+
+        $html = '<div class="woocommerce-message">';
+
+        if ( 'CartaoCredito' == $method ) {
+            $message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
+            $message .= sprintf( __( 'The status of your transaction is %s and the MoIP code is', 'wcmoip' ), '<strong>' . get_post_meta( $order_id, 'woocommerce_moip_status', true ) . '</strong>' ) . ' <strong>' . get_post_meta( $order_id, 'woocommerce_moip_status', true ) . '</strong>.<br />';
+            $message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' ) . '<br />';
+            $html .= apply_filters( 'woocommerce_moip_thankyou_creditcard_message', $message, $order_id );
+        } else if ( 'DebitoBancario' == $method ) {
+            $html .= sprintf( '<a class="button" href="%s" target="_blank">%s</a>', get_post_meta( $order_id, 'woocommerce_moip_url', true ), __( 'Pay the order &rarr;', 'wcmoip' ) );
+            $message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
+            $message .= __( 'If you have not made ​​the payment, please click the button to your left to pay.', 'wcmoip' ) . '<br />';
+            $message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+            $html .= apply_filters( 'woocommerce_moip_thankyou_debit_message', $message, $order_id );
+        } else {
+            $html .= sprintf( '<a class="button" href="%s" target="_blank">%s</a>', get_post_meta( $order_id, 'woocommerce_moip_url', true ), __( 'Print the billet &rarr;', 'wcmoip' ) );
+            $message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
+            $message .= __( 'If you have not yet received the billet, please click the button to the left to print it.', 'wcmoip' ) . '<br />';
+            $message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+            $html .= apply_filters( 'woocommerce_moip_thankyou_billet_message', $message, $order_id );
+        }
+
+        $html .= '</div>';
+
+        echo $html;
     }
 
     /**
