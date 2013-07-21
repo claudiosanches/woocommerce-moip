@@ -11,6 +11,9 @@
  * Domain Path: /languages/
  */
 
+define( 'WOO_MOIP_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WOO_MOIP_URL', plugin_dir_url( __FILE__ ) );
+
 /**
  * WooCommerce fallback notice.
  */
@@ -50,7 +53,7 @@ function wcmoip_gateway_load() {
     }
 
     // Include the WC_Moip_Gateway class.
-    require_once plugin_dir_path( __FILE__ ) . 'class-wc-moip-gateway.php';
+    require_once WOO_MOIP_PATH . 'includes/class-wc-moip-gateway.php';
 }
 
 add_action( 'plugins_loaded', 'wcmoip_gateway_load', 0 );
