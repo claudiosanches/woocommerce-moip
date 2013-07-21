@@ -58,7 +58,7 @@ var wcMoipSuccess = function(data) {
     // alert(JSON.stringify(data));
 
     if ("CartaoCredito" !== method) {
-        window.open(data.url);
+        window.open(data.url, 'Moip', 'width=750, height=550, scrollbars=1');
     }
 
     // Redirect.
