@@ -147,6 +147,43 @@ jQuery(document).ready(function($) {
     });
 
     /**
+     * Moip installments.
+     */
+    $("#woocommerce-moip-payment-form input[name='payment_institution']").on('click', function() {
+        var method = $("#woocommerce-moip-payment-form .panel:visible").data("payment-method"),
+            creditcard_wrap = $("#tab-credit-card .form-group-wrap"),
+            select = $("#credit-card-installments");
+
+        if ("CartaoCredito" === method) {
+            creditcard_wrap.fadeOut();
+            creditcard_wrap.fadeIn();
+
+            // Displays the installments.
+            installmentsDisplay = function(data) {
+                select.empty();
+                $.each(data.parcelas, function(key, value) {
+                    price = value.valor.replace(".", ",");
+                    total = value.valor_total.replace(".", ",");
+
+                    if ("1" === value.quantidade) {
+                        option = '<option value="' + value.quantidade + '">R$ ' + price + ' ' + woocommerce_moip_params.at_sight + '</option>';
+                    } else {
+                        option = '<option value="' + value.quantidade + '">' + value.quantidade + 'x ' + woocommerce_moip_params.of + ' R$ ' + price  + ' (R$ ' + total + ')</option>';
+                    }
+
+                    select.append(option);
+                });
+            };
+
+            // Calculates the installments.
+            MoipUtil.calcularParcela({
+                instituicao: $(this).val(),
+                callback: "installmentsDisplay"
+            });
+        }
+    });
+
+    /**
      * Moip Submit.
      */
     $("#woocommerce-moip-payment-form").on("submit", function(e) {

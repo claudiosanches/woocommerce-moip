@@ -141,7 +141,9 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                     'redirecting' => sprintf( __( 'Thank you for your order, we are redirecting you to finish the order in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' ),
                     'ajax_url' => admin_url( 'admin-ajax.php' ),
                     'security' => wp_create_nonce( 'woocommerce_moip_transparent_checkout' ),
-                    'ajax_fail' => __( 'There was an error in the request, please cancel the order and contact us to place your order.', 'wcmoip' )
+                    'ajax_fail' => __( 'There was an error in the request, please cancel the order and contact us to place your order.', 'wcmoip' ),
+                    'at_sight' => __( 'at sight', 'wcmoip' ),
+                    'of' => __( 'of', 'wcmoip' )
                 )
             );
         }
@@ -541,7 +543,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
         $values = $instruction->addChild( 'Valores' );
         $values->addChild( 'Valor', $order->order_total );
         $values->addAttribute( 'moeda', 'BRL' );
-        $instruction->addChild( 'IdProprio', $data['id_transacao'] );
+        $instruction->addChild( 'IdProprio', $data['id_transacao'] . time() );
 
         // Payer.
         $payer = $instruction->addChild( 'Pagador' );
@@ -595,7 +597,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 $installment = $installments->addChild( 'Parcelamento' );
                 $installment->addChild( 'MinimoParcelas', $this->installments_mininum );
                 $installment->addChild( 'MaximoParcelas', $this->installments_maxium );
-                $installment->addChild( 'Recebimento', $this->receipt );
+                $installment->addChild( 'Recebimento', $this->installments_receipt );
                 if ( ! empty( $this->installments_interest ) && $this->installments_interest > 0 )
                     $installment->addChild( 'Juros', str_replace( ',', '.', $this->installments_interest ) );
                 if ( 'AVista' == $this->installments_receipt ) {
@@ -885,8 +887,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 $html .= '<div class="form-group">';
                 $html .= '<label for="credit-card-installments">' . __( 'Installments in', 'wcmoip' ) . '</label>';
                 $html .= '<select name="credit_card_installments" id="credit-card-installments">';
-                for ( $installments = 1; $installments <= 12; $installments++ )
-                    $html .= sprintf( '<option value="%1$s">%1$sx</option>', $installments );
+                    $html .= '<option value="1">R$ ' . str_replace( '.', ',', $order->order_total ) . ' ' . __( 'at sight', 'wcmoip' ) . '</option>';
                 $html .= '</select>';
                 $html .= '</div>';
                 $html .= '</div>';
