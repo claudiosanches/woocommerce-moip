@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Moip v1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-20 23:29:52+0000\n"
+"PO-Revision-Date: 2013-07-20 23:46:41+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -618,7 +618,7 @@ msgstr "Hipercard"
 #: class-wc-moip-gateway.php:811
 #@ wcmoip
 msgid "Credit card number"
-msgstr "Número do cartão de crédito"
+msgstr "Número do cartão"
 
 #: class-wc-moip-gateway.php:813
 #@ wcmoip
@@ -628,12 +628,12 @@ msgstr "Apenas números"
 #: class-wc-moip-gateway.php:816
 #@ wcmoip
 msgid "Expiration"
-msgstr "Data de vencimento"
+msgstr "Validade do cartão"
 
 #: class-wc-moip-gateway.php:827
 #@ wcmoip
 msgid "Security code"
-msgstr "Código de segurança"
+msgstr "Código de segurança (CVV)"
 
 #: class-wc-moip-gateway.php:833
 #@ wcmoip
@@ -643,24 +643,24 @@ msgstr "Nome do titular"
 #: class-wc-moip-gateway.php:835
 #@ wcmoip
 msgid "As recorded on this card"
-msgstr "Como gravado no cartão"
+msgstr "Como impresso no cartão"
 
 #: class-wc-moip-gateway.php:838
 #@ wcmoip
 msgid "Holder birth date"
 msgstr "Data de nascimento do titular"
 
-#: class-wc-moip-gateway.php:855
+#: class-wc-moip-gateway.php:865
 #@ wcmoip
 msgid "Installments in"
 msgstr "Parcelar em"
 
-#: class-wc-moip-gateway.php:864
+#: class-wc-moip-gateway.php:855
 #@ wcmoip
 msgid "Holder phone"
 msgstr "Telefone do titular"
 
-#: class-wc-moip-gateway.php:868
+#: class-wc-moip-gateway.php:859
 #@ wcmoip
 msgid "Holder CPF"
 msgstr "CPF do titular"
