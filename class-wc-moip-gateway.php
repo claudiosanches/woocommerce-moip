@@ -852,21 +852,21 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                                 $html .= '</div>';
                                 $html .= '<div class="form-group-wrap">';
                                     $html .= '<div class="form-group">';
-                                        $html .= '<label for="credit-card-installments">' . __( 'Installments in', 'wcmoip' ) . '</label>';
-                                        $html .= '<select name="credit_card_installments" id="credit-card-installments">';
-                                        for ( $installments = 1; $installments <= 12; $installments++ )
-                                            $html .= sprintf( '<option value="%1$s">%1$sx</option>', $installments );
-                                        $html .= '</select>';
-                                    $html .= '</div>';
-                                $html .= '</div>';
-                                $html .= '<div class="form-group-wrap">';
-                                    $html .= '<div class="form-group">';
                                         $html .= '<label for="credit-card-phone">' . __( 'Holder phone', 'wcmoip' ) . '</label>';
                                         $html .= '<input type="text" name="credit_card_phone" id="credit-card-phone" value="' . $order->billing_phone . '" />';
                                     $html .= '</div>';
                                     $html .= '<div class="form-group">';
                                         $html .= '<label for="credit-card-cpf">' . __( 'Holder CPF', 'wcmoip' ) . '</label>';
                                         $html .= '<input type="text" name="credit_card_cpf" id="credit-card-cpf" value="' . apply_filters( 'woocommerce_moip_cpf', '' ) . '" />';
+                                    $html .= '</div>';
+                                $html .= '</div>';
+                                $html .= '<div class="form-group-wrap">';
+                                    $html .= '<div class="form-group">';
+                                        $html .= '<label for="credit-card-installments">' . __( 'Installments in', 'wcmoip' ) . '</label>';
+                                        $html .= '<select name="credit_card_installments" id="credit-card-installments">';
+                                        for ( $installments = 1; $installments <= 12; $installments++ )
+                                            $html .= sprintf( '<option value="%1$s">%1$sx</option>', $installments );
+                                        $html .= '</select>';
                                     $html .= '</div>';
                                 $html .= '</div>';
                             $html .= '</div>';
