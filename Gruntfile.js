@@ -17,6 +17,7 @@ module.exports = function(grunt) {
                 "assets/sass/",
                 "assets/js/admin.js",
                 "assets/js/checkout.js",
+                "PSDs",
                 "Gruntfile.js",
                 "README.md",
                 "package.json",
