@@ -1107,7 +1107,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
         if ( 'CartaoCredito' == $method ) {
             $message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-            $message .= sprintf( __( 'The status of your transaction is %s and the MoIP code is', 'wcmoip' ), '<strong>' . get_post_meta( $order_id, 'woocommerce_moip_status', true ) . '</strong>' ) . ' <strong>' . get_post_meta( $order_id, 'woocommerce_moip_status', true ) . '</strong>.<br />';
+            $message .= sprintf( __( 'The status of your transaction is %s and the MoIP code is', 'wcmoip' ), '<strong>' . get_post_meta( $order_id, 'woocommerce_moip_status', true ) . '</strong>' ) . ' <strong>' . get_post_meta( $order_id, 'woocommerce_moip_code', true ) . '</strong>.<br />';
             $message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' ) . '<br />';
             $html .= apply_filters( 'woocommerce_moip_thankyou_creditcard_message', $message, $order_id );
         } else if ( 'DebitoBancario' == $method ) {
