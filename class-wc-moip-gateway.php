@@ -638,7 +638,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
         $xml = $this->get_payment_xml( $order );
 
         if ( 'yes' == $this->debug )
-            $this->log->add( 'moip', 'Requesting token for order ' . $order->get_order_number() );
+            $this->log->add( 'moip', 'Requesting token for order ' . $order->get_order_number() . ' with the following data: ' . $xml );
 
         if ( 'yes' == $this->sandbox )
             $url = 'https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica';
