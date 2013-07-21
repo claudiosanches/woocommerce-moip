@@ -530,16 +530,19 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
      * @return string        Payment xml.
      */
     protected function get_payment_xml( $order ) {
+        // Include the WC_Moip_Gateway class.
+        require_once WOO_MOIP_PATH . 'includes/class-wc-moip-simplexml.php';
+
         $data = $this->get_form_args( $order );
 
         $number = isset( $data['pagador_numero'] ) ? $data['pagador_numero'] : 0;
         $neighborhood = isset( $data['pagador_bairro'] ) ? $data['pagador_bairro'] : __( 'Not contained', 'wcmoip' );
 
-        $xml = new SimpleXmlElement( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
+        $xml = new WC_Moip_SimpleXML( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
         $instruction = $xml->addChild( 'InstrucaoUnica' );
         if ( 'tc' == $this->api )
             $instruction->addAttribute( 'TipoValidacao', 'Transparente' );
-        $instruction->addChild( 'Razao', $data['descricao'] );
+        $instruction->addChild( 'Razao' )->addCData( $data['descricao'] );
         $values = $instruction->addChild( 'Valores' );
         $values->addChild( 'Valor', $order->order_total );
         $values->addAttribute( 'moeda', 'BRL' );
@@ -547,17 +550,17 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
         // Payer.
         $payer = $instruction->addChild( 'Pagador' );
-        $payer->addChild( 'Nome', $data['pagador_nome'] );
+        $payer->addChild( 'Nome' )->addCData( $data['pagador_nome'] );
         $payer->addChild( 'Email', $data['pagador_email'] );
         $payer->addChild( 'IdPagador', $data['pagador_email'] );
 
         // Address.
         $address = $payer->addChild( 'EnderecoCobranca' );
-        $address->addChild( 'Logradouro', $data['pagador_logradouro'] );
+        $address->addChild( 'Logradouro' )->addCData( $data['pagador_logradouro'] );
         $address->addChild( 'Numero', $number );
-        $address->addChild( 'Bairro', $neighborhood );
-        $address->addChild( 'Complemento', $data['pagador_complemento'] );
-        $address->addChild( 'Cidade', $data['pagador_cidade'] );
+        $address->addChild( 'Bairro' )->addCData( $neighborhood );
+        $address->addChild( 'Complemento' )->addCData( $data['pagador_complemento'] );
+        $address->addChild( 'Cidade' )->addCData( $data['pagador_cidade'] );
         $address->addChild( 'Estado', $data['pagador_estado'] );
         $address->addChild( 'Pais', 'BRA' );
         $address->addChild( 'CEP', $data['pagador_cep'] );
@@ -578,11 +581,11 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 }
 
                 if ( ! empty( $this->billet_instruction_line1 ) )
-                    $billet->addChild( 'Instrucao1', $this->billet_instruction_line1 );
+                    $billet->addChild( 'Instrucao1' )->addCData( $this->billet_instruction_line1 );
                 if ( ! empty( $this->billet_instruction_line2 ) )
-                    $billet->addChild( 'Instrucao2', $this->billet_instruction_line2 );
+                    $billet->addChild( 'Instrucao2' )->addCData( $this->billet_instruction_line2 );
                 if ( ! empty( $this->billet_instruction_line3 ) )
-                    $billet->addChild( 'Instrucao3', $this->billet_instruction_line3 );
+                    $billet->addChild( 'Instrucao3' )->addCData( $this->billet_instruction_line3 );
                 if ( ! empty( $this->billet_logo ) )
                     $billet->addChild( 'URLLogo', $this->billet_logo );
             }
@@ -620,7 +623,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
         $instruction->addChild( 'URLNotificacao', home_url( '/?wc-api=WC_Moip_Gateway' ) );
 
         // Return URL.
-        $instruction->addChild( 'URLRetorno', $this->get_return_url( $order ) );
+        $instruction->addChild( 'URLRetorno' )->addCData( $this->get_return_url( $order ) );
 
         $xml = apply_filters( 'woocommerce_moip_xml', $xml, $order );
 
