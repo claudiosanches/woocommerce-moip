@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Moip v1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-21 06:42:25+0000\n"
+"PO-Revision-Date: 2013-07-21 16:58:13+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -786,7 +786,7 @@ msgstr "Pagar o pedido &rarr;"
 #: class-wc-moip-gateway.php:1120
 #@ wcmoip
 msgid "Print the billet &rarr;"
-msgstr "Pagar o boleto &rarr;"
+msgstr "Imprimir o boleto &rarr;"
 
 #: class-wc-moip-gateway.php:1122
 #@ wcmoip
