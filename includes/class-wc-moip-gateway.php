@@ -136,9 +136,9 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 'woocommerce_moip_params',
                 array(
                     'method_empty' => __( 'Please select a payment method.', 'wcmoip' ),
-                    'processing' => __( 'Processing the payment...', 'wcmoip' ),
+                    'processing' => __( 'Wait a few moments, your transaction is being processed...', 'wcmoip' ),
                     'loader' => esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ),
-                    'redirecting' => sprintf( __( 'Thank you for your order, we are redirecting you to finish the order in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' ),
+                    'redirecting' => sprintf( __( 'Thank you for your order, we will complete your order in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' ),
                     'ajax_url' => admin_url( 'admin-ajax.php' ),
                     'security' => wp_create_nonce( 'woocommerce_moip_transparent_checkout' ),
                     'ajax_fail' => __( 'There was an error in the request, please cancel the order and contact us to place your order.', 'wcmoip' ),
