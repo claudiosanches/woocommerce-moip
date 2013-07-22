@@ -174,9 +174,6 @@ function wcmoip_transparent_checkout_ajax() {
         );
 
         $mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
-
-        // Update the order status.
-        $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made ​​by credit card.', 'wcmoip' ) );
     } else if ( 'DebitoBancario' == $method ) {
         // Add payment information.
         update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
@@ -196,9 +193,6 @@ function wcmoip_transparent_checkout_ajax() {
         );
 
         $mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
-
-        // Update the order status.
-        $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made by banking debit.', 'wcmoip' ) );
     } else {
         // Add payment information.
         update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
@@ -218,9 +212,6 @@ function wcmoip_transparent_checkout_ajax() {
         );
 
         $mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
-
-        // Update the order status.
-        $order->update_status( 'on-hold', __( 'Awaiting the confirmation of the payment made by billet.', 'wcmoip' ) );
     }
 
     die();

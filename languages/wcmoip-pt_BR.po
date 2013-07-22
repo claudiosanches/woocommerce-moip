@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Moip v1.5.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-22 00:07:44+0000\n"
+"PO-Revision-Date: 2013-07-22 00:53:17+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -744,8 +744,8 @@ msgstr "Reembolsado"
 #: includes/class-wc-moip-gateway.php:1142
 #: includes/class-wc-moip-gateway.php:1153
 #: wc-moip.php:166
-#: wc-moip.php:188
-#: wc-moip.php:210
+#: wc-moip.php:185
+#: wc-moip.php:204
 #@ wcmoip
 msgid "Your transaction has been processed by Moip Payments S/A."
 msgstr "Sua transação foi processada pelo Moip Pagamentos S/A."
@@ -761,8 +761,8 @@ msgstr " A sua transação está %s e o código Moip é"
 #: includes/class-wc-moip-gateway.php:1144
 #: includes/class-wc-moip-gateway.php:1155
 #: wc-moip.php:168
-#: wc-moip.php:190
-#: wc-moip.php:212
+#: wc-moip.php:187
+#: wc-moip.php:206
 #@ wcmoip
 msgid "If you have any questions regarding the transaction, please contact the Moip."
 msgstr " Caso tenha alguma dúvida referente a transação, entre em contato com o Moip."
@@ -789,39 +789,24 @@ msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botã
 
 #: wc-moip.php:172
 #: wc-moip.php:176
-#: wc-moip.php:194
-#: wc-moip.php:198
-#: wc-moip.php:216
-#: wc-moip.php:220
+#: wc-moip.php:191
+#: wc-moip.php:195
+#: wc-moip.php:210
+#: wc-moip.php:214
 #, php-format
 #@ wcmoip
 msgid "Order %s received"
 msgstr "Pedido %s recebido"
 
-#: wc-moip.php:189
+#: wc-moip.php:186
 #@ wcmoip
 msgid "If you have not made ​​the payment, please use the link below to pay."
 msgstr "Caso o você ainda não realizou o pagamento, por favor, utilize o link a baixo para pagar."
 
-#: wc-moip.php:211
+#: wc-moip.php:205
 #@ wcmoip
 msgid "If you have not yet received the billet, please use the link below to print it."
 msgstr "Caso você ainda não tenha recebido o boleto, por favor, utilize o link a baixo para imprimi-lo."
-
-#: wc-moip.php:179
-#@ wcmoip
-msgid "Awaiting the confirmation of the payment made ​​by credit card."
-msgstr "Aguardando a confirmação de pagamento feita por cartão de crédito."
-
-#: wc-moip.php:201
-#@ wcmoip
-msgid "Awaiting the confirmation of the payment made by banking debit."
-msgstr "Aguardando a confirmação de pagamento feita por debito bancário."
-
-#: wc-moip.php:223
-#@ wcmoip
-msgid "Awaiting the confirmation of the payment made by billet."
-msgstr "Aguardando a confirmação de pagamento feita por boleto bancário."
 
 #: includes/class-wc-moip-gateway.php:138
 #@ wcmoip
