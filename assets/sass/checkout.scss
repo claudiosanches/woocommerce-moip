@@ -1,0 +1,85 @@
+// Compass CSS3
+@import "compass/css3";
+
+// Compass clearfix.
+@import "compass/utilities/general/clearfix";
+
+#woocommerce-moip-payment-form {
+    .product {
+        display: none;
+    }
+
+    .panel {
+        display: none;
+
+        input[type="text"] {
+            width: 200px;
+        }
+
+        input, select {
+            margin: 0;
+        }
+
+        ul {
+            @include pie-clearfix;
+            list-style: none;
+            margin: 0 0 10px;
+            padding: 0;
+        }
+
+        li {
+            margin: 0 20px 0 0;
+            float: left;
+            text-align: center;
+        }
+
+        label img {
+            display: block;
+        }
+
+        .form-group-wrap {
+            @include pie-clearfix;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            float: left;
+            margin-right: 10px;
+
+            label {
+                display: block;
+            }
+
+            input, select {
+                @include pie-clearfix;
+                float: left;
+            }
+
+            .description {
+                color: #666;
+                display: block;
+                font-size: 80%;
+            }
+        }
+
+        #credit-card-name {
+            text-transform: uppercase;
+        }
+
+        #credit-card-expiration-month {
+            margin-right: 5px;
+        }
+
+        #credit-card-security-code {
+            width: 40px;
+        }
+
+        #credit-card-birthdate-month {
+            margin: 0 5px;
+        }
+    }
+
+    #tab-credit-card .form-group-wrap {
+        display: none;
+    }
+}

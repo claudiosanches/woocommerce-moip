@@ -1,4 +1,4 @@
-=== WooCommerce MoIP ===
+=== WooCommerce Moip ===
 Contributors: claudiosanches
 Donate link: http://claudiosmweb.com/doacoes/
 Tags: ecommerce, e-commerce, commerce, woocommerce, checkout, payment, moip
@@ -8,13 +8,13 @@ Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds MoIP gateway to the WooCommerce plugin
+Adds Moip gateway to the WooCommerce plugin
 
 == Description ==
 
-### Add MoIP gateway to WooCommerce ###
+### Add Moip gateway to WooCommerce ###
 
-This plugin adds MoIP gateway to WooCommerce.
+This plugin adds Moip gateway to WooCommerce.
 
 Please notice that WooCommerce must be installed and active.
 
@@ -24,17 +24,17 @@ You can contribute to the source code in our [GitHub](https://github.com/claudio
 
 ### Descrição em Português: ###
 
-Adicione o MoIP como método de pagamento em sua loja WooCommerce.
+Adicione o Moip como método de pagamento em sua loja WooCommerce.
 
-[MoIP](http://site.moip.com.br/) é um método de pagamento brasileiro desenvolvido pela IG.
+[Moip](http://site.moip.com.br/) é um método de pagamento brasileiro desenvolvido pela IG.
 
-O plugin WooCommerce MoIP foi desenvolvido sem nenhum incentivo do MoIP ou IG. Nenhum dos desenvolvedores deste plugin possuem vínculos com estas duas empresas.
+O plugin WooCommerce Moip foi desenvolvido sem nenhum incentivo do Moip ou IG. Nenhum dos desenvolvedores deste plugin possuem vínculos com estas duas empresas.
 
-Este plugin foi feito baseado na [documentação oficial do MoIP](http://labs.moip.com.br/).
+Este plugin foi feito baseado na [documentação oficial do Moip](http://labs.moip.com.br/).
 
 = Instalação: =
 
-Confira o nosso guia de instalação e configuração do WooCommerce MoIP na aba [Installation](http://wordpress.org/extend/plugins/woocommerce-moip/installation/).
+Confira o nosso guia de instalação e configuração do WooCommerce Moip na aba [Installation](http://wordpress.org/extend/plugins/woocommerce-moip/installation/).
 
 = Dúvidas? =
 
@@ -53,7 +53,7 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 * Upload plugin files to your plugins folder, or install using WordPress built-in Add New Plugin installer;
 * Activate the plugin;
-* Navigate to WooCommerce -> Settings -> Payment Gateways, choose MoIP and fill the options.
+* Navigate to WooCommerce -> Settings -> Payment Gateways, choose Moip and fill the options.
 
 ### Instalação e configuração em Português: ###
 
@@ -64,11 +64,11 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 = Requerimentos: =
 
-É necessário possuir uma conta no [MoIP](http://site.moip.com.br/) e instalar a última versão do [WooCommerce](http://wordpress.org/extend/plugins/woocommerce/).
+É necessário possuir uma conta no [Moip](http://site.moip.com.br/) e instalar a última versão do [WooCommerce](http://wordpress.org/extend/plugins/woocommerce/).
 
-= Configurações no MoIP: =
+= Configurações no Moip: =
 
-No MoIP você precisa validar sua conta e configurar ela para receber pagamentos.
+No Moip você precisa validar sua conta e configurar ela para receber pagamentos.
 
 Para que seja possível receber notificações sobre as transações direto no seu WooCommerce você deve ativar a opção "**Notificação de Alteração de Status de Pagamento**" em `Menus Dados > Preferências > Notificação das transações` e preencher a opção "**URL de notificação**" da seguinte forma:
 
@@ -76,19 +76,19 @@ Para que seja possível receber notificações sobre as transações direto no s
 
 = Configurações do Plugin: =
 
-Com o plugin instalado acesse o admin do WordPress e entre em `WooCommerce > Configurações > Portais de pagamento > MoIP`.
+Com o plugin instalado acesse o admin do WordPress e entre em `WooCommerce > Configurações > Portais de pagamento > Moip`.
 
 Você tem duas opções de API de pagamento, a versão em **HTML** que é a padrão e menos segura ou a versão em **XML** (recomendado) que é mais segura e flexível.
 
-Para a versão em **HTML** basta adicionar o seu nome de usuário ou e-mail em **MoIP Login** para habilitar.
+Para a versão em **HTML** basta adicionar o seu nome de usuário ou e-mail em **Moip Login** para habilitar.
 
-Já a versão em **XML** deve ser configurada com o **Token de Acesso** e a **Chave de Acesso**. Você pode obter estas informações utilizando o seguinte tutorial: [Pergunta do usuário: Como obter o token e a chave de acesso da API do MoIP?](https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/).
+Já a versão em **XML** deve ser configurada com o **Token de Acesso** e a **Chave de Acesso**. Você pode obter estas informações utilizando o seguinte tutorial: [Pergunta do usuário: Como obter o token e a chave de acesso da API do Moip?](https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/).
 
 = Configurações no WooCommerce =
 
 No WooCommerce 2.0 ou superior existe uma opção para cancelar a compra e liberar o estoque depois de alguns minutos.
 
-Esta opção não funciona muito bem com o MoIP, pois pagamentos por boleto bancário pode demorar até 48 horas para serem validados.
+Esta opção não funciona muito bem com o Moip, pois pagamentos por boleto bancário pode demorar até 48 horas para serem validados.
 
 Para corrigir isso é necessário ir em "WooCommerce" > "Configurações" > "Inventário" e limpar (deixe em branco) o valor da opção **Manter Estoque (minutos)**.
 
@@ -101,7 +101,7 @@ Para corrigir isso é necessário ir em "WooCommerce" > "Configurações" > "Inv
 = What is needed to use this plugin? =
 
 * WooCommerce installed and active
-* Only one account on [MoIP](http://site.moip.com.br/ "MoIP").
+* Only one account on [Moip](http://site.moip.com.br/ "Moip").
 
 ### FAQ em Português: ###
 
@@ -112,25 +112,25 @@ Este plugin esta licenciado como GPL.
 = O que eu preciso para utilizar este plugin? =
 
 * Ter instalado o plugin WooCommerce.
-* Possuir uma conta no MoIP.
-* Gerar um token de segurança no MoIP.
+* Possuir uma conta no Moip.
+* Gerar um token de segurança no Moip.
 
-= Como funciona o MoIP? =
+= Como funciona o Moip? =
 
-* Saiba mais em "[O que é - MoIP](http://site.moip.com.br/o-que-e/)".
+* Saiba mais em "[O que é - Moip](http://site.moip.com.br/o-que-e/)".
 
 = Quais são os meios de pagamento que o plugin aceita? =
 
-São aceitos todos os meios de pagamentos que o MoIP disponibiliza.
-Entretanto você precisa ativa-los na sua conta no MoIP.
+São aceitos todos os meios de pagamentos que o Moip disponibiliza.
+Entretanto você precisa ativa-los na sua conta no Moip.
 
-= Quais são as taxas de transações que o MoIP cobra? =
+= Quais são as taxas de transações que o Moip cobra? =
 
-Consulte a página "[Quanto custa - MoIP](http://site.moip.com.br/quanto-custa/)".
+Consulte a página "[Quanto custa - Moip](http://site.moip.com.br/quanto-custa/)".
 
-= Como que plugin faz integração com MoIP? =
+= Como que plugin faz integração com Moip? =
 
-Fazemos a integração baseada na documentação oficial do MoIP que pode ser encontrada em "[MoIP Labs](http://labs.moip.com.br/)"
+Fazemos a integração baseada na documentação oficial do Moip que pode ser encontrada em "[Moip Labs](http://labs.moip.com.br/)"
 
 = A compra é cancelada após alguns minutos, mesmo com o pedido sendo pago, como resolvo isso? =
 
@@ -149,7 +149,7 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 = 1.5.0 - 19/07/2013 =
 
-* Adicionada a API de pagamentos em XML do MoIP.
+* Adicionada a API de pagamentos em XML do Moip.
 * Adicionadas opções para controle dos métodos de pagamento (apenas para API em XML).
 * Adicionadas opções de parcelamento (apenas para API em XML).
 * Adicionadas opções para customização do boleto bancário (apenas para API em XML).
@@ -183,7 +183,7 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 = 1.1 - 30/11/2012 =
 
 * Adicionada opção para logs de erro.
-* Adicionada opção para utilizar o sandbox do MoIP Labs.
+* Adicionada opção para utilizar o sandbox do Moip Labs.
 
 = 1.0 =
 
@@ -193,15 +193,15 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 = 1.5.0 =
 
-* Adicionada a API de pagamentos em XML do MoIP.
+* Adicionada a API de pagamentos em XML do Moip.
 * Adicionadas opções para controle dos métodos de pagamento (apenas para API em XML).
 * Adicionadas opções de parcelamento (apenas para API em XML).
 * Adicionadas opções para customização do boleto bancário (apenas para API em XML).
 
 == License ==
 
-WooCommerce MoIP is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+WooCommerce Moip is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-WooCommerce MoIP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+WooCommerce Moip is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with WooCommerce MoIP. If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with WooCommerce Moip. If not, see <http://www.gnu.org/licenses/>.
