@@ -1,1 +1,4 @@
 node_modules/
+assets/css
+assets/.sass-cache/
+assets/js/*.min.js
