@@ -40,17 +40,17 @@ function wcmoip_gateway_load() {
     /**
      * Add the gateway to WooCommerce.
      *
-     * @param array $methods
+     * @param array $methods Default methods.
      *
-     * @return array
+     * @return array         Methods with Moip gateway.
      */
-    add_filter( 'woocommerce_payment_gateways', 'wcmoip_add_gateway' );
-
     function wcmoip_add_gateway( $methods ) {
         $methods[] = 'WC_Moip_Gateway';
 
         return $methods;
     }
+
+    add_filter( 'woocommerce_payment_gateways', 'wcmoip_add_gateway' );
 
     // Include the WC_Moip_Gateway class.
     require_once WOO_MOIP_PATH . 'includes/class-wc-moip-gateway.php';
