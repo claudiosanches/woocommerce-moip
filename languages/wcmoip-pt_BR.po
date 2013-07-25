@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moip v1.5.0\n"
+"Project-Id-Version: WooCommerce Moip v2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-07-22 00:53:17+0000\n"
+"PO-Revision-Date: 2013-07-25 01:11:28+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -414,12 +414,6 @@ msgstr "Define se a parcela será paga pelo cliente."
 msgid "Moip Payment API"
 msgstr "API de Pagamentos do Moip"
 
-#: includes/class-wc-moip-gateway.php:215
-#, php-format
-#@ wcmoip
-msgid "The XML API requires Access Token and Access Key. %sHere's how to get this information%s."
-msgstr "A API em XML exige Token de Acesso e Chave de Acesso. %sVeja aqui como obter estas informações%s."
-
 #: includes/class-wc-moip-gateway.php:219
 #@ wcmoip
 msgid "XML - Safe and with more options"
@@ -561,12 +555,6 @@ msgstr "URL da imagem do logo a ser mostrado no boleto."
 #@ wcmoip
 msgid "Type of Term"
 msgstr "Tipo de Prazo"
-
-#. translators: plugin header field 'Version'
-#: wc-moip.php:0
-#@ wcmoip
-msgid "1.5.0"
-msgstr "1.5.0"
 
 #: includes/class-wc-moip-gateway.php:220
 #@ wcmoip
@@ -834,4 +822,16 @@ msgstr "Aguarde alguns instantes, sua transação está sendo processada..."
 #@ wcmoip
 msgid "Thank you for your order, we will complete your order in %s seconds..."
 msgstr "Obrigado pelo seu pedido, iremos completá-lo em %s segundos..."
+
+#: includes/class-wc-moip-gateway.php:215
+#, php-format
+#@ wcmoip
+msgid "The XML and Checkout Transparent requires Access Token and Access Key. %sHere's how to get this information%s."
+msgstr "As APIs em XML e Checkout Transparente exigem Token de Acesso e Chave de Acesso. %sVeja aqui como obter estas informações%s."
+
+#. translators: plugin header field 'Version'
+#: wc-moip.php:0
+#@ wcmoip
+msgid "2.0.0"
+msgstr "2.0.0"
 

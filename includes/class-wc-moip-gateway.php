@@ -212,7 +212,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
             'api' => array(
                 'title' => __( 'Moip Payment API', 'wcmoip' ),
                 'type' => 'select',
-                'description' => sprintf( __( 'The XML API requires Access Token and Access Key. %sHere\'s how to get this information%s.', 'wcmoip' ), '<a href="https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/" target="_blank">', '</a>' ),
+                'description' => sprintf( __( 'The XML and Checkout Transparent requires Access Token and Access Key. %sHere\'s how to get this information%s.', 'wcmoip' ), '<a href="https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/" target="_blank">', '</a>' ),
                 'default' => 'form',
                 'options' => array(
                     'html' => __( 'HTML - Basic and less safe', 'wcmoip' ),
