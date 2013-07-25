@@ -1172,7 +1172,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function login_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your email address in Moip. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your email address in Moip. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url() . 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway">', '</a>' ) . '</p></div>';
     }
 
     /**
@@ -1181,7 +1181,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function token_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your Access Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your Access Token. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url() . 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway">', '</a>' ) . '</p></div>';
     }
 
     /**
@@ -1190,6 +1190,6 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
      * @return string Error Mensage.
      */
     public function key_missing_message() {
-        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your Access Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ) . '">', '</a>' ) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf( __( '<strong>Moip Disabled</strong> You should inform your Access Key. %sClick here to configure!%s', 'wcmoip' ), '<a href="' . get_admin_url() . 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway">', '</a>' ) . '</p></div>';
     }
 }
