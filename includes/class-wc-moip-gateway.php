@@ -1074,32 +1074,32 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                         }
 
                         // Payment completed.
-                        $order->add_order_note( __( 'Payment has already been made but not yet credited to Carteira Moip.', 'wcmoip' ) );
+                        $order->add_order_note( __( 'Moip: Payment has already been made but not yet credited to Carteira Moip.', 'wcmoip' ) );
                         $order->payment_complete();
 
                         break;
                     case '2':
-                        $order->update_status( 'on-hold', __( 'Payment under review by Moip.', 'wcmoip' ) );
+                        $order->update_status( 'on-hold', __( 'Moip: Payment under review.', 'wcmoip' ) );
 
                         break;
                     case '3':
-                        $order->update_status( 'on-hold', __( 'Billet was printed and has not been paid yet.', 'wcmoip' ) );
+                        $order->update_status( 'on-hold', __( 'Moip: Billet was printed and has not been paid yet.', 'wcmoip' ) );
 
                         break;
                     case '4':
-                        $order->add_order_note( __( 'Payment completed and credited in your Carteira Moip.', 'wcmoip' ) );
+                        $order->add_order_note( __( 'Moip: Payment completed and credited in your Carteira Moip.', 'wcmoip' ) );
 
                         break;
                     case '5':
-                        $order->update_status( 'cancelled', __( 'Payment canceled by Moip.', 'wcmoip' ) );
+                        $order->update_status( 'cancelled', __( 'Moip: Payment canceled.', 'wcmoip' ) );
 
                         break;
                     case '6':
-                        $order->update_status( 'on-hold', __( 'Payment under review by Moip.', 'wcmoip' ) );
+                        $order->update_status( 'on-hold', __( 'Moip: Payment under review.', 'wcmoip' ) );
 
                         break;
                     case '7':
-                        $order->update_status( 'refunded', __( 'Payment was reversed by the payer, payee, payment institution or Moip.', 'wcmoip' ) );
+                        $order->update_status( 'refunded', __( 'Moip: Payment was reversed by the payer, payee, payment institution or Moip.', 'wcmoip' ) );
 
                         break;
 
