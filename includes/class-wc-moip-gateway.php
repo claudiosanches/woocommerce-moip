@@ -17,7 +17,6 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
         $this->id             = 'moip';
         $this->icon           = apply_filters( 'woocommerce_moip_icon', WOO_MOIP_URL . 'assets/images/moip.png' );
         $this->has_fields     = false;
-
         $this->method_title   = __( 'Moip', 'wcmoip' );
 
         // Load the form fields.
@@ -433,7 +432,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 'type' => 'checkbox',
                 'label' => __( 'Enable logging', 'wcmoip' ),
                 'default' => 'no',
-                'description' => sprintf( __( 'Log Moip events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/moip' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
+                'description' => sprintf( __( 'Log Moip events, such as API requests, inside %s', 'wcmoip' ), '<code>woocommerce/logs/moip-' . sanitize_file_name( wp_hash( 'moip' ) ) . '.txt</code>' ),
             )
         );
     }
@@ -463,9 +462,6 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
      */
     public function get_form_args( $order ) {
 
-        // Fixed phone number.
-        $order->billing_phone = str_replace( array( '(', '-', ' ', ')' ), '', $order->billing_phone );
-
         $args = array(
             'id_carteira'         => $this->login,
             'valor'               => str_replace( array( ',', '.' ), '', $order->order_total ),
@@ -474,7 +470,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
             // Sender info.
             'pagador_nome'        => $order->billing_first_name . ' ' . $order->billing_last_name,
             'pagador_email'       => $order->billing_email,
-            'pagador_telefone'    => $order->billing_phone,
+            'pagador_telefone'    => str_replace( array( '(', '-', ' ', ')' ), '', $order->billing_phone ),
             //'pagador_cpf'
             //'pagador_celular'
             //'pagador_sexo'
