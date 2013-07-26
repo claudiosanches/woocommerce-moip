@@ -4,7 +4,7 @@ Donate link: http://claudiosmweb.com/doacoes/
 Tags: ecommerce, e-commerce, commerce, woocommerce, checkout, payment, moip
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.5.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Adds Moip gateway to the WooCommerce plugin
 
 ### Add Moip gateway to WooCommerce ###
 
-This plugin adds Moip gateway to WooCommerce.
+This plugin adds **Moip** (available **Transparent Checkout**) gateway to WooCommerce.
 
 Please notice that WooCommerce must be installed and active.
 
@@ -24,7 +24,7 @@ You can contribute to the source code in our [GitHub](https://github.com/claudio
 
 ### Descrição em Português: ###
 
-Adicione o Moip como método de pagamento em sua loja WooCommerce.
+Adicione o **Moip** (disponível **Checkout Transparente**) como método de pagamento em sua loja WooCommerce.
 
 [Moip](http://site.moip.com.br/) é um método de pagamento brasileiro desenvolvido pela IG.
 
@@ -78,11 +78,15 @@ Para que seja possível receber notificações sobre as transações direto no s
 
 Com o plugin instalado acesse o admin do WordPress e entre em `WooCommerce > Configurações > Portais de pagamento > Moip`.
 
-Você tem duas opções de API de pagamento, a versão em **HTML** que é a padrão e menos segura ou a versão em **XML** (recomendado) que é mais segura e flexível.
+Você tem três opções de API de pagamento:
+
+1. **HTML** - padrão e menos segura
+2. **XML** - segura e mais flexível
+3. **Checkout Transparente** - seguro, flexível e funciona sem precisar levar o cliente para o site do Moip.
 
 Para a versão em **HTML** basta adicionar o seu nome de usuário ou e-mail em **Moip Login** para habilitar.
 
-Já a versão em **XML** deve ser configurada com o **Token de Acesso** e a **Chave de Acesso**. Você pode obter estas informações utilizando o seguinte tutorial: [Pergunta do usuário: Como obter o token e a chave de acesso da API do Moip?](https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/).
+Já as versões em **XML** e **Checkout Transparente** é necessário configurar o **Token de Acesso** e a **Chave de Acesso**. Você pode obter estas informações utilizando o seguinte tutorial: [Pergunta do usuário: Como obter o token e a chave de acesso da API do Moip?](https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/).
 
 = Configurações no WooCommerce =
 
@@ -96,7 +100,7 @@ Para corrigir isso é necessário ir em "WooCommerce" > "Configurações" > "Inv
 
 = What is the plugin license? =
 
-* This plugin is released under a GPL license.
+This plugin is released under a GPL license.
 
 = What is needed to use this plugin? =
 
@@ -113,11 +117,20 @@ Este plugin esta licenciado como GPL.
 
 * Ter instalado o plugin WooCommerce.
 * Possuir uma conta no Moip.
-* Gerar um token de segurança no Moip.
+
+= O que eu preciso para utilizar o Checkout Transparente? =
+
+Você vai precisar do Token e Chave de acesso.
+
+Veja mais a baixo como conseguir estas informações.
+
+= Como consigo o Token e a Chave de acesso do Moip? =
+
+Tutorial de como conseguir o Token e a Chave de acesso: [Pergunta do usuário: Como obter o token e a chave de acesso da API do Moip?](https://labs.moip.com.br/blog/pergunta-do-usuario-como-obter-o-token-e-a-chave-de-acesso-da-api-do-moip/)
 
 = Como funciona o Moip? =
 
-* Saiba mais em "[O que é - Moip](http://site.moip.com.br/o-que-e/)".
+Saiba mais em: [O que é - Moip](http://site.moip.com.br/o-que-e/).
 
 = Quais são os meios de pagamento que o plugin aceita? =
 
@@ -126,11 +139,11 @@ Entretanto você precisa ativa-los na sua conta no Moip.
 
 = Quais são as taxas de transações que o Moip cobra? =
 
-Consulte a página "[Quanto custa - Moip](http://site.moip.com.br/quanto-custa/)".
+Consulte a página: [Quanto custa - Moip](http://site.moip.com.br/quanto-custa/).
 
 = Como que plugin faz integração com Moip? =
 
-Fazemos a integração baseada na documentação oficial do Moip que pode ser encontrada em "[Moip Labs](http://labs.moip.com.br/)"
+Fazemos a integração baseada na documentação oficial do Moip que pode ser encontrada no [Moip Labs](http://labs.moip.com.br/).
 
 = A compra é cancelada após alguns minutos, mesmo com o pedido sendo pago, como resolvo isso? =
 
@@ -144,8 +157,15 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 1. Settings page.
 2. Checkout page.
+3. Transparente Checkout Page.
 
 == Changelog ==
+
+= 2.0.0 - 24/07/2013 =
+
+* Adicionado Checkout Transparente.
+* Melhoria nas mensagens de status do pedido.
+* Melhorias no código.
 
 = 1.5.0 - 19/07/2013 =
 
@@ -191,12 +211,11 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 == Upgrade Notice ==
 
-= 1.5.0 =
+= 2.0.0 =
 
-* Adicionada a API de pagamentos em XML do Moip.
-* Adicionadas opções para controle dos métodos de pagamento (apenas para API em XML).
-* Adicionadas opções de parcelamento (apenas para API em XML).
-* Adicionadas opções para customização do boleto bancário (apenas para API em XML).
+* Adicionado Checkout Transparente.
+* Melhoria nas mensagens de status do pedido.
+* Melhorias no código.
 
 == License ==
 
