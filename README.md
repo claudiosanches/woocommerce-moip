@@ -1,10 +1,10 @@
 # WooCommerce Moip #
 **Contributors:** claudiosanches  
 **Donate link:** http://claudiosmweb.com/doacoes/  
-**Tags:** ecommerce, e-commerce, commerce, woocommerce, checkout, payment, moip  
+**Tags:** woocommerce, checkout, moip  
 **Requires at least:** 3.0  
 **Tested up to:** 3.6  
-**Stable tag:** 2.0.0  
+**Stable tag:** 2.1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -167,6 +167,11 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 ## Changelog ##
 
+### 2.1.0 - 26/07/2013 ###
+
+* Adicionado o filtro `woocommerce_moip_holder_data`.
+* Adicionada compatibilidade com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/)
+
 ### 2.0.0 - 24/07/2013 ###
 
 * Adicionado Checkout Transparente.
@@ -217,11 +222,13 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 ## Upgrade Notice ##
 
-### 2.0.0 ###
+### 2.1.0 ###
 
 * Adicionado Checkout Transparente.
 * Melhoria nas mensagens de status do pedido.
 * Melhorias no código.
+* Adicionado o filtro `woocommerce_moip_holder_data`.
+* Adicionada compatibilidade com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/)
 
 ## License ##
 
