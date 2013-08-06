@@ -15,6 +15,8 @@ jQuery(document).ready(function($) {
         if ('html' !== api) {
             api_fields.show();
             payment_fields.show();
+            installmentsSectionDisplay();
+            billetSectionDisplay();
         } else {
             api_fields.not("tr:eq(0)").hide();
             payment_fields.not("tr:eq(0)").hide();
@@ -63,7 +65,7 @@ jQuery(document).ready(function($) {
     function installmentsSectionDisplay() {
         var fields = $(".form-table:eq(3), #mainform h4:eq(2)");
 
-        if (creditcard.is(":checked")) {
+        if (creditcard.is(":checked") && 'html' !== api.val()) {
             fields.show();
 
             installmentsDisplay();
@@ -114,7 +116,7 @@ jQuery(document).ready(function($) {
     function billetSectionDisplay() {
         var fields = $(".form-table:eq(4) tr, #mainform h4:eq(3)");
 
-        if (billet.is(":checked")) {
+        if (billet.is(":checked") && 'html' !== api.val()) {
             fields.show();
 
             billetDisplay();
@@ -127,4 +129,5 @@ jQuery(document).ready(function($) {
     billet.on("click", function() {
         billetSectionDisplay();
     });
+
 });
