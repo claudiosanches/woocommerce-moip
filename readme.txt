@@ -161,7 +161,7 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 == Changelog ==
 
-= 2.1.1 - xx/xx/2013 =
+= 2.1.1 - 10/08/2013 =
 
 * Correção das URLs de pagamento do Moip.
 * Correção do JavaScript do admin do plugin.
