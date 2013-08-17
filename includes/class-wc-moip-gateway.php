@@ -721,8 +721,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 jQuery.blockUI({
                     message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
                     baseZ: 99999,
-                    overlayCSS:
-                    {
+                    overlayCSS: {
                         background: "#fff",
                         opacity: 0.6
                     },
@@ -743,8 +742,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
             $woocommerce->add_inline_js( '
                 jQuery("body").block({
                     message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
-                    overlayCSS:
-                    {
+                    overlayCSS: {
                         background: "#fff",
                         opacity: 0.6
                     },
