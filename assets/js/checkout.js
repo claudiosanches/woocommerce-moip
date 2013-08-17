@@ -1,38 +1,33 @@
 /* global woocommerce_moip_params */
 
 /**
- * Display a message.
+ * Modal.
  */
-function blockMessage(msg) {
+jQuery("body").append('<div id="woocommerce-moip-modal-wrap"><div id="woocommerce-moip-modal-bg"></div><div id="woocommerce-moip-modal"></div></div>');
+
+/**
+ * Show the modal.
+ */
+function wcMoipModalShow(msg) {
     if (!msg) {
         msg = woocommerce_moip_params.processing;
     }
 
-    jQuery("body").block({
-        message: '<img src="' + woocommerce_moip_params.loader + '" alt="' + woocommerce_moip_params.processing + '" style="float: left; margin: 5px 10px; 0 0; display: block;" />' + msg,
-        baseZ: 99999,
-        overlayCSS:
-        {
-            background: "#fff",
-            opacity: 0.6
-        },
-        css: {
-            padding:        "20px",
-            zIndex:         "9999999",
-            textAlign:      "center",
-            color:          "#555",
-            border:         "3px solid #aaa",
-            backgroundColor:"#fff",
-            cursor:         "wait",
-            lineHeight:     "24px"
-        }
-    });
+    jQuery("#woocommerce-moip-modal").empty().append(msg);
+    jQuery("#woocommerce-moip-modal-wrap").show();
+}
+
+/**
+ * HIde the modal.
+ */
+function wcMoipModalHide() {
+    jQuery("#woocommerce-moip-modal-wrap").hide();
 }
 
 /**
  * Countdown.
  */
-function redirectTimer(time) {
+function wcMoipRedirectTimer(time) {
     if (time > 0) {
         jQuery("#redirect-timer").html(time);
     }
@@ -66,17 +61,17 @@ var wcMoipSuccess = function(data) {
         data: ajax_data,
         success: function(result) {
             // Remove the blockUI.
-            jQuery.unblockUI();
+            wcMoipModalHide();
 
             // Open new window if is billet or banking debit.
             if ("CartaoCredito" !== method) {
                 window.open(data.url, 'Moip', 'width=750, height=550, scrollbars=1');
             }
 
-            // Add meu blockUI.
-            blockMessage(woocommerce_moip_params.redirecting);
+            // Create a modal message.
+            wcMoipModalShow(woocommerce_moip_params.redirecting);
             setInterval(function() {
-                redirectTimer(timer--);
+                wcMoipRedirectTimer(timer--);
             }, 1000);
 
             // Redirect.
@@ -91,7 +86,7 @@ var wcMoipSuccess = function(data) {
             message_wrap.show();
 
             // Remove the blockUI.
-            jQuery.unblockUI();
+            wcMoipModalHide();
         }
     });
 };
@@ -111,7 +106,7 @@ var wcMoipFail = function(data) {
     message_wrap.show();
 
     // Remove the blockUI.
-    jQuery.unblockUI();
+    wcMoipModalHide();
 };
 
 jQuery(document).ready(function($) {
@@ -194,6 +189,8 @@ jQuery(document).ready(function($) {
             message_wrap = jQuery("#woocommerce-moip-error"),
             settings = {};
 
+        message_wrap.hide();
+
         if (institution) {
             if ("CartaoCredito" === method) {
                 settings.Forma = "CartaoCredito";
@@ -217,8 +214,8 @@ jQuery(document).ready(function($) {
                 settings.Forma = "BoletoBancario";
             }
 
-            // Display a blockUI.
-            blockMessage();
+            // Create a modal message.
+            wcMoipModalShow();
 
             // Process the Moip transparent checkout.
             new MoipWidget(settings);

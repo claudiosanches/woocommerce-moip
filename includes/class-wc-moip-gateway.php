@@ -71,7 +71,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
         add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
         add_action( 'valid_moip_ipn_request', array( &$this, 'successful_request' ) );
         add_action( 'woocommerce_receipt_moip', array( &$this, 'receipt_page' ) );
-        add_action( 'wp_enqueue_scripts', array( &$this, 'scripts' ) );
+        add_action( 'wp_enqueue_scripts', array( &$this, 'scripts' ), 9999 );
         if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '>=' ) )
             add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( &$this, 'process_admin_options' ) );
         else
@@ -137,7 +137,6 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
                 array(
                     'method_empty' => __( 'Please select a payment method.', 'wcmoip' ),
                     'processing' => __( 'Wait a few moments, your transaction is being processed...', 'wcmoip' ),
-                    'loader' => esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ),
                     'redirecting' => sprintf( __( 'Thank you for your order, we will complete your order in %s seconds...', 'wcmoip' ), '<span id="redirect-timer">10</span>' ),
                     'ajax_url' => admin_url( 'admin-ajax.php' ),
                     'security' => wp_create_nonce( 'woocommerce_moip_transparent_checkout' ),

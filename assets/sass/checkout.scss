@@ -83,3 +83,35 @@
         display: none;
     }
 }
+
+#woocommerce-moip-modal-wrap {
+    display: none;
+}
+
+#woocommerce-moip-modal-bg {
+    background: #fff;
+    cursor: wait;
+    height: 100%;
+    left: 0px;
+    opacity: 0.6;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 99999;
+}
+
+#woocommerce-moip-modal {
+    background: #fff;
+    border: 3px solid #aaa;
+    color: #555;
+    cursor: wait;
+    left: 50%;
+    line-height: 24px;
+    margin: -30px 0 0 -250px;
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    width: 500px;
+    z-index: 9999999;
+}
