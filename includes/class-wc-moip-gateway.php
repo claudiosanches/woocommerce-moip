@@ -129,7 +129,8 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
             wp_enqueue_style( 'wc-moip-checkout', WOO_MOIP_URL . 'assets/css/checkout.css', array(), '', 'all' );
             wp_enqueue_script( 'jquery' );
-            wp_enqueue_script( 'wc-moip-checkout', WOO_MOIP_URL . 'assets/js/checkout.min.js', array( 'jquery' ), '', true );
+            wp_enqueue_script( 'jquery-blockui' );
+            wp_enqueue_script( 'wc-moip-checkout', WOO_MOIP_URL . 'assets/js/checkout.min.js', array( 'jquery', 'jquery-blockui' ), '', true );
             wp_localize_script(
                 'wc-moip-checkout',
                 'woocommerce_moip_params',
