@@ -1139,7 +1139,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
                 $html = '<div class="woocommerce-message">';
                 $html .= sprintf( '<a class="button" href="%s" target="_blank">%s</a>', get_post_meta( $order_id, 'woocommerce_moip_url', true ), __( 'Pay the order &rarr;', 'wcmoip' ) );
-                $message .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
+                $message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
                 $message .= __( 'If you have not made ​​the payment, please click the button to your left to pay.', 'wcmoip' ) . '<br />';
                 $message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
                 $html .= apply_filters( 'woocommerce_moip_thankyou_debit_message', $message, $order_id );
