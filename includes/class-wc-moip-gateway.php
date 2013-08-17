@@ -720,46 +720,46 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
         if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
             $woocommerce->get_helper( 'inline-javascript' )->add_inline_js( '
                 jQuery.blockUI({
-                        message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
-                        baseZ: 99999,
-                        overlayCSS:
-                        {
-                            background: "#fff",
-                            opacity: 0.6
-                        },
-                        css: {
-                            padding:        "20px",
-                            zIndex:         "9999999",
-                            textAlign:      "center",
-                            color:          "#555",
-                            border:         "3px solid #aaa",
-                            backgroundColor:"#fff",
-                            cursor:         "wait",
-                            lineHeight:     "24px",
-                        }
-                    });
+                    message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
+                    baseZ: 99999,
+                    overlayCSS:
+                    {
+                        background: "#fff",
+                        opacity: 0.6
+                    },
+                    css: {
+                        padding: "20px",
+                        zIndex: "9999999",
+                        textAlign: "center",
+                        color: "#555",
+                        border: "3px solid #aaa",
+                        backgroundColor: "#fff",
+                        cursor: "wait",
+                        lineHeight: "24px",
+                    }
+                });
                 jQuery("#submit-payment-form").click();
             ' );
         } else {
             $woocommerce->add_inline_js( '
                 jQuery("body").block({
-                        message: "<img src=\"' . esc_url( $woocommerce->plugin_url() . '/assets/images/ajax-loader.gif' ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) . '",
-                        overlayCSS:
-                        {
-                            background: "#fff",
-                            opacity:    0.6
-                        },
-                        css: {
-                            padding:         20,
-                            textAlign:       "center",
-                            color:           "#555",
-                            border:          "3px solid #aaa",
-                            backgroundColor: "#fff",
-                            cursor:          "wait",
-                            lineHeight:      "32px",
-                            zIndex:          "9999"
-                        }
-                    });
+                    message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
+                    overlayCSS:
+                    {
+                        background: "#fff",
+                        opacity: 0.6
+                    },
+                    css: {
+                        padding: "20px",
+                        zIndex: "9999999",
+                        textAlign: "center",
+                        color: "#555",
+                        border: "3px solid #aaa",
+                        backgroundColor: "#fff",
+                        cursor: "wait",
+                        lineHeight: "24px",
+                    }
+                });
                 jQuery("#submit-payment-form").click();
             ' );
         }
