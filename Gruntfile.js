@@ -89,7 +89,7 @@ module.exports = function( grunt ) {
 		watch: {
 			compass: {
 				files: [
-					'<%= compass.options.sassDir %>/**'
+					'<%= compass.dist.options.sassDir %>/**'
 				],
 				tasks: ['compass']
 			},
