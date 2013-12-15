@@ -14,28 +14,28 @@ class WC_Moip_Status {
 	public static function translate_status( $status ) {
 		switch ( $status ) {
 			case 'Autorizado':
-				return __( 'Authorized', 'wcmoip' );
+				return __( 'Authorized', 'woocommerce-moip' );
 				break;
 			case 'Iniciado':
-				return __( 'Initiate', 'wcmoip' );
+				return __( 'Initiate', 'woocommerce-moip' );
 				break;
 			case 'BoletoImpresso':
-				return __( 'Billet Printed', 'wcmoip' );
+				return __( 'Billet Printed', 'woocommerce-moip' );
 				break;
 			case 'Concluido':
-				return __( 'Concluded', 'wcmoip' );
+				return __( 'Concluded', 'woocommerce-moip' );
 				break;
 			case 'Cancelado':
-				return __( 'Canceled', 'wcmoip' );
+				return __( 'Canceled', 'woocommerce-moip' );
 				break;
 			case 'EmAnalise':
-				return __( 'In Review', 'wcmoip' );
+				return __( 'In Review', 'woocommerce-moip' );
 				break;
 			case 'Estornado':
-				return __( 'Reversed', 'wcmoip' );
+				return __( 'Reversed', 'woocommerce-moip' );
 				break;
 			case 'Reembolsado':
-				return __( 'Refunded', 'wcmoip' );
+				return __( 'Refunded', 'woocommerce-moip' );
 				break;
 			default:
 				break;
@@ -48,7 +48,7 @@ class WC_Moip_Status {
 	 * @return string
 	 */
 	protected static function message_before() {
-		return __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
+		return __( 'Your transaction has been processed by Moip Payments S/A.', 'woocommerce-moip' ) . '<br />';
 	}
 
 	/**
@@ -57,7 +57,7 @@ class WC_Moip_Status {
 	 * @return string
 	 */
 	protected static function message_after() {
-		return __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+		return __( 'If you have any questions regarding the transaction, please contact the Moip.', 'woocommerce-moip' );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class WC_Moip_Status {
 	 */
 	public static function credit_cart_message( $status, $code ) {
 		$message = self::message_before();
-		$message .= sprintf( __( 'The status of your transaction is %s and the MoIP code is %s.', 'wcmoip' ), '<strong>' . esc_attr( self::translate_status(  $status ) ) . '</strong>', '<strong>' . esc_attr( $code ) . '</strong>' ) . '<br />';
+		$message .= sprintf( __( 'The status of your transaction is %s and the MoIP code is %s.', 'woocommerce-moip' ), '<strong>' . esc_attr( self::translate_status(  $status ) ) . '</strong>', '<strong>' . esc_attr( $code ) . '</strong>' ) . '<br />';
 		$message .= self::message_after();
 
 		return $message;
@@ -83,7 +83,7 @@ class WC_Moip_Status {
 	 */
 	public static function debit_message() {
 		$message = self::message_before();
-		$message .= __( 'If you have not made ​​the payment, please click the button to your left to pay.', 'wcmoip' ) . '<br />';
+		$message .= __( 'If you have not made ​​the payment, please click the button to your left to pay.', 'woocommerce-moip' ) . '<br />';
 		$message .= self::message_after();
 
 		return $message;
@@ -96,7 +96,7 @@ class WC_Moip_Status {
 	 */
 	public static function debit_email_message() {
 		$message = self::message_before();
-		$message .= __( 'If you have not made ​​the payment, please use the link below to pay.', 'wcmoip' ) . '<br />';
+		$message .= __( 'If you have not made ​​the payment, please use the link below to pay.', 'woocommerce-moip' ) . '<br />';
 		$message .= self::message_after();
 
 		return $message;
@@ -109,7 +109,7 @@ class WC_Moip_Status {
 	 */
 	public static function billet_message() {
 		$message = self::message_before();
-		$message .= __( 'If you have not yet received the billet, please click the button to the left to print it.', 'wcmoip' ) . '<br />';
+		$message .= __( 'If you have not yet received the billet, please click the button to the left to print it.', 'woocommerce-moip' ) . '<br />';
 		$message .= self::message_after();
 
 		return $message;
@@ -122,7 +122,7 @@ class WC_Moip_Status {
 	 */
 	public static function billet_email_message() {
 		$message = self::message_before();
-		$message .= __( 'If you have not yet received the billet, please use the link below to print it.', 'wcmoip' ) . '<br />';
+		$message .= __( 'If you have not yet received the billet, please use the link below to print it.', 'woocommerce-moip' ) . '<br />';
 		$message .= self::message_after();
 
 		return $message;

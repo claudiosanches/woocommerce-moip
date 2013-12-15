@@ -7,7 +7,7 @@
  * Author URI: http://claudiosmweb.com/
  * Version: 2.1.2
  * License: GPLv2 or later
- * Text Domain: wcmoip
+ * Text Domain: woocommerce-moip
  * Domain Path: /languages/
  */
 
@@ -18,7 +18,7 @@ define( 'WOO_MOIP_URL', plugin_dir_url( __FILE__ ) );
  * WooCommerce fallback notice.
  */
 function wcmoip_woocommerce_fallback_notice() {
-	echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Moip Gateway depends on the last version of %s to work!', 'wcmoip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
+	echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Moip Gateway depends on the last version of %s to work!', 'woocommerce-moip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
 }
 
 /**
@@ -35,7 +35,7 @@ function wcmoip_gateway_load() {
 	/**
 	 * Load textdomain.
 	 */
-	load_plugin_textdomain( 'wcmoip', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'woocommerce-moip', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	/**
 	 * Add the gateway to WooCommerce.
@@ -112,11 +112,11 @@ function wcmoip_transparent_checkout_ajax() {
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(
-			sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ),
+			sprintf( __( 'Order %s received', 'woocommerce-moip' ), $order->get_order_number() ),
 			apply_filters( 'woocommerce_moip_thankyou_creditcard_email_message', $message_body, $order_id )
 		);
 
-		$mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
+		$mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'woocommerce-moip' ), $order->get_order_number() ), $message );
 	} else if ( 'DebitoBancario' == $method ) {
 		// Add payment information.
 		update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
@@ -129,11 +129,11 @@ function wcmoip_transparent_checkout_ajax() {
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(
-			sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ),
+			sprintf( __( 'Order %s received', 'woocommerce-moip' ), $order->get_order_number() ),
 			apply_filters( 'woocommerce_moip_thankyou_debit_email_message', $message_body, $order_id ) . $url
 		);
 
-		$mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
+		$mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'woocommerce-moip' ), $order->get_order_number() ), $message );
 	} else {
 		// Add payment information.
 		update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
@@ -146,11 +146,11 @@ function wcmoip_transparent_checkout_ajax() {
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(
-			sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ),
+			sprintf( __( 'Order %s received', 'woocommerce-moip' ), $order->get_order_number() ),
 			apply_filters( 'woocommerce_moip_thankyou_billet_email_message', $message_body, $order_id ) . $url
 		);
 
-		$mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'wcmoip' ), $order->get_order_number() ), $message );
+		$mailer->send( $order->billing_email, sprintf( __( 'Order %s received', 'woocommerce-moip' ), $order->get_order_number() ), $message );
 	}
 
 	die();
