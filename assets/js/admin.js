@@ -1,133 +1,137 @@
-jQuery(document).ready(function($) {
-	var api = $("#woocommerce_moip_api"),
-		creditcard = $("#woocommerce_moip_credit_card"),
-		installments = $("#woocommerce_moip_installments"),
-		receipt = $("#woocommerce_moip_installments_receipt"),
-		billet = $("#woocommerce_moip_billet_banking"),
-		billet_active = $("#woocommerce_moip_billet"),
-		billet_time = $("#woocommerce_moip_billet_type_term");
+(function ( $ ) {
+	'use strict';
 
-	// API Fields.
-	function apiFieldsDisplay(api) {
-		var api_fields = $(".form-table:eq(1) tr"),
-			payment_fields = $(".form-table:eq(2), #mainform h4:eq(1), #mainform h4:eq(1) + p, .form-table:eq(3), #mainform h4:eq(2), .form-table:eq(4), #mainform h4:eq(3)");
+	$(function () {
+		var api = $( '#woocommerce_moip_api' ),
+			creditcard = $( '#woocommerce_moip_credit_card' ),
+			installments = $( '#woocommerce_moip_installments' ),
+			receipt = $( '#woocommerce_moip_installments_receipt' ),
+			billet = $( '#woocommerce_moip_billet_banking' ),
+			billetActive = $( '#woocommerce_moip_billet' ),
+			billetTime = $( '#woocommerce_moip_billet_type_term' );
 
-		if ('html' !== api) {
-			api_fields.show();
-			payment_fields.show();
-			installmentsSectionDisplay();
-			billetSectionDisplay();
-		} else {
-			api_fields.not("tr:eq(0)").hide();
-			payment_fields.not("tr:eq(0)").hide();
+		// API Fields.
+		function apiFieldsDisplay( api ) {
+			var apiFields = $( '.form-table:eq(1) tr' ),
+				paymentFields = $( '.form-table:eq(2), #mainform h4:eq(1), #mainform h4:eq(1) + p, .form-table:eq(3), #mainform h4:eq(2), .form-table:eq(4), #mainform h4:eq(3)' );
+
+			if ( 'html' !== api ) {
+				apiFields.show();
+				paymentFields.show();
+				installmentsSectionDisplay();
+				billetSectionDisplay();
+			} else {
+				apiFields.not( 'tr:eq(0)' ).hide();
+				paymentFields.not( 'tr:eq(0)' ).hide();
+			}
 		}
-	}
-	apiFieldsDisplay(api.val());
+		apiFieldsDisplay( api.val() );
 
-	api.on("change", function() {
-		apiFieldsDisplay($(this).val());
-	});
+		api.on( 'change', function () {
+			apiFieldsDisplay( $( this ).val() );
+		});
 
-	// Installments Rehearse field.
-	function rehearseDisplay(receipt) {
-		var field = $(".form-table:eq(3) tr:eq(5)");
+		// Installments Rehearse field.
+		function rehearseDisplay( receipt ) {
+			var field = $( '.form-table:eq(3) tr:eq(5)' );
 
-		if ("AVista" === receipt) {
-			field.show();
-		} else {
-			field.hide();
+			if ( 'AVista' === receipt ) {
+				field.show();
+			} else {
+				field.hide();
+			}
 		}
-	}
 
-	receipt.on("change", function() {
-		rehearseDisplay($(this).val());
-	});
+		receipt.on( 'change', function () {
+			rehearseDisplay( $( this ).val() );
+		});
 
-	// Installments fields.
-	function installmentsDisplay() {
-		var fields = $(".form-table:eq(3) tr");
+		// Installments fields.
+		function installmentsDisplay() {
+			var fields = $( '.form-table:eq(3) tr' );
 
-		if (installments.is(":checked")) {
-			fields.show();
+			if ( installments.is( ':checked' ) ) {
+				fields.show();
 
-			rehearseDisplay(receipt.val());
-		} else {
-			fields.not("tr:eq(0)").hide();
+				rehearseDisplay( receipt.val() );
+			} else {
+				fields.not( 'tr:eq(0)' ).hide();
+			}
 		}
-	}
-	installmentsDisplay();
-
-	installments.on("click", function() {
 		installmentsDisplay();
-	});
 
-	// Installments section.
-	function installmentsSectionDisplay() {
-		var fields = $(".form-table:eq(3), #mainform h4:eq(2)");
-
-		if (creditcard.is(":checked") && 'html' !== api.val()) {
-			fields.show();
-
+		installments.on( 'click', function () {
 			installmentsDisplay();
-		} else {
-			fields.not("tr:eq(0)").hide();
-		}
-	}
-	installmentsSectionDisplay();
+		});
 
-	creditcard.on("click", function() {
+		// Installments section.
+		function installmentsSectionDisplay() {
+			var fields = $( '.form-table:eq(3), #mainform h4:eq(2)' );
+
+			if ( creditcard.is( ':checked' ) && 'html' !== api.val() ) {
+				fields.show();
+
+				installmentsDisplay();
+			} else {
+				fields.not( 'tr:eq(0)' ).hide();
+			}
+		}
 		installmentsSectionDisplay();
-	});
 
-	// Billet Time field.
-	function billetTimeDisplay(billet_time) {
-		var field = $(".form-table:eq(4) tr:eq(2)");
+		creditcard.on( 'click', function () {
+			installmentsSectionDisplay();
+		});
 
-		if ("no" !== billet_time) {
-			field.show();
-		} else {
-			field.hide();
+		// Billet Time field.
+		function billetTimeDisplay( billetTime ) {
+			var field = $( '.form-table:eq(4) tr:eq(2)' );
+
+			if ( 'no' !== billetTime ) {
+				field.show();
+			} else {
+				field.hide();
+			}
 		}
-	}
 
-	billet_time.on("change", function() {
-		billetTimeDisplay($(this).val());
-	});
+		billetTime.on( 'change', function () {
+			billetTimeDisplay( $( this ).val() );
+		});
 
-	// Billet fields.
-	function billetDisplay() {
-		var fields = $(".form-table:eq(4) tr");
+		// Billet fields.
+		function billetDisplay() {
+			var fields = $( '.form-table:eq(4) tr' );
 
-		if (billet_active.is(":checked")) {
-			fields.show();
+			if ( billetActive.is( ':checked' ) ) {
+				fields.show();
 
-			billetTimeDisplay(billet_time.val());
-		} else {
-			fields.not("tr:eq(0)").hide();
+				billetTimeDisplay( billetTime.val() );
+			} else {
+				fields.not( 'tr:eq(0)' ).hide();
+			}
 		}
-	}
-	billetDisplay();
-
-	billet_active.on("click", function() {
 		billetDisplay();
-	});
 
-	// Billet section.
-	function billetSectionDisplay() {
-		var fields = $(".form-table:eq(4) tr, #mainform h4:eq(3)");
-
-		if (billet.is(":checked") && 'html' !== api.val()) {
-			fields.show();
-
+		billetActive.on( 'click', function () {
 			billetDisplay();
-		} else {
-			fields.hide();
-		}
-	}
-	billetSectionDisplay();
+		});
 
-	billet.on("click", function() {
+		// Billet section.
+		function billetSectionDisplay() {
+			var fields = $( '.form-table:eq(4) tr, #mainform h4:eq(3)' );
+
+			if ( billet.is( ':checked' ) && 'html' !== api.val() ) {
+				fields.show();
+
+				billetDisplay();
+			} else {
+				fields.hide();
+			}
+		}
 		billetSectionDisplay();
+
+		billet.on( 'click', function () {
+			billetSectionDisplay();
+		});
 	});
 
-});
+}(jQuery));
