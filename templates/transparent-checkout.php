@@ -204,7 +204,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </form>
 
 <?php if ( 'yes' == $this->sandbox ) : ?>
-	<script type="text/javascript" src="https://desenvolvedor.moip.com.br/sandbox/transparente/MoipWidget-v2.js" charset="ISO-8859-1"></script>
+	<script type="text/javascript" src="https://desenvolvedor.moip.com.br/sandbox/transparente/MoipWidget-v2.js" charset="UFT-8"></script>
 <?php else : ?>
-	<script type="text/javascript" src="https://www.moip.com.br/transparente/MoipWidget-v2.js" charset="ISO-8859-1"></script>
+	<script type="text/javascript" src="https://www.moip.com.br/transparente/MoipWidget-v2.js" charset="UFT-8"></script>
 <?php endif; ?>

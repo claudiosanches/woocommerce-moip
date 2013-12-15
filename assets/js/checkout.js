@@ -3,11 +3,6 @@
 /* exported wcMoipSuccess, wcMoipFail, installmentsDisplay */
 
 /**
- * Modal.
- */
-jQuery( 'body' ).append( '<div id="woocommerce-moip-modal-wrap"><div id="woocommerce-moip-modal-bg"></div><div id="woocommerce-moip-modal"></div></div>' );
-
-/**
  * Show the modal.
  */
 function wcMoipModalShow( msg ) {
@@ -112,6 +107,11 @@ var wcMoipFail = function( data ) {
 };
 
 jQuery(document).ready(function($) {
+
+	/**
+	 * Modal.
+	 */
+	$( 'body' ).append( '<div id="woocommerce-moip-modal-wrap"><div id="woocommerce-moip-modal-bg"></div><div id="woocommerce-moip-modal"></div></div>' );
 
 	/**
 	 * Hijax.
