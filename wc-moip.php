@@ -52,7 +52,8 @@ function wcmoip_gateway_load() {
 
 	add_filter( 'woocommerce_payment_gateways', 'wcmoip_add_gateway' );
 
-	// Include the WC_Moip_Gateway class.
+	// Include the plugin classes.
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-moip-status.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-moip-gateway.php';
 }
 
@@ -76,51 +77,11 @@ function wcmoip_legacy_ipn() {
 add_action( 'init', 'wcmoip_legacy_ipn' );
 
 /**
- * Processes the Moip status message.
- *
- * @param  string $status Moip status message.
- *
- * @return string         Status message.
- */
-function wcmoip_status( $status ) {
-	switch ( $status ) {
-		case 'Autorizado':
-			return __( 'Authorized', 'wcmoip' );
-			break;
-		case 'Iniciado':
-			return __( 'Initiate', 'wcmoip' );
-			break;
-		case 'BoletoImpresso':
-			return __( 'Billet Printed', 'wcmoip' );
-			break;
-		case 'Concluido':
-			return __( 'Concluded', 'wcmoip' );
-			break;
-		case 'Cancelado':
-			return __( 'Canceled', 'wcmoip' );
-			break;
-		case 'EmAnalise':
-			return __( 'In Review', 'wcmoip' );
-			break;
-		case 'Estornado':
-			return __( 'Reversed', 'wcmoip' );
-			break;
-		case 'Reembolsado':
-			return __( 'Refunded', 'wcmoip' );
-			break;
-		default:
-			break;
-	}
-}
-
-/**
  * Saved by ajax the order information.
  *
  * @return void
  */
 function wcmoip_transparent_checkout_ajax() {
-	global $woocommerce;
-
 	$settings = get_option( 'woocommerce_moip_settings' );
 
 	if ( 'tc' != $settings['api'] ) {
@@ -132,19 +93,22 @@ function wcmoip_transparent_checkout_ajax() {
 	$method   = $_POST['method'];
 	$order_id = (int) $_POST['order_id'];
 	$order    = new WC_Order( $order_id );
-	$mailer   = $woocommerce->mailer();
+	if ( function_exists( 'WC' ) ) {
+		$mailer = WC()->mailer();
+	} else {
+		global $woocommerce;
+		$mailer = $woocommerce->mailer();
+	}
 
 	if ( 'CartaoCredito' == $method ) {
 		// Add payment information.
 		update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
 		update_post_meta( $order_id, 'woocommerce_moip_code', esc_attr( $_POST['code'] ) );
-		update_post_meta( $order_id, 'woocommerce_moip_status', wcmoip_status( esc_attr( $_POST['status'] ) ) );
+		update_post_meta( $order_id, 'woocommerce_moip_status', esc_attr( WC_Moip_Status::translate_status( $_POST['status'] ) ) );
 
 		// Send email with payment information.
 		$message_body = '<p>';
-		$message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-		$message_body .= sprintf( __( 'The status of your transaction is %s and the MoIP code is %s', 'wcmoip' ), '<strong>' . wcmoip_status( esc_attr( $_POST['status'] ) ) . '</strong>', '<strong>' . esc_attr( $_POST['code'] ) . '</strong>' ) . '.<br />';
-		$message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' ) . '<br />';
+		$message_body .= WC_Moip_Status::credit_cart_message( $_POST['status'], $_POST['code'] );
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(
@@ -161,9 +125,7 @@ function wcmoip_transparent_checkout_ajax() {
 		// Send email with payment information.
 		$url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
 		$message_body = '<p>';
-		$message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-		$message_body .= __( 'If you have not made ​​the payment, please use the link below to pay.', 'wcmoip' ) . '<br />';
-		$message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+		$message_body .= WC_Moip_Status::debit_email_message();
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(
@@ -180,9 +142,7 @@ function wcmoip_transparent_checkout_ajax() {
 		// Send email with payment information.
 		$url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
 		$message_body = '<p>';
-		$message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-		$message_body .= __( 'If you have not yet received the billet, please use the link below to print it.', 'wcmoip' ) . '<br />';
-		$message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+		$message_body .= WC_Moip_Status::billet_email_message();
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(

@@ -1212,9 +1212,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 			case 'CartaoCredito':
 
 				$html = '<div class="woocommerce-message">';
-				$message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-				$message .= sprintf( __( 'The status of your transaction is %s and the Moip code is', 'wcmoip' ), '<strong>' . get_post_meta( $order_id, 'woocommerce_moip_status', true ) . '</strong>' ) . ' <strong>' . get_post_meta( $order_id, 'woocommerce_moip_code', true ) . '</strong>.<br />';
-				$message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' ) . '<br />';
+				$message = WC_Moip_Status::credit_cart_message( get_post_meta( $order_id, 'woocommerce_moip_status', true ), get_post_meta( $order_id, 'woocommerce_moip_code', true ) );
 				$html .= apply_filters( 'woocommerce_moip_thankyou_creditcard_message', $message, $order_id );
 				$html .= '</div>';
 
@@ -1223,9 +1221,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 				$html = '<div class="woocommerce-message">';
 				$html .= sprintf( '<a class="button" href="%s" target="_blank">%s</a>', get_post_meta( $order_id, 'woocommerce_moip_url', true ), __( 'Pay the order &rarr;', 'wcmoip' ) );
-				$message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-				$message .= __( 'If you have not made ​​the payment, please click the button to your left to pay.', 'wcmoip' ) . '<br />';
-				$message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+				$message = WC_Moip_Status::debit_message();
 				$html .= apply_filters( 'woocommerce_moip_thankyou_debit_message', $message, $order_id );
 				$html .= '</div>';
 
@@ -1234,9 +1230,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 				$html = '<div class="woocommerce-message">';
 				$html .= sprintf( '<a class="button" href="%s" target="_blank">%s</a>', get_post_meta( $order_id, 'woocommerce_moip_url', true ), __( 'Print the billet &rarr;', 'wcmoip' ) );
-				$message = __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-				$message .= __( 'If you have not yet received the billet, please click the button to the left to print it.', 'wcmoip' ) . '<br />';
-				$message .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' );
+				$message = WC_Moip_Status::billet_message();
 				$html .= apply_filters( 'woocommerce_moip_thankyou_billet_message', $message, $order_id );
 				$html .= '</div>';
 
