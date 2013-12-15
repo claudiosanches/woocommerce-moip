@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moip v2.1.2\n"
+"Project-Id-Version: WooCommerce Moip v2.2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-12-15 06:43:42+0000\n"
+"PO-Revision-Date: 2013-12-15 22:04:31+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -634,47 +634,47 @@ msgstr "Clique para tentar novamente"
 msgid "There was an error in the request, please cancel the order and contact us to place your order."
 msgstr "Aconteceu um erro na solicitação, por favor cancele o pedido e entre em contato para finalizar o pedido."
 
-#: includes/class-wc-moip-status.php:17
+#: includes/class-wc-moip-messages.php:17
 #@ woocommerce-moip
 msgid "Authorized"
 msgstr "Autorizado"
 
-#: includes/class-wc-moip-status.php:20
+#: includes/class-wc-moip-messages.php:20
 #@ woocommerce-moip
 msgid "Initiate"
 msgstr "Iniciado"
 
-#: includes/class-wc-moip-status.php:23
+#: includes/class-wc-moip-messages.php:23
 #@ woocommerce-moip
 msgid "Billet Printed"
 msgstr "Boleto Impresso"
 
-#: includes/class-wc-moip-status.php:26
+#: includes/class-wc-moip-messages.php:26
 #@ woocommerce-moip
 msgid "Concluded"
 msgstr "Concluído"
 
-#: includes/class-wc-moip-status.php:29
+#: includes/class-wc-moip-messages.php:29
 #@ woocommerce-moip
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: includes/class-wc-moip-status.php:32
+#: includes/class-wc-moip-messages.php:32
 #@ woocommerce-moip
 msgid "In Review"
 msgstr "Em Analise"
 
-#: includes/class-wc-moip-status.php:35
+#: includes/class-wc-moip-messages.php:35
 #@ woocommerce-moip
 msgid "Reversed"
 msgstr "Estornado"
 
-#: includes/class-wc-moip-status.php:38
+#: includes/class-wc-moip-messages.php:38
 #@ woocommerce-moip
 msgid "Refunded"
 msgstr "Reembolsado"
 
-#: includes/class-wc-moip-status.php:51
+#: includes/class-wc-moip-messages.php:51
 #@ woocommerce-moip
 msgid "Your transaction has been processed by Moip Payments S/A."
 msgstr "Sua transação foi processada pelo Moip Pagamentos S/A."
@@ -689,12 +689,12 @@ msgstr "Pagar o pedido &rarr;"
 msgid "Print the billet &rarr;"
 msgstr "Imprimir o boleto &rarr;"
 
-#: includes/class-wc-moip-status.php:112
+#: includes/class-wc-moip-messages.php:112
 #@ woocommerce-moip
 msgid "If you have not yet received the billet, please click the button to the left to print it."
 msgstr "Caso você ainda não tenha recebido o boleto, por favor, clique no botão a sua esquerda para imprimi-lo."
 
-#: includes/class-wc-moip-status.php:86
+#: includes/class-wc-moip-messages.php:86
 #@ woocommerce-moip
 msgid "If you have not made ​​the payment, please click the button to your left to pay."
 msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua esquerda para pagar."
@@ -710,12 +710,12 @@ msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botã
 msgid "Order %s received"
 msgstr "Pedido %s recebido"
 
-#: includes/class-wc-moip-status.php:99
+#: includes/class-wc-moip-messages.php:99
 #@ woocommerce-moip
 msgid "If you have not made ​​the payment, please use the link below to pay."
 msgstr "Caso o você ainda não realizou o pagamento, por favor, utilize o link a baixo para pagar."
 
-#: includes/class-wc-moip-status.php:125
+#: includes/class-wc-moip-messages.php:125
 #@ woocommerce-moip
 msgid "If you have not yet received the billet, please use the link below to print it."
 msgstr "Caso você ainda não tenha recebido o boleto, por favor, utilize o link a baixo para imprimi-lo."
@@ -822,13 +822,13 @@ msgstr "Você deve informar a sua Chave de Acesso. %s"
 msgid "Currency <code>%s</code> is not supported. Works only with <code>BRL</code> (Brazilian Real)."
 msgstr "A moeda <code>%s</code> não é suportada. Funciona apenas com <code>BRL</code> (Real)."
 
-#: includes/class-wc-moip-status.php:73
+#: includes/class-wc-moip-messages.php:73
 #, php-format
 #@ woocommerce-moip
 msgid "The status of your transaction is %s and the MoIP code is %s."
 msgstr "A sua transação está %s e o código Moip é %s."
 
-#: includes/class-wc-moip-status.php:60
+#: includes/class-wc-moip-messages.php:60
 #@ woocommerce-moip
 msgid "If you have any questions regarding the transaction, please contact us or the Moip."
 msgstr " Caso tenha alguma dúvida referente a transação, entre em contato conosco ou com o Moip."
