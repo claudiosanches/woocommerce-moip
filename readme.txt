@@ -2,8 +2,8 @@
 Contributors: claudiosanches
 Donate link: http://claudiosmweb.com/doacoes/
 Tags: woocommerce, checkout, moip
-Requires at least: 3.0
-Tested up to: 3.6
+Requires at least: 3.8
+Tested up to: 3.8
 Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,6 +31,10 @@ Adicione o **Moip** (disponível **Checkout Transparente**) como método de paga
 O plugin WooCommerce Moip foi desenvolvido sem nenhum incentivo do Moip ou IG. Nenhum dos desenvolvedores deste plugin possuem vínculos com estas duas empresas.
 
 Este plugin foi feito baseado na [documentação oficial do Moip](http://labs.moip.com.br/).
+
+= Compatibilidade =
+
+Compatível com as versões 2.0.x e 2.1.x do WooCommerce.
 
 = Instalação: =
 
@@ -104,8 +108,8 @@ This plugin is released under a GPL license.
 
 = What is needed to use this plugin? =
 
-* WooCommerce installed and active
-* Only one account on [Moip](http://site.moip.com.br/ "Moip").
+* WooCommerce version 2.0 or latter installed and active.
+* Only one account on [Moip](http://site.moip.com.br/).
 
 ### FAQ em Português: ###
 
@@ -115,8 +119,8 @@ Este plugin esta licenciado como GPL.
 
 = O que eu preciso para utilizar este plugin? =
 
-* Ter instalado o plugin WooCommerce.
-* Possuir uma conta no Moip.
+* Ter instalado o plugin WooCommerce 2.0 ou superior.
+* Possuir uma conta no [Moip](http://site.moip.com.br/).
 
 = O que eu preciso para utilizar o Checkout Transparente? =
 
@@ -161,10 +165,16 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 == Changelog ==
 
+= 2.2.0 - 15/13/2013 =
+
+* Corrigido padrões de código.
+* Removida compatibilidade com versões 1.6.x ou inferiores do WooCommerce.
+* Adicionada compatibilidade com WooCommerce 2.1 ou superior.
+* Melhorado o checkout transparente.
+
 = 2.1.2 - 16/08/2013 =
 
 * Correção nos scripts de checkout comum e transparente.
-*
 
 = 2.1.1 - 10/08/2013 =
 

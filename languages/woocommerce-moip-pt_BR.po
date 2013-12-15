@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Moip v2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-12-15 05:41:09+0000\n"
+"PO-Revision-Date: 2013-12-15 06:43:42+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -699,12 +699,12 @@ msgstr "Caso você ainda não tenha recebido o boleto, por favor, clique no bot�
 msgid "If you have not made ​​the payment, please click the button to your left to pay."
 msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua esquerda para pagar."
 
-#: wc-moip.php:115
-#: wc-moip.php:119
-#: wc-moip.php:132
-#: wc-moip.php:136
-#: wc-moip.php:149
-#: wc-moip.php:153
+#: wc-moip.php:116
+#: wc-moip.php:120
+#: wc-moip.php:133
+#: wc-moip.php:137
+#: wc-moip.php:150
+#: wc-moip.php:154
 #, php-format
 #@ woocommerce-moip
 msgid "Order %s received"
@@ -822,12 +822,6 @@ msgstr "Você deve informar a sua Chave de Acesso. %s"
 msgid "Currency <code>%s</code> is not supported. Works only with <code>BRL</code> (Brazilian Real)."
 msgstr "A moeda <code>%s</code> não é suportada. Funciona apenas com <code>BRL</code> (Real)."
 
-#. translators: plugin header field 'Version'
-#: wc-moip.php:0
-#@ woocommerce-moip
-msgid "2.1.2"
-msgstr ""
-
 #: includes/class-wc-moip-status.php:73
 #, php-format
 #@ woocommerce-moip
@@ -844,4 +838,10 @@ msgstr " Caso tenha alguma dúvida referente a transação, entre em contato con
 #@ woocommerce-moip
 msgid "$ %s at sight"
 msgstr "R$ %s á vista"
+
+#. translators: plugin header field 'Version'
+#: wc-moip.php:0
+#@ woocommerce-moip
+msgid "2.2.0"
+msgstr "2.2.0"
 
