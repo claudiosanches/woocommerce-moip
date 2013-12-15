@@ -113,7 +113,7 @@ module.exports = function( grunt ) {
 						expand: true,
 						cwd: '<%= dirs.images %>/',
 						src: '**/*.{png,jpg,gif}',
-						dest: '<%= dirs.js %>/'
+						dest: '<%= dirs.images %>/'
 					},
 					{
 						expand: true,
