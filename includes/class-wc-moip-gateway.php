@@ -595,7 +595,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		$values = $instruction->addChild( 'Valores' );
 		$values->addChild( 'Valor', $order->order_total );
 		$values->addAttribute( 'moeda', 'BRL' );
-		$instruction->addChild( 'IdProprio', $data['id_transacao'] . time() );
+		$instruction->addChild( 'IdProprio', $data['id_transacao'] );
 
 		// Payer.
 		$payer = $instruction->addChild( 'Pagador' );

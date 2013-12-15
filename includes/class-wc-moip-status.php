@@ -70,7 +70,7 @@ class WC_Moip_Status {
 	 */
 	public static function credit_cart_message( $status, $code ) {
 		$message = self::message_before();
-		$message .= sprintf( __( 'The status of your transaction is %s and the MoIP code is %s.', 'woocommerce-moip' ), '<strong>' . esc_attr( self::translate_status(  $status ) ) . '</strong>', '<strong>' . esc_attr( $code ) . '</strong>' ) . '<br />';
+		$message .= sprintf( __( 'The status of your transaction is %s and the MoIP code is %s.', 'woocommerce-moip' ), '<strong>' . esc_attr( $status ) . '</strong>', '<strong>' . esc_attr( $code ) . '</strong>' ) . '<br />';
 		$message .= self::message_after();
 
 		return $message;
