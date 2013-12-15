@@ -53,7 +53,7 @@ function wcmoip_gateway_load() {
 	add_filter( 'woocommerce_payment_gateways', 'wcmoip_add_gateway' );
 
 	// Include the plugin classes.
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-moip-status.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-moip-messages.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-moip-gateway.php';
 }
 
@@ -102,14 +102,14 @@ function wcmoip_transparent_checkout_ajax() {
 
 	if ( 'CartaoCredito' == $method ) {
 		// Add payment information.
-		$status = esc_attr( WC_Moip_Status::translate_status( $_POST['status'] ) );
+		$status = esc_attr( WC_Moip_Messages::translate_status( $_POST['status'] ) );
 		update_post_meta( $order_id, 'woocommerce_moip_method', esc_attr( $_POST['method'] ) );
 		update_post_meta( $order_id, 'woocommerce_moip_code', esc_attr( $_POST['code'] ) );
 		update_post_meta( $order_id, 'woocommerce_moip_status', $status );
 
 		// Send email with payment information.
 		$message_body = '<p>';
-		$message_body .= WC_Moip_Status::credit_cart_message( $status, $_POST['code'] );
+		$message_body .= WC_Moip_Messages::credit_cart_message( $status, $_POST['code'] );
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(
@@ -126,7 +126,7 @@ function wcmoip_transparent_checkout_ajax() {
 		// Send email with payment information.
 		$url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
 		$message_body = '<p>';
-		$message_body .= WC_Moip_Status::debit_email_message();
+		$message_body .= WC_Moip_Messages::debit_email_message();
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(
@@ -143,7 +143,7 @@ function wcmoip_transparent_checkout_ajax() {
 		// Send email with payment information.
 		$url = sprintf( '<p><a class="button" href="%1$s" target="_blank">%1$s</a></p>', esc_url( $_POST['url'] ) );
 		$message_body = '<p>';
-		$message_body .= WC_Moip_Status::billet_email_message();
+		$message_body .= WC_Moip_Messages::billet_email_message();
 		$message_body .= '</p>';
 
 		$message = $mailer->wrap_message(

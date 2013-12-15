@@ -1,8 +1,8 @@
 <?php
 /**
- * WC Moip Status Class.
+ * WC Moip Messages Class.
  */
-class WC_Moip_Status {
+class WC_Moip_Messages {
 
 	/**
 	 * Processes the Moip status message to translate.

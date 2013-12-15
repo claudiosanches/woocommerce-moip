@@ -1073,7 +1073,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 			case 'CartaoCredito':
 
 				$html = '<div class="woocommerce-message">';
-				$message = WC_Moip_Status::credit_cart_message( get_post_meta( $order_id, 'woocommerce_moip_status', true ), get_post_meta( $order_id, 'woocommerce_moip_code', true ) );
+				$message = WC_Moip_Messages::credit_cart_message( get_post_meta( $order_id, 'woocommerce_moip_status', true ), get_post_meta( $order_id, 'woocommerce_moip_code', true ) );
 				$html .= apply_filters( 'woocommerce_moip_thankyou_creditcard_message', $message, $order_id );
 				$html .= '</div>';
 
@@ -1082,7 +1082,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 				$html = '<div class="woocommerce-message">';
 				$html .= sprintf( '<a class="button" href="%s" target="_blank">%s</a>', get_post_meta( $order_id, 'woocommerce_moip_url', true ), __( 'Pay the order &rarr;', 'woocommerce-moip' ) );
-				$message = WC_Moip_Status::debit_message();
+				$message = WC_Moip_Messages::debit_message();
 				$html .= apply_filters( 'woocommerce_moip_thankyou_debit_message', $message, $order_id );
 				$html .= '</div>';
 
@@ -1091,7 +1091,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 				$html = '<div class="woocommerce-message">';
 				$html .= sprintf( '<a class="button" href="%s" target="_blank">%s</a>', get_post_meta( $order_id, 'woocommerce_moip_url', true ), __( 'Print the billet &rarr;', 'woocommerce-moip' ) );
-				$message = WC_Moip_Status::billet_message();
+				$message = WC_Moip_Messages::billet_message();
 				$html .= apply_filters( 'woocommerce_moip_thankyou_billet_message', $message, $order_id );
 				$html .= '</div>';
 
