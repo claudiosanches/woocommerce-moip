@@ -15,7 +15,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		global $woocommerce;
 
 		$this->id             = 'moip';
-		$this->icon           = apply_filters( 'woocommerce_moip_icon', WOO_MOIP_URL . 'assets/images/moip.png' );
+		$this->icon           = apply_filters( 'woocommerce_moip_icon', plugins_url( 'assets/images/moip.png', plugin_dir_path( __FILE__ ) ) );
 		$this->has_fields     = false;
 		$this->method_title   = __( 'Moip', 'wcmoip' );
 
@@ -130,10 +130,10 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		if ( 'tc' == $this->api && is_checkout() ) {
 			global $woocommerce;
 
-			wp_enqueue_style( 'wc-moip-checkout', WOO_MOIP_URL . 'assets/css/checkout.css', array(), '', 'all' );
+			wp_enqueue_style( 'wc-moip-checkout', plugins_url( 'assets/css/checkout.css', plugin_dir_path( __FILE__ ) ), array(), '', 'all' );
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'jquery-blockui' );
-			wp_enqueue_script( 'wc-moip-checkout', WOO_MOIP_URL . 'assets/js/checkout.min.js', array( 'jquery', 'jquery-blockui' ), '', true );
+			wp_enqueue_script( 'wc-moip-checkout', plugins_url( 'assets/js/checkout.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery', 'jquery-blockui' ), '', true );
 			wp_localize_script(
 				'wc-moip-checkout',
 				'woocommerce_moip_params',
@@ -155,7 +155,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 * Admin Panel Options.
 	 */
 	public function admin_options() {
-		wp_enqueue_script( 'wc-moip', WOO_MOIP_URL . 'assets/js/admin.min.js', array( 'jquery' ), '', true );
+		wp_enqueue_script( 'wc-moip', plugins_url( 'assets/js/admin.min.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), '', true );
 
 		echo '<h3>' . __( 'Moip standard', 'wcmoip' ) . '</h3>';
 		echo '<p>' . __( 'Moip standard works by sending the user to Moip to enter their payment information.', 'wcmoip' ) . '</p>';
@@ -538,7 +538,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 */
 	protected function get_payment_xml( $order ) {
 		// Include the WC_Moip_Gateway class.
-		require_once WOO_MOIP_PATH . 'includes/class-wc-moip-simplexml.php';
+		require_once 'includes/class-wc-moip-simplexml.php';
 
 		$data = $this->get_form_args( $order );
 
@@ -547,8 +547,9 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 		$xml = new WC_Moip_SimpleXML( '<?xml version="1.0" encoding="utf-8" ?><EnviarInstrucao></EnviarInstrucao>' );
 		$instruction = $xml->addChild( 'InstrucaoUnica' );
-		if ( 'tc' == $this->api )
+		if ( 'tc' == $this->api ) {
 			$instruction->addAttribute( 'TipoValidacao', 'Transparente' );
+		}
 		$instruction->addChild( 'Razao' )->addCData( $data['descricao'] );
 		$values = $instruction->addChild( 'Valores' );
 		$values->addChild( 'Valor', $order->order_total );
