@@ -57,7 +57,7 @@ class WC_Moip_Status {
 	 * @return string
 	 */
 	protected static function message_after() {
-		return __( 'If you have any questions regarding the transaction, please contact the Moip.', 'woocommerce-moip' );
+		return __( 'If you have any questions regarding the transaction, please contact us or the Moip.', 'woocommerce-moip' );
 	}
 
 	/**

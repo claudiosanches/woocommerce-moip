@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Moip v2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-12-15 04:44:05+0000\n"
+"PO-Revision-Date: 2013-12-15 04:48:02+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -679,11 +679,6 @@ msgstr "Reembolsado"
 msgid "Your transaction has been processed by Moip Payments S/A."
 msgstr "Sua transação foi processada pelo Moip Pagamentos S/A."
 
-#: includes/class-wc-moip-status.php:60
-#@ woocommerce-moip
-msgid "If you have any questions regarding the transaction, please contact the Moip."
-msgstr " Caso tenha alguma dúvida referente a transação, entre em contato com o Moip."
-
 #: includes/class-wc-moip-gateway.php:1223
 #@ woocommerce-moip
 msgid "Pay the order &rarr;"
@@ -839,4 +834,9 @@ msgstr ""
 #@ woocommerce-moip
 msgid "The status of your transaction is %s and the MoIP code is %s."
 msgstr "A sua transação está %s e o código Moip é %s."
+
+#: includes/class-wc-moip-status.php:60
+#@ woocommerce-moip
+msgid "If you have any questions regarding the transaction, please contact us or the Moip."
+msgstr " Caso tenha alguma dúvida referente a transação, entre em contato conosco ou com o Moip."
 
