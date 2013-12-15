@@ -12,7 +12,6 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 * @return void
 	 */
 	public function __construct() {
-		global $woocommerce;
 
 		$this->id             = 'moip';
 		$this->icon           = apply_filters( 'woocommerce_moip_icon', plugins_url( 'assets/images/moip.png', plugin_dir_path( __FILE__ ) ) );
@@ -24,79 +23,53 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		$this->init_settings();
 
 		// Display options.
-		$this->title       = $this->settings['title'];
-		$this->description = $this->settings['description'];
+		$this->title       = $this->get_option( 'title' );
+		$this->description = $this->get_option( 'description' );
 
 		// Gateway options.
-		$this->login          = $this->settings['login'];
-		$this->invoice_prefix = ! empty( $this->settings['invoice_prefix'] ) ? $this->settings['invoice_prefix'] : 'WC-';
+		$this->login          = $this->get_option( 'login' );
+		$this->invoice_prefix = $this->get_option( 'invoice_prefix', 'WC-' );
 
 		// API options.
-		$this->api   = isset( $this->settings['api'] ) ? $this->settings['api'] : 'html';
-		$this->token = isset( $this->settings['token'] ) ? $this->settings['token'] : '';
-		$this->key   = isset( $this->settings['key'] ) ? $this->settings['key'] : '';
+		$this->api   = $this->get_option( 'api', 'html' );
+		$this->token = $this->get_option( 'token' );
+		$this->key   = $this->get_option( 'key' );
 
 		// Payment methods.
-		$this->billet_banking    = isset( $this->settings['billet_banking'] ) ? $this->settings['billet_banking'] : 'yes';
-		$this->credit_card       = isset( $this->settings['credit_card'] ) ? $this->settings['credit_card'] : 'yes';
-		$this->debit_card        = isset( $this->settings['debit_card'] ) ? $this->settings['debit_card'] : 'yes';
-		$this->moip_wallet       = isset( $this->settings['moip_wallet'] ) ? $this->settings['moip_wallet'] : 'yes';
-		$this->banking_debit     = isset( $this->settings['banking_debit'] ) ? $this->settings['banking_debit'] : 'yes';
-		$this->financing_banking = isset( $this->settings['financing_banking'] ) ? $this->settings['financing_banking'] : 'no';
+		$this->billet_banking    = $this->get_option( 'billet_banking' );
+		$this->credit_card       = $this->get_option( 'credit_card' );
+		$this->debit_card        = $this->get_option( 'debit_card' );
+		$this->moip_wallet       = $this->get_option( 'moip_wallet' );
+		$this->banking_debit     = $this->get_option( 'banking_debit' );
+		$this->financing_banking = $this->get_option( 'financing_banking' );
 
 		// Installments options.
-		$this->installments          = isset( $this->settings['installments'] ) ? $this->settings['installments'] : 'no';
-		$this->installments_mininum  = isset( $this->settings['installments_mininum'] ) ? $this->settings['installments_mininum'] : 2;
-		$this->installments_maxium   = isset( $this->settings['installments_maxium'] ) ? $this->settings['installments_maxium'] : 12;
-		$this->installments_receipt  = isset( $this->settings['installments_receipt'] ) ? $this->settings['installments_receipt'] : 'AVista';
-		$this->installments_interest = isset( $this->settings['installments_interest'] ) ? $this->settings['installments_interest'] : 0;
-		$this->installments_rehearse = isset( $this->settings['installments_rehearse'] ) ? $this->settings['installments_rehearse'] : 'no';
+		$this->installments          = $this->get_option( 'installments', 'no' );
+		$this->installments_mininum  = $this->get_option( 'installments_mininum', 2 );
+		$this->installments_maxium   = $this->get_option( 'installments_maxium', 12 );
+		$this->installments_receipt  = $this->get_option( 'installments_receipt', 'AVista' );
+		$this->installments_interest = $this->get_option( 'installments_interest', 0 );
+		$this->installments_rehearse = $this->get_option( 'installments_rehearse', 'no' );
 
 		// Billet options.
-		$this->billet                   = isset( $this->settings['billet'] ) ? $this->settings['billet'] : 'no';
-		$this->billet_type_term         = isset( $this->settings['billet_type_term'] ) ? $this->settings['billet_type_term'] : 'no';
-		$this->billet_number_days       = isset( $this->settings['billet_number_days'] ) ? $this->settings['billet_number_days'] : '7';
-		$this->billet_instruction_line1 = isset( $this->settings['billet_instruction_line1'] ) ? $this->settings['billet_instruction_line1'] : '';
-		$this->billet_instruction_line2 = isset( $this->settings['billet_instruction_line2'] ) ? $this->settings['billet_instruction_line2'] : '';
-		$this->billet_instruction_line3 = isset( $this->settings['billet_instruction_line3'] ) ? $this->settings['billet_instruction_line3'] : '';
-		$this->billet_logo              = isset( $this->settings['billet_logo'] ) ? $this->settings['billet_logo'] : '';
+		$this->billet                   = $this->get_option( 'billet', 'no' );
+		$this->billet_type_term         = $this->get_option( 'billet_type_term', 'no' );
+		$this->billet_number_days       = $this->get_option( 'billet_number_days', '7' );
+		$this->billet_instruction_line1 = $this->get_option( 'billet_instruction_line1' );
+		$this->billet_instruction_line2 = $this->get_option( 'billet_instruction_line2' );
+		$this->billet_instruction_line3 = $this->get_option( 'billet_instruction_line3' );
+		$this->billet_logo              = $this->get_option( 'billet_logo' );
 
 		// Debug options.
-		$this->sandbox = $this->settings['sandbox'];
-		$this->debug   = $this->settings['debug'];
+		$this->sandbox = $this->get_option( 'sandbox' );
+		$this->debug   = $this->get_option( 'debug' );
 
 		// Actions.
-		add_action( 'woocommerce_api_wc_moip_gateway', array( &$this, 'check_ipn_response' ) );
-		add_action( 'valid_moip_ipn_request', array( &$this, 'successful_request' ) );
-		add_action( 'woocommerce_receipt_moip', array( &$this, 'receipt_page' ) );
-		add_action( 'wp_enqueue_scripts', array( &$this, 'scripts' ), 9999 );
-		if ( version_compare( WOOCOMMERCE_VERSION, '2.0.0', '>=' ) )
-			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( &$this, 'process_admin_options' ) );
-		else
-			add_action( 'woocommerce_update_options_payment_gateways', array( &$this, 'process_admin_options' ) );
-
-		// Valid for use.
-		if ( 'html' != $this->api ) {
-			$this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->token ) && ! empty( $this->key ) && $this->is_valid_for_use();
-
-			// Checks if token is not empty.
-			if ( empty( $this->token ) ) {
-				add_action( 'admin_notices', array( &$this, 'token_missing_message' ) );
-			}
-
-			// Checks if key is not empty.
-			if ( empty( $this->key ) ) {
-				add_action( 'admin_notices', array( &$this, 'key_missing_message' ) );
-			}
-
-		} else {
-			$this->enabled = ( 'yes' == $this->settings['enabled'] ) && ! empty( $this->login ) && $this->is_valid_for_use();
-
-			// Checks if login is not empty.
-			if ( empty( $this->login ) ) {
-				add_action( 'admin_notices', array( &$this, 'login_missing_message' ) );
-			}
-		}
+		add_action( 'woocommerce_api_wc_moip_gateway', array( $this, 'check_ipn_response' ) );
+		add_action( 'valid_moip_ipn_request', array( $this, 'successful_request' ) );
+		add_action( 'woocommerce_receipt_moip', array( $this, 'receipt_page' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 9999 );
+		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 
 		// Custom Thank You message.
 		if ( 'tc' == $this->api ) {
@@ -104,21 +77,92 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		}
 
 		// Active logs.
-		if ( 'yes' == $this->debug )
-			$this->log = $woocommerce->logger();
+		if ( 'yes' == $this->debug ) {
+			if ( class_exists( 'WC_Logger' ) ) {
+				$this->log = new WC_Logger();
+			} else {
+				$this->log = $this->woocommerce_instance()->logger();
+			}
+		}
+
+		// Display admin notices.
+		$this->admin_notices();
 	}
 
 	/**
-	 * Check if this gateway is enabled and available in the user's country.
+	 * Backwards compatibility with version prior to 2.1.
+	 *
+	 * @return object Returns the main instance of WooCommerce class.
+	 */
+	protected function woocommerce_instance() {
+		if ( function_exists( 'WC' ) ) {
+			return WC();
+		} else {
+			global $woocommerce;
+			return $woocommerce;
+		}
+	}
+
+	/**
+	 * Displays notifications when the admin has something wrong with the configuration.
+	 *
+	 * @return void
+	 */
+	protected function admin_notices() {
+		if ( is_admin() ) {
+			// Valid for use.
+			if ( 'html' != $this->api ) {
+				// Checks if token is not empty.
+				if ( empty( $this->token ) ) {
+					add_action( 'admin_notices', array( $this, 'token_missing_message' ) );
+				}
+
+				// Checks if key is not empty.
+				if ( empty( $this->key ) ) {
+					add_action( 'admin_notices', array( $this, 'key_missing_message' ) );
+				}
+
+			} else {
+				// Checks if login is not empty.
+				if ( empty( $this->login ) ) {
+					add_action( 'admin_notices', array( $this, 'login_missing_message' ) );
+				}
+			}
+
+			// Checks that the currency is supported
+			if ( ! $this->using_supported_currency() ) {
+				add_action( 'admin_notices', array( $this, 'currency_not_supported_message' ) );
+			}
+		}
+	}
+
+	/**
+	 * Returns a bool that indicates if currency is amongst the supported ones.
 	 *
 	 * @return bool
 	 */
-	public function is_valid_for_use() {
-		if ( ! in_array( get_woocommerce_currency(), array( 'BRL' ) ) ) {
-			return false;
+	public function using_supported_currency() {
+		return ( 'BRL' == get_woocommerce_currency() );
+	}
+
+	/**
+	 * Returns a value indicating the the Gateway is available or not. It's called
+	 * automatically by WooCommerce before allowing customers to use the gateway
+	 * for payment.
+	 *
+	 * @return bool
+	 */
+	public function is_available() {
+		// Test if is valid for use.
+		if ( 'html' != $this->api ) {
+			$api = ( ! empty( $this->token ) && ! empty( $this->key ) );
+		} else {
+			$api = ( ! empty( $this->login ) );
 		}
 
-		return true;
+		$available = ( 'yes' == $this->settings['enabled'] ) && $api && $this->using_supported_currency();
+
+		return $available;
 	}
 
 	/**
@@ -128,8 +172,6 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 */
 	public function scripts() {
 		if ( 'tc' == $this->api && is_checkout() ) {
-			global $woocommerce;
-
 			wp_enqueue_style( 'wc-moip-checkout', plugins_url( 'assets/css/checkout.css', plugin_dir_path( __FILE__ ) ), array(), '', 'all' );
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'jquery-blockui' );
@@ -160,15 +202,10 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		echo '<h3>' . __( 'Moip standard', 'wcmoip' ) . '</h3>';
 		echo '<p>' . __( 'Moip standard works by sending the user to Moip to enter their payment information.', 'wcmoip' ) . '</p>';
 
-		// Checks if is valid for use.
-		if ( ! $this->is_valid_for_use() ) {
-			echo '<div class="inline error"><p><strong>' . __( 'Moip Disabled', 'wcmoip' ) . '</strong>: ' . __( 'Works only with Brazilian Real.', 'wcmoip' ) . '</p></div>';
-		} else {
-			// Generate the HTML For the settings form.
-			echo '<table class="form-table">';
-			$this->generate_settings_html();
-			echo '</table>';
-		}
+		// Generate the HTML For the settings form.
+		echo '<table class="form-table">';
+		$this->generate_settings_html();
+		echo '</table>';
 	}
 
 	/**
@@ -453,12 +490,10 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 * @return string         Displays the error message.
 	 */
 	protected function add_error( $message ) {
-		global $woocommerce;
-
 		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
-			wc_add_error( $message );
+			wc_add_notice( $message, 'error' );
 		} else {
-			$woocommerce->add_error( $message );
+			$this->woocommerce_instance()->add_error( $message );
 		}
 	}
 
@@ -520,7 +555,13 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		$args['descricao'] = sprintf( __( 'Order %s', 'wcmoip' ), $order->get_order_number() ) . ' - ' . implode( ', ', $item_names );
 
 		// Shipping Cost item.
-		if ( $order->get_shipping() > 0 ) {
+		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+			$shipping_total = $order->get_total_shipping();
+		} else {
+			$shipping_total = $order->get_shipping();
+		}
+
+		if ( $shipping_total > 0 ) {
 			$args['descricao'] .= ', ' . __( 'Shipping via', 'wcmoip' ) . ' ' . ucwords( $order->shipping_method_title );
 		}
 
@@ -538,7 +579,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 */
 	protected function get_payment_xml( $order ) {
 		// Include the WC_Moip_Gateway class.
-		require_once 'includes/class-wc-moip-simplexml.php';
+		require_once 'class-wc-moip-simplexml.php';
 
 		$data = $this->get_form_args( $order );
 
@@ -679,7 +720,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 			'method'     => 'POST',
 			'body'       => $xml,
 			'sslverify'  => false,
-			'timeout'    => 30,
+			'timeout'    => 60,
 			'headers'    => array(
 				'Expect' => '',
 				'Content-Type' => 'application/xml;charset=UTF-8',
@@ -731,8 +772,6 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 * @return string           Payment form.
 	 */
 	protected function generate_form( $order_id ) {
-		global $woocommerce;
-
 		$order = new WC_Order( $order_id );
 
 		$args = $this->get_form_args( $order );
@@ -748,7 +787,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		}
 
 		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
-			$woocommerce->get_helper( 'inline-javascript' )->add_inline_js( '
+			wc_enqueue_js( '
 				jQuery.blockUI({
 					message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
 					baseZ: 99999,
@@ -757,20 +796,20 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 						opacity: 0.6
 					},
 					css: {
-						padding: "20px",
-						zIndex: "9999999",
-						textAlign: "center",
-						color: "#555",
-						border: "3px solid #aaa",
-						backgroundColor: "#fff",
-						cursor: "wait",
-						lineHeight: "24px",
+						padding:        "20px",
+						zindex:         "9999999",
+						textAlign:      "center",
+						color:          "#555",
+						border:         "3px solid #aaa",
+						backgroundColor:"#fff",
+						cursor:         "wait",
+						lineHeight:		"24px",
 					}
 				});
 				jQuery("#submit-payment-form").click();
 			' );
 		} else {
-			$woocommerce->add_inline_js( '
+			$this->woocommerce_instance()->add_inline_js( '
 				jQuery("body").block({
 					message: "' . esc_js( __( 'Thank you for your order. We are now redirecting you to Moip to make payment.', 'wcmoip' ) ) . '",
 					overlayCSS: {
@@ -1212,6 +1251,19 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Gets the admin url.
+	 *
+	 * @return string
+	 */
+	protected function admin_url() {
+		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+			return admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_moip_gateway' );
+		}
+
+		return admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' );
+	}
+
+	/**
 	 * Adds error message when not configured the email or username.
 	 *
 	 * @return string Error Mensage.
@@ -1236,5 +1288,14 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 */
 	public function key_missing_message() {
 		echo '<div class="error"><p><strong>' . __( 'Moip Disabled', 'wcmoip' ) . '</strong>: ' . sprintf( __( 'You should inform your Access Key. %s', 'wcmoip' ), '<a href="' . admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Moip_Gateway' ) . '">' . __( 'Click here to configure!', 'wcmoip' ) . '</a>' ) . '</p></div>';
+	}
+
+	/**
+	 * Adds error message when an unsupported currency is used.
+	 *
+	 * @return string Error Mensage.
+	 */
+	public function currency_not_supported_message() {
+		echo '<div class="error"><p><strong>' . __( 'Moip Disabled', 'wcmoip' ) . '</strong>: ' . sprintf( __( 'Currency <code>%s</code> is not supported. Works only with <code>BRL</code> (Brazilian Real).', 'wcmoip' ), get_woocommerce_currency() ) . '</p></div>';
 	}
 }

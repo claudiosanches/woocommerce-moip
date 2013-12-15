@@ -143,7 +143,7 @@ function wcmoip_transparent_checkout_ajax() {
 		// Send email with payment information.
 		$message_body = '<p>';
 		$message_body .= __( 'Your transaction has been processed by Moip Payments S/A.', 'wcmoip' ) . '<br />';
-		$message_body .= sprintf( __( 'The status of your transaction is %s and the MoIP code is', 'wcmoip' ), '<strong>' . esc_attr( $_POST['code'] ) . '</strong>' ) . ' <strong>' . wcmoip_status( esc_attr( $_POST['status'] ) ) . '</strong>.<br />';
+		$message_body .= sprintf( __( 'The status of your transaction is %s and the MoIP code is %s', 'wcmoip' ), '<strong>' . wcmoip_status( esc_attr( $_POST['status'] ) ) . '</strong>', '<strong>' . esc_attr( $_POST['code'] ) . '</strong>' ) . '.<br />';
 		$message_body .= __( 'If you have any questions regarding the transaction, please contact the Moip.', 'wcmoip' ) . '<br />';
 		$message_body .= '</p>';
 
