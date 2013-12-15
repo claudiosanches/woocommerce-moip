@@ -579,7 +579,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 */
 	protected function get_payment_xml( $order ) {
 		// Include the WC_Moip_Gateway class.
-		require_once 'class-wc-moip-simplexml.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-wc-moip-simplexml.php';
 
 		$data = $this->get_form_args( $order );
 
@@ -595,7 +595,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		$values = $instruction->addChild( 'Valores' );
 		$values->addChild( 'Valor', $order->order_total );
 		$values->addAttribute( 'moeda', 'BRL' );
-		$instruction->addChild( 'IdProprio', $data['id_transacao'] );
+		$instruction->addChild( 'IdProprio', $data['id_transacao'] . time() );
 
 		// Payer.
 		$payer = $instruction->addChild( 'Pagador' );
@@ -865,147 +865,14 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		}
 
 		if ( $token ) {
-
-			// Display the transparent checkout.
-			$html = '<p>' . apply_filters( 'woocommerce_moip_transparent_checkout_message', __( 'This payment will be processed by Moip Payments S/A.', 'woocommerce-moip' ) ) . '</p>';
-
-			$html .= '<form action="" method="post" id="woocommerce-moip-payment-form">';
-			$html .= '<div class="product">';
-			$html .= '<div class="woocommerce-tabs">';
-
-			$html .= '<ul class="tabs">';
-
-			if ( 'yes' == $this->credit_card ) {
-				$html .= '<li class="active"><a href="#tab-credit-card">' . __( 'Credit Card', 'woocommerce-moip' ) . '</a></li>';
-			}
-
-			if ( 'yes' == $this->banking_debit ) {
-				$html .= '<li><a href="#tab-banking-debit">' . __( 'Banking Debit', 'woocommerce-moip' ) . '</a></li>';
-			}
-
-			if ( 'yes' == $this->billet_banking ) {
-				$html .= '<li><a href="#tab-billet">' . __( 'Billet Banking', 'woocommerce-moip' ) . '</a></li>';
-			}
-
-			$html .= '</ul>';
-
-			if ( 'yes' == $this->credit_card ) {
-				$html .= '<div id="tab-credit-card" class="panel entry-content" data-payment-method="CartaoCredito">';
-				$html .= '<ul>';
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Mastercard" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/mastercard.png', plugin_dir_path( __FILE__ ) ) ), __( 'Master Card', 'woocommerce-moip' ) );
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Visa" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/visa.png', plugin_dir_path( __FILE__ ) ) ), __( 'Visa', 'woocommerce-moip' ) );
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="AmericanExpress" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/americanexpress.png', plugin_dir_path( __FILE__ ) ) ), __( 'American Express', 'woocommerce-moip' ) );
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Diners" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/diners.png', plugin_dir_path( __FILE__ ) ) ), __( 'Diners', 'woocommerce-moip' ) );
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Hipercard" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/hipercard.png', plugin_dir_path( __FILE__ ) ) ), __( 'Hipercard', 'woocommerce-moip' ) );
-				$html .= '</ul>';
-				$html .= '<div class="form-group-wrap">';
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-number">' . __( 'Credit card number', 'woocommerce-moip' ) . '</label>';
-				$html .= '<input type="text" name="credit_card_number" id="credit-card-number" />';
-				$html .= '<span class="description">' . __( 'Only digits', 'woocommerce-moip' ) . '</span>';
-				$html .= '</div>';
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-expiration-month">' . __( 'Expiration', 'woocommerce-moip' ) . '</label>';
-				$html .= '<select name="credit_card_expiration_month" id="credit-card-expiration-month">';
-				for ( $expiration_month = 1; $expiration_month <= 12; $expiration_month++ ) {
-					$html .= sprintf( '<option value="%1$s">%1$s</option>', ( ( $expiration_month < 10 ) ? '0' . $expiration_month : $expiration_month ) );
-				}
-				$html .= '</select>';
-				$html .= '<select name="credit_card_expiration_year" id="credit-card-expiration-year">';
-				for ( $expiration_year = date( 'Y' ); $expiration_year < ( date( 'Y' ) + 15 ); $expiration_year++ ) {
-					$html .= sprintf( '<option value="%1$s">%1$s</option>', $expiration_year );
-				}
-				$html .= '</select>';
-				$html .= '</div>';
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-security-code">' . __( 'Security code', 'woocommerce-moip' ) . '</label>';
-				$html .= '<input type="text" name="credit_card_security_code" id="credit-card-security-code" />';
-				$html .= '</div>';
-				$html .= '</div>';
-				$html .= '<div class="form-group-wrap">';
-
-				$holder_default = apply_filters( 'woocommerce_moip_holder_data', array(
-					'name' => $order->billing_first_name . ' ' . $order->billing_last_name,
-					'birthdate_day' => '',
-					'birthdate_month' => '',
-					'birthdate_year' => '',
-					'phone' => $order->billing_phone,
-					'cpf' => ''
-				), $order );
-
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-name">' . __( 'Holder name', 'woocommerce-moip' ) . '</label>';
-				$html .= '<input type="text" name="credit_card_name" id="credit-card-name" value="' . $holder_default['name'] . '" />';
-				$html .= '<span class="description">' . __( 'As recorded on this card', 'woocommerce-moip' ) . '</span>';
-				$html .= '</div>';
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-birthdate-day">' . __( 'Holder birth date', 'woocommerce-moip' ) . '</label>';
-				$html .= '<select name="credit_card_birthdate_day" id="credit-card-birthdate-day">';
-				for ( $birthdate_day = 1; $birthdate_day <= 31; $birthdate_day++ ) {
-					$birthdate_day = ( $birthdate_day < 10 ) ? '0' . $birthdate_day : $birthdate_day;
-
-					$html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_day, selected( $holder_default['birthdate_day'], $birthdate_day, false ) );
-				}
-				$html .= '</select>';
-				$html .= '<select name="credit_card_birthdate_month" id="credit-card-birthdate-month">';
-				for ( $birthdate_month = 1; $birthdate_month <= 12; $birthdate_month++ ) {
-					$birthdate_month = ( $birthdate_month < 10 ) ? '0' . $birthdate_month : $birthdate_month;
-
-					$html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_month, selected( $holder_default['birthdate_month'], $birthdate_month, false ) );
-				}
-				$html .= '</select>';
-				$html .= '<select name="credit_card_birthdate_year" id="credit-card-birthdate-year">';
-				for ( $birthdate_year = ( date( 'Y' ) - 15 ); $birthdate_year > ( date( 'Y' ) - 100 ); $birthdate_year-- ) {
-					$html .= sprintf( '<option value="%1$s">%1$s</option>', $birthdate_year, selected( $holder_default['birthdate_year'], $birthdate_year, false ) );
-				}
-				$html .= '</select>';
-				$html .= '</div>';
-				$html .= '</div>';
-				$html .= '<div class="form-group-wrap">';
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-phone">' . __( 'Holder phone', 'woocommerce-moip' ) . '</label>';
-				$html .= '<input type="text" name="credit_card_phone" id="credit-card-phone" value="' . $holder_default['phone'] . '" />';
-				$html .= '</div>';
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-cpf">' . __( 'Holder CPF', 'woocommerce-moip' ) . '</label>';
-				$html .= '<input type="text" name="credit_card_cpf" id="credit-card-cpf" value="' . $holder_default['cpf'] . '" />';
-				$html .= '</div>';
-				$html .= '</div>';
-				$html .= '<div class="form-group-wrap">';
-				$html .= '<div class="form-group">';
-				$html .= '<label for="credit-card-installments">' . __( 'Installments in', 'woocommerce-moip' ) . '</label>';
-				$html .= '<select name="credit_card_installments" id="credit-card-installments">';
-					$html .= '<option value="1">R$ ' . str_replace( '.', ',', $order->order_total ) . ' ' . __( 'at sight', 'woocommerce-moip' ) . '</option>';
-				$html .= '</select>';
-				$html .= '</div>';
-				$html .= '</div>';
-				$html .= '</div>';
-			}
-
-			if ( 'yes' == $this->banking_debit ) {
-				$html .= '<div id="tab-banking-debit" class="panel entry-content" data-payment-method="DebitoBancario">';
-				$html .= '<ul>';
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="BancoDoBrasil" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/bancodobrasil.png', plugin_dir_path( __FILE__ ) ) ), __( 'Banco do Brasil', 'woocommerce-moip' ) );
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Bradesco" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/bradesco.png', plugin_dir_path( __FILE__ ) ) ), __( 'Bradesco', 'woocommerce-moip' ) );
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Banrisul" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/banrisul.png', plugin_dir_path( __FILE__ ) ) ), __( 'Banrisul', 'woocommerce-moip' ) );
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="Itau" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/itau.png', plugin_dir_path( __FILE__ ) ) ), __( 'Itau', 'woocommerce-moip' ) );
-				$html .= '</ul>';
-				$html .= '</div>';
-			}
-
-			if ( 'yes' == $this->billet_banking ) {
-				$html .= '<div id="tab-billet" class="panel entry-content" data-payment-method="BoletoBancario">';
-				$html .= '<ul>';
-				$html .= sprintf( '<li><label><img src="%1$s" alt="%2$s" title="%2$s" /><input type="radio" name="payment_institution" value="BoletoBancario" /></label></li>', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/boleto.png', plugin_dir_path( __FILE__ ) ) ), __( 'Billet Banking', 'woocommerce-moip' ) );
-				$html .= '</ul>';
-				$html .= '</div>';
-			}
-
-			$html .= '</div>';
-			$html .= '</div>';
-			$html .= '<div id="MoipWidget" data-token="' . $token . '" callback-method-success="wcMoipSuccess" callback-method-error="wcMoipFail"></div>';
-			$html .= '<input type="hidden" name="order_id" id="woocommerce-moip-order-id" value="' . $order->id . '" />';
-			$html .= '<input type="hidden" name="redirect" id="woocommerce-moip-redirect" value="' . $this->get_return_url( $order ) . '" />';
+			$holder_default = apply_filters( 'woocommerce_moip_holder_data', array(
+				'name' => $order->billing_first_name . ' ' . $order->billing_last_name,
+				'birthdate_day' => '',
+				'birthdate_month' => '',
+				'birthdate_year' => '',
+				'phone' => $order->billing_phone,
+				'cpf' => ''
+			), $order );
 
 			if ( 'yes' == $this->sandbox ) {
 				$url = 'https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=' . $token;
@@ -1013,15 +880,9 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 				$url = 'https://www.moip.com.br/Instrucao.do?token=' . $token;
 			}
 
-			$html .= '<a class="button alt" id="woocommerce-moip-submit" href="' . $url . '">' . __( 'Pay order', 'woocommerce-moip' ) . '</a> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-moip' ) . '</a>';
-			$html .= '</form>';
-
-			// Add Moip Transparent Checkout JS.
-			if ( 'yes' == $this->sandbox ) {
-				$html .= '<script type="text/javascript" src="https://desenvolvedor.moip.com.br/sandbox/transparente/MoipWidget-v2.js" charset="ISO-8859-1"></script>';
-			} else {
-				$html .= '<script type="text/javascript" src="https://www.moip.com.br/transparente/MoipWidget-v2.js" charset="ISO-8859-1"></script>';
-			}
+			ob_start();
+			include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/transparent-checkout.php';
+			$html = ob_get_clean();
 
 			return $html;
 		} else {
