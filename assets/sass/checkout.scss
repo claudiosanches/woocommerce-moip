@@ -5,113 +5,113 @@
 @import "compass/utilities/general/clearfix";
 
 #woocommerce-moip-payment-form {
-    .product {
-        display: none;
-    }
+	.product {
+		display: none;
+	}
 
-    .panel {
-        display: none;
+	.panel {
+		display: none;
 
-        input[type="text"] {
-            width: 200px;
-        }
+		input[type="text"] {
+			width: 200px;
+		}
 
-        input, select {
-            margin: 0;
-        }
+		input, select {
+			margin: 0;
+		}
 
-        ul {
-            @include pie-clearfix;
-            list-style: none;
-            margin: 0 0 10px;
-            padding: 0;
-        }
+		ul {
+			@include pie-clearfix;
+			list-style: none;
+			margin: 0 0 10px;
+			padding: 0;
+		}
 
-        li {
-            margin: 0 20px 0 0;
-            float: left;
-            text-align: center;
-        }
+		li {
+			margin: 0 20px 0 0;
+			float: left;
+			text-align: center;
+		}
 
-        label img {
-            display: block;
-        }
+		label img {
+			display: block;
+		}
 
-        .form-group-wrap {
-            @include pie-clearfix;
-            margin-bottom: 10px;
-        }
+		.form-group-wrap {
+			@include pie-clearfix;
+			margin-bottom: 10px;
+		}
 
-        .form-group {
-            float: left;
-            margin-right: 10px;
+		.form-group {
+			float: left;
+			margin-right: 10px;
 
-            label {
-                display: block;
-            }
+			label {
+				display: block;
+			}
 
-            input, select {
-                @include pie-clearfix;
-                float: left;
-            }
+			input, select {
+				@include pie-clearfix;
+				float: left;
+			}
 
-            .description {
-                color: #666;
-                display: block;
-                font-size: 80%;
-            }
-        }
+			.description {
+				color: #666;
+				display: block;
+				font-size: 80%;
+			}
+		}
 
-        #credit-card-name {
-            text-transform: uppercase;
-        }
+		#credit-card-name {
+			text-transform: uppercase;
+		}
 
-        #credit-card-expiration-month {
-            margin-right: 5px;
-        }
+		#credit-card-expiration-month {
+			margin-right: 5px;
+		}
 
-        #credit-card-security-code {
-            width: 40px;
-        }
+		#credit-card-security-code {
+			width: 40px;
+		}
 
-        #credit-card-birthdate-month {
-            margin: 0 5px;
-        }
-    }
+		#credit-card-birthdate-month {
+			margin: 0 5px;
+		}
+	}
 
-    #tab-credit-card .form-group-wrap {
-        display: none;
-    }
+	#tab-credit-card .form-group-wrap {
+		display: none;
+	}
 }
 
 #woocommerce-moip-modal-wrap {
-    display: none;
+	display: none;
 }
 
 #woocommerce-moip-modal-bg {
-    background: #fff;
-    cursor: wait;
-    height: 100%;
-    left: 0px;
-    opacity: 0.6;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    z-index: 99999;
+	background: #fff;
+	cursor: wait;
+	height: 100%;
+	left: 0px;
+	opacity: 0.6;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 99999;
 }
 
 #woocommerce-moip-modal {
-    background: #fff;
-    border: 3px solid #aaa;
-    color: #555;
-    cursor: wait;
-    left: 50%;
-    line-height: 24px;
-    margin: -30px 0 0 -250px;
-    padding: 20px;
-    position: fixed;
-    text-align: center;
-    top: 50%;
-    width: 500px;
-    z-index: 9999999;
+	background: #fff;
+	border: 3px solid #aaa;
+	color: #555;
+	cursor: wait;
+	left: 50%;
+	line-height: 24px;
+	margin: -30px 0 0 -250px;
+	padding: 20px;
+	position: fixed;
+	text-align: center;
+	top: 50%;
+	width: 500px;
+	z-index: 9999999;
 }
