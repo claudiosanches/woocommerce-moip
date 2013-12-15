@@ -11,9 +11,6 @@
  * Domain Path: /languages/
  */
 
-define( 'WOO_MOIP_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WOO_MOIP_URL', plugin_dir_url( __FILE__ ) );
-
 /**
  * WooCommerce fallback notice.
  */
