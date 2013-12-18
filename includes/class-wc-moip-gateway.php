@@ -1056,6 +1056,8 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 						// No action xD.
 						break;
 				}
+
+				do_action( 'woocommerce_moip_after_successful_request', $order, $posted );
 			}
 		}
 	}
