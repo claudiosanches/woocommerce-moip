@@ -755,9 +755,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 		} else {
 			if ( 'yes' == $this->debug ) {
-				$error = new SimpleXmlElement( $response['body'], LIBXML_NOCDATA );
-
-				$this->log->add( 'moip', 'Failed to generate the Moip Payment Token: ' . $response['response']['code'] . ' - ' . $response['response']['message'] );
+				$this->log->add( 'moip', 'Failed to generate the Moip Payment Token, the status was: ' . $response['response']['code'] . ' - ' . $response['response']['message'] . '. With the content: ' . $response['body'] );
 			}
 		}
 
