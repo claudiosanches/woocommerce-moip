@@ -5,7 +5,7 @@
  * Description: Gateway de pagamento Moip para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://claudiosmweb.com/
- * Version: 2.2.2
+ * Version: 2.2.3
  * License: GPLv2 or later
  * Text Domain: woocommerce-moip
  * Domain Path: /languages/
