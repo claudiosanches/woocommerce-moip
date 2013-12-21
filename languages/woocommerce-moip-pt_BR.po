@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moip v2.2.0\n"
+"Project-Id-Version: WooCommerce Moip v2.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-12-15 22:04:31+0000\n"
+"PO-Revision-Date: 2013-12-21 04:47:54+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -206,7 +206,7 @@ msgstr "Moip falha no pedido"
 msgid "Log Moip events, such as API requests, inside %s"
 msgstr "Registrar eventos do Moip, tais como pedidos de API, dentro de %s"
 
-#: wc-moip.php:21
+#: wc-moip.php:18
 #, php-format
 #@ woocommerce-moip
 msgid "WooCommerce Moip Gateway depends on the last version of %s to work!"
@@ -622,7 +622,7 @@ msgstr "Pagar pedido"
 #: includes/class-wc-moip-gateway.php:890
 #@ woocommerce-moip
 msgid "An error has occurred while processing your payment, please try again. Or contact us for assistance."
-msgstr "Um erro ocorreu ao processando o seu pagamento, por favor tente novamente. Ou entre em contato conosco para conseguir ajuda."
+msgstr "Um erro ocorreu ao processar o seu pagamento, por favor tente novamente. Ou entre em contato conosco para conseguir ajuda."
 
 #: includes/class-wc-moip-gateway.php:891
 #@ woocommerce-moip
@@ -679,12 +679,12 @@ msgstr "Reembolsado"
 msgid "Your transaction has been processed by Moip Payments S/A."
 msgstr "Sua transação foi processada pelo Moip Pagamentos S/A."
 
-#: includes/class-wc-moip-gateway.php:1084
+#: includes/class-wc-moip-gateway.php:1086
 #@ woocommerce-moip
 msgid "Pay the order &rarr;"
 msgstr "Pagar o pedido &rarr;"
 
-#: includes/class-wc-moip-gateway.php:1093
+#: includes/class-wc-moip-gateway.php:1095
 #@ woocommerce-moip
 msgid "Print the billet &rarr;"
 msgstr "Imprimir o boleto &rarr;"
@@ -699,12 +699,12 @@ msgstr "Caso você ainda não tenha recebido o boleto, por favor, clique no bot�
 msgid "If you have not made ​​the payment, please click the button to your left to pay."
 msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua esquerda para pagar."
 
-#: wc-moip.php:116
-#: wc-moip.php:120
-#: wc-moip.php:133
-#: wc-moip.php:137
-#: wc-moip.php:150
-#: wc-moip.php:154
+#: wc-moip.php:113
+#: wc-moip.php:117
+#: wc-moip.php:130
+#: wc-moip.php:134
+#: wc-moip.php:147
+#: wc-moip.php:151
 #, php-format
 #@ woocommerce-moip
 msgid "Order %s received"
@@ -752,10 +752,10 @@ msgstr "Obrigado pelo seu pedido, iremos completá-lo em %s segundos..."
 msgid "The XML and Checkout Transparent requires Access Token and Access Key. %sHere's how to get this information%s."
 msgstr "As APIs em XML e Checkout Transparente exigem Token de Acesso e Chave de Acesso. %sVeja aqui como obter estas informações%s."
 
-#: includes/class-wc-moip-gateway.php:1127
-#: includes/class-wc-moip-gateway.php:1136
-#: includes/class-wc-moip-gateway.php:1145
-#: includes/class-wc-moip-gateway.php:1154
+#: includes/class-wc-moip-gateway.php:1129
+#: includes/class-wc-moip-gateway.php:1138
+#: includes/class-wc-moip-gateway.php:1147
+#: includes/class-wc-moip-gateway.php:1156
 #@ woocommerce-moip
 msgid "Moip Disabled"
 msgstr "Moip Desabilitado"
@@ -791,32 +791,32 @@ msgstr "Moip: Pagamento cancelado."
 msgid "Moip: Payment was reversed by the payer, payee, payment institution or Moip."
 msgstr "Moip: O pagamento foi estornado pelo pagador, recebedor, instituição de pagamento ou Moip."
 
-#: includes/class-wc-moip-gateway.php:1127
+#: includes/class-wc-moip-gateway.php:1129
 #, php-format
 #@ woocommerce-moip
 msgid "You should inform your email address. %s"
 msgstr "Você deve informar seu endereço de e-mail. %s"
 
-#: includes/class-wc-moip-gateway.php:1127
-#: includes/class-wc-moip-gateway.php:1136
-#: includes/class-wc-moip-gateway.php:1145
+#: includes/class-wc-moip-gateway.php:1129
+#: includes/class-wc-moip-gateway.php:1138
+#: includes/class-wc-moip-gateway.php:1147
 #@ woocommerce-moip
 msgid "Click here to configure!"
 msgstr "Clique aqui para configurar!"
 
-#: includes/class-wc-moip-gateway.php:1136
+#: includes/class-wc-moip-gateway.php:1138
 #, php-format
 #@ woocommerce-moip
 msgid "You should inform your Access Token. %s"
 msgstr "Você deve informar o seu Token de Acesso. %s"
 
-#: includes/class-wc-moip-gateway.php:1145
+#: includes/class-wc-moip-gateway.php:1147
 #, php-format
 #@ woocommerce-moip
 msgid "You should inform your Access Key. %s"
 msgstr "Você deve informar a sua Chave de Acesso. %s"
 
-#: includes/class-wc-moip-gateway.php:1154
+#: includes/class-wc-moip-gateway.php:1156
 #, php-format
 #@ woocommerce-moip
 msgid "Currency <code>%s</code> is not supported. Works only with <code>BRL</code> (Brazilian Real)."
@@ -842,6 +842,6 @@ msgstr "R$ %s á vista"
 #. translators: plugin header field 'Version'
 #: wc-moip.php:0
 #@ woocommerce-moip
-msgid "2.2.0"
-msgstr "2.2.0"
+msgid "2.2.2"
+msgstr ""
 
