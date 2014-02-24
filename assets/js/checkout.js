@@ -92,7 +92,16 @@ var wcMoipSuccess = function( data ) {
  * Moip Fail functions.
  */
 var wcMoipFail = function( data ) {
-	var message_wrap = jQuery( '#woocommerce-moip-error' );
+	var message_wrap = jQuery( '#woocommerce-moip-error' ),
+		is_object = function( a ) {
+			return ( !!a ) && ( a.constructor === Object );
+		},
+		new_data = [];
+
+	if ( is_object( data ) ) {
+		new_data.push(data);
+		data = new_data;
+	}
 
 	// Display de error messages.
 	message_wrap.empty();
