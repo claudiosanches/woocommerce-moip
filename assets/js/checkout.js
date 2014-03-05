@@ -166,6 +166,10 @@ jQuery(document).ready(function($) {
 
 			// Displays the installments.
 			installmentsDisplay = function( data ) {
+				if ( 0 === data.parcelas.length ) {
+					return;
+				}
+
 				select.empty();
 				$.each(data.parcelas, function( key, value ) {
 					price = value.valor.replace( '.', ',' );
