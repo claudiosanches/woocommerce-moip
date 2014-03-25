@@ -4,7 +4,7 @@ Donate link: http://claudiosmweb.com/doacoes/
 Tags: woocommerce, checkout, moip
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 2.2.6
+Stable tag: 2.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,7 +76,7 @@ No Moip você precisa validar sua conta e configurar ela para receber pagamentos
 
 Para que seja possível receber notificações sobre as transações direto no seu WooCommerce você deve ativar a opção "**Notificação de Alteração de Status de Pagamento**" em `Menus Dados > Preferências > Notificação das transações` e preencher a opção "**URL de notificação**" da seguinte forma:
 
-    http://seusite.com/?wc-api=WC_MOIP_Gateway
+	http://seusite.com/?wc-api=WC_MOIP_Gateway
 
 = Configurações do Plugin: =
 
@@ -164,6 +164,10 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 3. Transparente Checkout Page.
 
 == Changelog ==
+
+= 2.2.7 - 24/03/2014 =
+
+* Alterada a ordem dos botões no checkout transparente e normal para melhorar a usabilidade.
 
 = 2.2.6 - 05/03/2014 =
 
