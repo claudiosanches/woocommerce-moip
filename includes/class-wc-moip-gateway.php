@@ -840,7 +840,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 		$html .= '<form action="' . esc_url( $payment_url ) . '" method="post" id="payment-form" accept-charset="ISO-8859-1" target="_top">
 				' . implode( '', $args_array ) . '
-				<input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via Moip', 'woocommerce-moip' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-moip' ) . '</a>
+				<a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-moip' ) . '</a> <input type="submit" class="button alt" id="submit-payment-form" value="' . __( 'Pay via Moip', 'woocommerce-moip' ) . '" />
 			</form>';
 
 		return $html;

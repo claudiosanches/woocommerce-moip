@@ -197,9 +197,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<input type="hidden" name="redirect" id="woocommerce-moip-redirect" value="<?php echo $this->get_return_url( $order ); ?>" />
 
 	<p>
-		<a class="button alt" id="woocommerce-moip-submit" href="<?php echo $url; ?>"><?php _e( 'Pay order', 'woocommerce-moip' ) ?></a>
-		<span> </span>
 		<a class="button cancel" href="<?php echo esc_url( $order->get_cancel_order_url() ) ?>"><?php _e( 'Cancel order &amp; restore cart', 'woocommerce-moip' ) ?></a>
+		<span> </span>
+		<a class="button alt" id="woocommerce-moip-submit" href="<?php echo $url; ?>"><?php _e( 'Pay order', 'woocommerce-moip' ) ?></a>
 	</p>
 </form>
 
