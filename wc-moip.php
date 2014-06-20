@@ -5,7 +5,7 @@
  * Description: Gateway de pagamento Moip para WooCommerce.
  * Author: claudiosanches
  * Author URI: http://claudiosmweb.com/
- * Version: 2.2.7
+ * Version: 2.2.8
  * License: GPLv2 or later
  * Text Domain: woocommerce-moip
  * Domain Path: /languages/
@@ -25,108 +25,31 @@ class WC_Moip {
 	/**
 	 * Plugin version.
 	 *
-	 * @since 2.2.6
-	 *
-	 * @var   string
+	 * @var string
 	 */
-	const VERSION = '2.2.6';
+	const VERSION = '2.2.8';
 
 	/**
 	 * Integration id.
 	 *
-	 * @since 2.2.6
-	 *
-	 * @var   string
+	 * @var string
 	 */
 	protected static $gateway_id = 'moip';
 
 	/**
-	 * Plugin slug.
-	 *
-	 * @since 2.2.6
-	 *
-	 * @var   string
-	 */
-	protected static $plugin_slug = 'woocommerce-moip';
-
-	/**
 	 * Instance of this class.
 	 *
-	 * @since 2.2.6
-	 *
-	 * @var   object
+	 * @var object
 	 */
 	protected static $instance = null;
 
+	/**
+	 * Initialize the plugin actions.
+	 */
 	public function __construct() {
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-		// Initialize the plugin actions.
-		$this->init();
-	}
-
-	/**
-	 * Return an instance of this class.
-	 *
-	 * @since  2.2.6
-	 *
-	 * @return object A single instance of this class.
-	 */
-	public static function get_instance() {
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	/**
-	 * Return the plugin slug.
-	 *
-	 * @since  2.2.6
-	 *
-	 * @return string Plugin slug variable.
-	 */
-	public static function get_plugin_slug() {
-		return self::$plugin_slug;
-	}
-
-	/**
-	 * Return the gateway id/slug.
-	 *
-	 * @since  2.2.6
-	 *
-	 * @return string Gateway id/slug variable.
-	 */
-	public static function get_gateway_id() {
-		return self::$gateway_id;
-	}
-
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since  2.2.6
-	 *
-	 * @return void
-	 */
-	public function load_plugin_textdomain() {
-		$domain = self::$plugin_slug;
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
-
-	/**
-	 * Initialize the plugin public actions.
-	 *
-	 * @since  2.2.6
-	 *
-	 * @return  void
-	 */
-	protected function init() {
 		// Checks with WooCommerce is installed.
 		if ( class_exists( 'WC_Payment_Gateway' ) ) {
 			// Include the WC_Moip_Gateway class.
@@ -142,13 +65,46 @@ class WC_Moip {
 	}
 
 	/**
+	 * Return an instance of this class.
+	 *
+	 * @return object A single instance of this class.
+	 */
+	public static function get_instance() {
+		// If the single instance hasn't been set, set it now.
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Return the gateway id/slug.
+	 *
+	 * @return string Gateway id/slug variable.
+	 */
+	public static function get_gateway_id() {
+		return self::$gateway_id;
+	}
+
+	/**
+	 * Load the plugin text domain for translation.
+	 *
+	 * @return void
+	 */
+	public function load_plugin_textdomain() {
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-moip' );
+
+		load_textdomain( 'woocommerce-moip', trailingslashit( WP_LANG_DIR ) . 'woocommerce-moip/woocommerce-moip-' . $locale . '.mo' );
+		load_plugin_textdomain( 'woocommerce-moip', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
 	 * Add the gateway to WooCommerce.
 	 *
-	 * @version 2.2.6
+	 * @param  array $methods WooCommerce payment methods.
 	 *
-	 * @param   array $methods WooCommerce payment methods.
-	 *
-	 * @return  array          Payment methods with Moip.
+	 * @return array          Payment methods with Moip.
 	 */
 	public function add_gateway( $methods ) {
 		$methods[] = 'WC_Moip_Gateway';
@@ -158,8 +114,6 @@ class WC_Moip {
 
 	/**
 	 * Saved by ajax the order information.
-	 *
-	 * @version 2.2.6
 	 *
 	 * @return void
 	 */
@@ -242,12 +196,10 @@ class WC_Moip {
 	/**
 	 * WooCommerce fallback notice.
 	 *
-	 * @version 2.2.6
-	 *
-	 * @return  string
+	 * @return string
 	 */
 	public function woocommerce_missing_notice() {
-		echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Moip Gateway depends on the last version of %s to work!', self::$plugin_slug ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Moip Gateway depends on the last version of %s to work!', 'woocommerce-moip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
 	}
 }
 
