@@ -3,8 +3,8 @@
 **Donate link:** http://claudiosmweb.com/doacoes/  
 **Tags:** woocommerce, checkout, moip  
 **Requires at least:** 3.8  
-**Tested up to:** 3.9  
-**Stable tag:** 2.2.7  
+**Tested up to:** 3.9.1  
+**Stable tag:** 2.2.8  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -171,6 +171,10 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 ## Changelog ##
 
+### 2.2.8 - 20/06/2014 ###
+
+* Corrigido erros de ortografia.
+
 ### 2.2.7 - 24/03/2014 ###
 
 * Alterada a ordem dos botões no checkout transparente e normal para melhorar a usabilidade.
@@ -270,9 +274,9 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 ## Upgrade Notice ##
 
-### 2.2.4 ###
+### 2.2.8 ###
 
-* Correção nas mensagens de log.
+* Corrigido erros de ortografia.
 
 ## License ##
 
