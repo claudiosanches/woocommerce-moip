@@ -153,6 +153,14 @@ Fazemos a integração baseada na documentação oficial do Moip que pode ser en
 
 Para resolver este problema vá até "WooCommerce" > "Configurações" > "Inventário" e limpe (deixe em branco) o valor da opção **Manter Estoque (minutos)**.
 
+### O pedido foi pago e ficou com o status de "processando" e não como "concluído", isto esta certo ? ###
+
+Sim, esta certo e significa que o plugin esta trabalhando como deveria.
+
+Todo gateway de pagamentos no WooCommerce deve mudar o status do pedido para "processando" no momento que é confirmado o pagamento e nunca deve ser alterado sozinho para "concluído", pois o pedido deve ir apenas para o status "concluído" após ele ter sido entregue.
+
+Para produtos baixáveis a configuração padrão do WooCommerce é permitir o acesso apenas quando o pedido tem o status "concluído", entretanto nas configurações do WooCommerce na aba *Produtos* é possível ativar a opção **"Conceder acesso para download do produto após o pagamento"** e assim liberar o download quando o status do pedido esta como "processando".
+
 ### Mais dúvidas relacionadas ao funcionamento do plugin? ###
 
 Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-woocommerce/).
