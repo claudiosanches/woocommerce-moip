@@ -664,7 +664,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 				if ( 'AVista' == $this->installments_receipt ) {
 					$rehearse = ( 'yes' == $this->installments_rehearse ) ? 'true' : 'false';
-					$installment->addChild( 'Recebimento', $this->installments_rehearse );
+					$installment->addChild( 'Repassar', $rehearse );
 				}
 			}
 		}
