@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moip v2.2.7\n"
+"Project-Id-Version: WooCommerce Moip v2.2.9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-06-20 23:24:20+0000\n"
+"PO-Revision-Date: 2014-09-12 01:45:27+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,19 +21,19 @@ msgstr ""
 "X-Textdomain-Support: yes"
 
 #. translators: plugin header field 'Name'
-#: wc-moip.php:0
+#: woocommerce-moip.php:0
 #@ woocommerce-moip
 msgid "WooCommerce Moip"
 msgstr "WooCommerce Moip"
 
 #. translators: plugin header field 'Description'
-#: wc-moip.php:0
+#: woocommerce-moip.php:0
 #@ woocommerce-moip
 msgid "Gateway de pagamento Moip para WooCommerce."
 msgstr "Gateway de pagamento Moip para WooCommerce."
 
 #. translators: plugin header field 'Author'
-#: wc-moip.php:0
+#: woocommerce-moip.php:0
 #@ woocommerce-moip
 msgid "claudiosanches"
 msgstr "claudiosanches"
@@ -190,7 +190,7 @@ msgid "Enable logging"
 msgstr "Habilitar log"
 
 #. translators: plugin header field 'AuthorURI'
-#: wc-moip.php:0
+#: woocommerce-moip.php:0
 #@ woocommerce-moip
 msgid "http://claudiosmweb.com/"
 msgstr "http://claudiosmweb.com/"
@@ -206,14 +206,14 @@ msgstr "Moip falha no pedido"
 msgid "Log Moip events, such as API requests, inside %s"
 msgstr "Registrar eventos do Moip, tais como pedidos de API, dentro de %s"
 
-#: wc-moip.php:202
+#: woocommerce-moip.php:202
 #, php-format
 #@ woocommerce-moip
 msgid "WooCommerce Moip Gateway depends on the last version of %s to work!"
 msgstr "WooCommerce Moip Gateway depende da última versão do %s para funcionar!"
 
 #. translators: plugin header field 'PluginURI'
-#: wc-moip.php:0
+#: woocommerce-moip.php:0
 #@ woocommerce-moip
 msgid "https://github.com/claudiosmweb/woocommerce-moip"
 msgstr "https://github.com/claudiosmweb/woocommerce-moip"
@@ -699,12 +699,12 @@ msgstr "Caso você ainda não tenha recebido o boleto, por favor, clique no bot�
 msgid "If you have not made ​​the payment, please click the button to your left to pay."
 msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua esquerda para pagar."
 
-#: wc-moip.php:152
-#: wc-moip.php:156
-#: wc-moip.php:169
-#: wc-moip.php:173
-#: wc-moip.php:186
-#: wc-moip.php:190
+#: woocommerce-moip.php:152
+#: woocommerce-moip.php:156
+#: woocommerce-moip.php:169
+#: woocommerce-moip.php:173
+#: woocommerce-moip.php:186
+#: woocommerce-moip.php:190
 #, php-format
 #@ woocommerce-moip
 msgid "Order %s received"
@@ -840,8 +840,8 @@ msgid "$ %s at sight"
 msgstr "R$ %s á vista"
 
 #. translators: plugin header field 'Version'
-#: wc-moip.php:0
+#: woocommerce-moip.php:0
 #@ woocommerce-moip
-msgid "2.2.8"
-msgstr "2.2.8"
+msgid "2.2.9"
+msgstr "2.2.9"
 
