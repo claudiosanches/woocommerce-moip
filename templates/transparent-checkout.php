@@ -138,7 +138,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 					<div class="form-group-wrap">
 						<div class="form-group">
-							<label for="credit-card-installments"><?php _e( 'Installments in', 'woocommerce-moip' ); ?></label>
+							<label for="credit-card-installments">
+							<?php if(! empty($this->installments_min_value) && floatval($this->installments_min_value) > 0){ 
+									if('yes' == $this->installments_interest_after_min_value){
+										echo sprintf( __( 'Installments with lower value $ %s ', 'woocommerce-moip'), number_format(floatval($this->installments_min_value), 2, ",", "."));
+										echo sprintf( __( 'increase %s interest ', 'woocommerce-moip'), number_format(floatval($this->installments_interest), 2, ",", ".") . "%");
+									}else{
+										echo sprintf( __( 'Minimum installments without interest $ %s', 'woocommerce-moip' ), number_format(floatval($this->installments_min_value), 2, ",", ".") );
+									}
+								}else{ 
+									_e( 'Installments in', 'woocommerce-moip' );
+								}?>
+							</label>
 							<select name="credit_card_installments" id="credit-card-installments">
 								<option value="1"><?php echo sprintf( __( '$ %s at sight', 'woocommerce-moip' ), str_replace( '.', ',', $order->order_total ) ); ?></option>
 							</select>

@@ -669,15 +669,18 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 
 			// Installments info.
 			if ( 'yes' == $this->installments ) {
-				$installments = $instruction->addChild( 'Parcelamentos' );
-				$installment = $installments->addChild( 'Parcelamento' );
-				$installment->addChild( 'MinimoParcelas', $this->installments_mininum );
-				
 				if(! empty($this->installments_min_value) && floatval($this->installments_min_value) > 0){
 					$installments_maximum_min_value = intval($order->order_total / floatval($this->installments_min_value));
 
 					if(intval($installments_maximum_min_value) < intval($this->installments_maxium)){
+						if($installments_maximum_min_value > 1){
+							$installments = $instruction->addChild( 'Parcelamentos' );
+							$installment = $installments->addChild( 'Parcelamento' );
+						}
 						if ( 'yes' == $this->installments_interest_after_min_value ) {
+							if($installments_maximum_min_value < 2)
+								$installments = $instruction->addChild( 'Parcelamentos' );
+								
 							$installment_after_min_value = $installments->addChild( 'Parcelamento' );
 							$installment_after_min_value->addChild( 'MinimoParcelas', $installments_maximum_min_value + 1 );
 							$installment_after_min_value->addChild( 'MaximoParcelas', $this->installments_maxium );
@@ -693,22 +696,40 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 								$installment_after_min_value->addChild( 'Juros', str_replace( ',', '.', $this->installments_interest ));
 							}
 						}
-						$this->installments_maxium = $installments_maximum_min_value;
-					}	
-					$installment->addChild( 'Juros', '0' );
+						if($installments_maximum_min_value > 1){
+							$this->installments_maxium = $installments_maximum_min_value;
+							
+							$installment->addChild( 'MinimoParcelas', $this->installments_mininum );
+							
+							$installment->addChild( 'MaximoParcelas', $this->installments_maxium );
+						
+							$installment->addChild( 'Recebimento', $this->installments_receipt );
+							
+							if ( 'AVista' == $this->installments_receipt ) {
+								$rehearse = ( 'yes' == $this->installments_rehearse ) ? 'true' : 'false';
+								$installment->addChild( 'Repassar', $rehearse );
+							}
+							$installment->addChild( 'Juros', '0' );
+						}
+					}
+					
 				}else{
+					$installments = $instruction->addChild( 'Parcelamentos' );
+					$installment = $installments->addChild( 'Parcelamento' );
+					$installment->addChild( 'MinimoParcelas', $this->installments_mininum );
+					
 					if ( ! empty( $this->installments_interest ) && $this->installments_interest > 0 ) {
 						$installment->addChild( 'Juros', str_replace( ',', '.', $this->installments_interest ) );
 					}
-				}
-				
-				$installment->addChild( 'MaximoParcelas', $this->installments_maxium );
-				
-				$installment->addChild( 'Recebimento', $this->installments_receipt );
-				
-				if ( 'AVista' == $this->installments_receipt ) {
-					$rehearse = ( 'yes' == $this->installments_rehearse ) ? 'true' : 'false';
-					$installment->addChild( 'Repassar', $rehearse );
+					
+					$installment->addChild( 'MaximoParcelas', $this->installments_maxium );
+					
+					$installment->addChild( 'Recebimento', $this->installments_receipt );
+					
+					if ( 'AVista' == $this->installments_receipt ) {
+						$rehearse = ( 'yes' == $this->installments_rehearse ) ? 'true' : 'false';
+						$installment->addChild( 'Repassar', $rehearse );
+					}
 				}
 			}
 		}
