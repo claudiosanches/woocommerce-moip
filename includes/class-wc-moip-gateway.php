@@ -711,6 +711,22 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 							}
 							$installment->addChild( 'Juros', '0' );
 						}
+					}else{
+						$installments = $instruction->addChild( 'Parcelamentos' );
+						$installment = $installments->addChild( 'Parcelamento' );
+													
+						$installment->addChild( 'MinimoParcelas', $this->installments_mininum );
+						
+						$installment->addChild( 'MaximoParcelas', $this->installments_maxium );
+					
+						$installment->addChild( 'Recebimento', $this->installments_receipt );
+						
+						if ( 'AVista' == $this->installments_receipt ) {
+							$rehearse = ( 'yes' == $this->installments_rehearse ) ? 'true' : 'false';
+							$installment->addChild( 'Repassar', $rehearse );
+						}
+						
+						$installment->addChild( 'Juros', '0' );
 					}
 					
 				}else{
