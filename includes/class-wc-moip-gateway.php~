@@ -377,7 +377,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 					12 => '12'
 				)
 			),
-			'installments_minimum_amount' => array(
+			'installments_mininum_amount' => array(
 				'title' => __( 'Minimum Amount of Each Installment', 'woocommerce-moip' ),
 				'type' => 'text',
 				'description' => __( 'Indicates the minimum amount of each installment can have.', 'woocommerce-moip' ),
@@ -664,12 +664,11 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 				$installments_maxium = $this->installments_maxium;
 
 				//Check if the number of installments respects the minimun amount rule
-				if ($this->installments_minimum_amount) {
+				if ($this->installments_mininum_amount) {
 					//By default we assume that any installment amount matches the minimum amount
 					$installments_maxium = 0;
-
-					for ($i = $this->installments_maxium; $i >= $installments_mininum; $i--) {
-						if (($order->order_total/$i) >= $this->installments_minimum_amount) {
+					for ($i = $installments_maxium; $i >= $installments_mininum; $i--) {
+						if ($order->order_total/$i >= $this->installments_mininum_amount) {
 							$installments_maxium = $i;
 							break;
 						}
@@ -1183,4 +1182,3 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 		echo '<div class="error"><p><strong>' . __( 'Moip Disabled', 'woocommerce-moip' ) . '</strong>: ' . sprintf( __( 'Currency <code>%s</code> is not supported. Works only with <code>BRL</code> (Brazilian Real).', 'woocommerce-moip' ), get_woocommerce_currency() ) . '</p></div>';
 	}
 }
-
