@@ -3,8 +3,8 @@
 **Donate link:** http://claudiosmweb.com/doacoes/  
 **Tags:** woocommerce, checkout, moip  
 **Requires at least:** 3.8  
-**Tested up to:** 4.0  
-**Stable tag:** 2.2.9  
+**Tested up to:** 4.5  
+**Stable tag:** 2.2.10  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -34,7 +34,7 @@ Este plugin foi feito baseado na [documentação oficial do Moip](http://labs.mo
 
 ### Compatibilidade ###
 
-Compatível com as versões 2.0.x e 2.1.x do WooCommerce.
+Compatível desde a versão 2.0.x até 2.6.x do WooCommerce.
 
 ### Instalação: ###
 
@@ -49,7 +49,7 @@ Você pode esclarecer suas dúvidas usando:
 * Criando um tópico no [GitHub](https://github.com/claudiosmweb/woocommerce-moip/issues).
 * Ou entre em contato com os desenvolvedores do plugin em nossa [página](http://claudiosmweb.com/plugins/moip-para-woocommerce/).
 
-### Coloborar ###
+### Colaborar ###
 
 Você pode contribuir com código-fonte em nossa página no [GitHub](https://github.com/claudiosmweb/woocommerce-moip).
 
@@ -179,121 +179,55 @@ Entre em contato [clicando aqui](http://claudiosmweb.com/plugins/moip-para-wooco
 
 ## Changelog ##
 
-### 2.2.9 - 11/09/2014 ###
+### 2.2.10 - 2016/06/08 ###
+
+* Adicionado suporte ao WooCommerce 2.6.
+
+### 2.2.9 - 2014/09/11 ###
 
 * Corrigido o parametro de repassar os juros para o cliente (obrigado [bercacula](http://wordpress.org/support/profile/bercacula)).
 
-### 2.2.8 - 20/06/2014 ###
+### 2.2.8 - 2014/06/20/06 ###
 
 * Corrigido erros de ortografia.
 
-### 2.2.7 - 24/03/2014 ###
+### 2.2.7 - 2014/03/24/03 ###
 
 * Alterada a ordem dos botões no checkout transparente e normal para melhorar a usabilidade.
 
-### 2.2.6 - 05/03/2014 ###
+### 2.2.6 - 2014/03/05 ###
 
 * Correção de um erro que deixava o parcelamento em branco no checkout transparente.
 
-### 2.2.5 - 25/02/2014 ###
+### 2.2.5 - 2014/02/25 ###
 
 * Correção das mensagens de erro retornadas pelo Moip durante o checkout transparente.
 
-### 2.2.4 - 21/12/2013 ###
+### 2.2.4 - 2013/12/21 ###
 
 * Correção nas mensagens de log.
 
-### 2.2.3 - 21/12/2013 ###
+### 2.2.3 - 2013/12/21 ###
 
 * Correção na tradução do plugin.
 
-### 2.2.2 - 18/12/2013 ###
+### 2.2.2 - 2013/12/18 ###
 
 * Adicionado o gancho `woocommerce_moip_after_successful_request`.
 
-### 2.2.1 - 16/12/2013 ###
+### 2.2.1 - 2013/12/16 ###
 
 * Corrigido links das notificações no admin.
 
-### 2.2.0 - 15/12/2013 ###
+### 2.2.0 - 2013/12/15 ###
 
 * Corrigido padrões de código.
 * Removida compatibilidade com versões 1.6.x ou inferiores do WooCommerce.
 * Adicionada compatibilidade com WooCommerce 2.1 ou superior.
 * Melhorado o checkout transparente.
 
-### 2.1.2 - 16/08/2013 ###
-
-* Correção nos scripts de checkout comum e transparente.
-
-### 2.1.1 - 10/08/2013 ###
-
-* Correção das URLs de pagamento do Moip.
-* Correção do JavaScript do admin do plugin.
-
-### 2.1.0 - 26/07/2013 ###
-
-* Adicionado o filtro `woocommerce_moip_holder_data`.
-* Adicionada compatibilidade com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/)
-
-### 2.0.0 - 24/07/2013 ###
-
-* Adicionado Checkout Transparente.
-* Melhoria nas mensagens de status do pedido.
-* Melhorias no código.
-
-### 1.5.0 - 19/07/2013 ###
-
-* Adicionada a API de pagamentos em XML do Moip.
-* Adicionadas opções para controle dos métodos de pagamento (apenas para API em XML).
-* Adicionadas opções de parcelamento (apenas para API em XML).
-* Adicionadas opções para customização do boleto bancário (apenas para API em XML).
-
-### 1.4.0 - 18/07/2013 ###
-
-* Melhoria no código.
-* Adicionada compatibilidade com o WooCommerce 2.1 ou superior.
-
-### 1.3.1 - 18/06/2013 ###
-
-* Correção do retorno automático de dados para o status `Concluido`.
-
-### 1.3.0 - 06/05/2013 ###
-
-* Melhorado o retorno automático de dados.
-
-### 1.2.1 - 06/05/2013 ###
-
-* Adicionado o parametro `$order` no filtro `woocommerce_moip_args`.
-* Melhoria na tradução.
-
-### 1.1.2 - 06/03/2013 ###
-
-* Corrigida a compatibilidade com WooCommerce 2.0.0 ou mais recente.
-
-### 1.1.1 - 08/02/2013 ###
-
-* Corrigido o hook responsavel por salvar as opções para a versão 2.0 RC do WooCommerce.
-
-### 1.1 - 30/11/2012 ###
-
-* Adicionada opção para logs de erro.
-* Adicionada opção para utilizar o sandbox do Moip Labs.
-
-### 1.0 ###
-
-* Versão inicial.
-
 ## Upgrade Notice ##
 
-### 2.2.9 ###
+### 2.2.10 ###
 
-* Corrigido o parametro de repassar os juros para o cliente.
-
-## License ##
-
-WooCommerce Moip is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-WooCommerce Moip is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with WooCommerce Moip. If not, see <http://www.gnu.org/licenses/>.
+* Adicionado suporte ao WooCommerce 2.6.
