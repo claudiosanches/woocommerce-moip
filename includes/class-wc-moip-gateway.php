@@ -489,7 +489,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 	 *
 	 * @return string         Displays the error message.
 	 */
-	protected function add_error( $message ) {
+	protected function register_error( $message ) {
 		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
 			wc_add_notice( $message, 'error' );
 		} else {
@@ -749,7 +749,7 @@ class WC_Moip_Gateway extends WC_Payment_Gateway {
 				}
 
 				foreach ( $body->Resposta->Erro as $error ) {
-					$this->add_error( '<strong>Moip</strong>: ' . esc_attr( (string) $error ) );
+					$this->register_error( '<strong>Moip</strong>: ' . esc_attr( (string) $error ) );
 				}
 			}
 
