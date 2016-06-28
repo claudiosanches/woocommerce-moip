@@ -2,846 +2,942 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Moip v2.2.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-09-12 01:45:27+0000\n"
+"POT-Creation-Date: 2016-03-29 15:47-0300\n"
+"PO-Revision-Date: 2016-03-30 12:04-0300\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: CSL v1.x\n"
-"X-Poedit-Language: Portuguese\n"
-"X-Poedit-Country: BRAZIL\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-Bookmarks: \n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Textdomain-Support: yes"
 
-#. translators: plugin header field 'Name'
-#: woocommerce-moip.php:0
-#@ woocommerce-moip
-msgid "WooCommerce Moip"
-msgstr "WooCommerce Moip"
-
-#. translators: plugin header field 'Description'
-#: woocommerce-moip.php:0
-#@ woocommerce-moip
-msgid "Gateway de pagamento Moip para WooCommerce."
-msgstr "Gateway de pagamento Moip para WooCommerce."
-
-#. translators: plugin header field 'Author'
-#: woocommerce-moip.php:0
-#@ woocommerce-moip
-msgid "claudiosanches"
-msgstr "claudiosanches"
-
-#: includes/class-wc-moip-gateway.php:19
-#: includes/class-wc-moip-gateway.php:229
-#@ woocommerce-moip
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:19 includes/class-wc-moip-gateway.php:231
 msgid "Moip"
 msgstr "Moip"
 
-#: includes/class-wc-moip-gateway.php:202
-#@ woocommerce-moip
-msgid "Moip standard"
-msgstr "Moip padrão"
-
-#: includes/class-wc-moip-gateway.php:203
-#@ woocommerce-moip
-msgid "Moip standard works by sending the user to Moip to enter their payment information."
-msgstr "Moip padrão funciona enviando o usuário para o site do Moip, onde ele irá fazer o pagamento."
-
-#: includes/class-wc-moip-gateway.php:219
-#@ woocommerce-moip
-msgid "Enable/Disable"
-msgstr "Habilita/Desabilita"
-
-#: includes/class-wc-moip-gateway.php:221
-#@ woocommerce-moip
-msgid "Enable Moip standard"
-msgstr "Habilitar Moip padrão"
-
-#: includes/class-wc-moip-gateway.php:225
-#@ woocommerce-moip
-msgid "Title"
-msgstr "Título"
-
-#: includes/class-wc-moip-gateway.php:227
-#@ woocommerce-moip
-msgid "This controls the title which the user sees during checkout."
-msgstr "Isto controla o título que o usuário vê durante o checkout."
-
-#: includes/class-wc-moip-gateway.php:232
-#@ woocommerce-moip
-msgid "Description"
-msgstr "Descrição"
-
-#: includes/class-wc-moip-gateway.php:234
-#@ woocommerce-moip
-msgid "This controls the description which the user sees during checkout."
-msgstr "Isso controla a descrição que o usuário vê durante o checkout."
-
-#: includes/class-wc-moip-gateway.php:235
-#: includes/class-wc-moip-gateway.php:843
-#@ woocommerce-moip
-msgid "Pay via Moip"
-msgstr "Pagar com Moip"
-
-#: includes/class-wc-moip-gateway.php:238
-#@ woocommerce-moip
-msgid "Moip Login"
-msgstr "Moip Login"
-
-#: includes/class-wc-moip-gateway.php:240
-#@ woocommerce-moip
-msgid "Please enter your Moip email address or username; this is needed in order to take payment."
-msgstr "Por favor, digite o seu endereço de email ou nome de usuário do Moip, que é necessário para receber o pagamento."
-
-#: includes/class-wc-moip-gateway.php:245
-#@ woocommerce-moip
-msgid "Invoice Prefix"
-msgstr "Prefixo de pedido"
-
-#: includes/class-wc-moip-gateway.php:247
-#@ woocommerce-moip
-msgid "Please enter a prefix for your invoice numbers. If you use your Moip account for multiple stores ensure this prefix is unqiue as Moip will not allow orders with the same invoice number."
-msgstr "Por favor informe um prefixo para utilizar com os números de pedidos. Caso você utilize sua conta do Moip em mais de uma loja, procure utilizar um prefixo único para cada loja."
-
-#: includes/class-wc-moip-gateway.php:555
-#, php-format
-#@ woocommerce-moip
-msgid "Order %s"
-msgstr "Pedido %s"
-
-#: includes/class-wc-moip-gateway.php:565
-#@ woocommerce-moip
-msgid "Shipping via"
-msgstr "Entrega via"
-
-#: includes/class-wc-moip-gateway.php:790
-#: includes/class-wc-moip-gateway.php:812
-#@ woocommerce-moip
-msgid "Thank you for your order. We are now redirecting you to Moip to make payment."
-msgstr "Obrigado por fazer seu pedido. Agora estamos redirecionando você para o Moip para efetuar o pagamento."
-
-#: includes/class-wc-moip-gateway.php:843
-#: templates/transparent-checkout.php:200
-#@ woocommerce-moip
-msgid "Cancel order &amp; restore cart"
-msgstr "Cancelar pedido e restaurar o carrinho"
-
-#: includes/class-wc-moip-gateway.php:839
-#@ woocommerce-moip
-msgid "Thank you for your order, please click the button below to pay with Moip."
-msgstr "Obrigado por seu pedido, por favor clique no botão abaixo para pagar com Moip."
-
-#: includes/class-wc-moip-gateway.php:997
-#@ woocommerce-moip
-msgid "Moip Transaction ID"
-msgstr "Moip: ID da transação"
-
-#: includes/class-wc-moip-gateway.php:1004
-#@ woocommerce-moip
-msgid "Payer email"
-msgstr "E-mail do comprador"
-
-#: includes/class-wc-moip-gateway.php:1011
-#@ woocommerce-moip
-msgid "Payment type"
-msgstr "Tipo de pagamento"
-
-#: includes/class-wc-moip-gateway.php:1018
-#@ woocommerce-moip
-msgid "Number of parcels"
-msgstr "Número de parcelas"
-
-#: includes/class-wc-moip-gateway.php:464
-#@ woocommerce-moip
-msgid "Gateway Testing"
-msgstr "Teste de Gateway"
-
-#: includes/class-wc-moip-gateway.php:469
-#@ woocommerce-moip
-msgid "Moip sandbox"
-msgstr "Moip sandbox"
-
-#: includes/class-wc-moip-gateway.php:471
-#@ woocommerce-moip
-msgid "Enable Moip sandbox"
-msgstr "Ativar o Moip sandbox"
-
-#: includes/class-wc-moip-gateway.php:473
-#, php-format
-#@ woocommerce-moip
-msgid "Moip sandbox can be used to test payments. Sign up for a developer account <a href=\"%s\">here</a>."
-msgstr "Moip sandbox pode fazer pagamentos de testes. Faça login a sua conta de desenvolvedor no <a href=\"%s\">Moip Labs</a>."
-
-#: includes/class-wc-moip-gateway.php:476
-#@ woocommerce-moip
-msgid "Debug Log"
-msgstr "Log de depuração"
-
-#: includes/class-wc-moip-gateway.php:478
-#@ woocommerce-moip
-msgid "Enable logging"
-msgstr "Habilitar log"
-
-#. translators: plugin header field 'AuthorURI'
-#: woocommerce-moip.php:0
-#@ woocommerce-moip
-msgid "http://claudiosmweb.com/"
-msgstr "http://claudiosmweb.com/"
-
-#: includes/class-wc-moip-gateway.php:964
-#@ woocommerce-moip
-msgid "Moip Request Failure"
-msgstr "Moip falha no pedido"
-
-#: includes/class-wc-moip-gateway.php:480
-#, php-format
-#@ woocommerce-moip
-msgid "Log Moip events, such as API requests, inside %s"
-msgstr "Registrar eventos do Moip, tais como pedidos de API, dentro de %s"
-
-#: woocommerce-moip.php:202
-#, php-format
-#@ woocommerce-moip
-msgid "WooCommerce Moip Gateway depends on the last version of %s to work!"
-msgstr "WooCommerce Moip Gateway depende da última versão do %s para funcionar!"
-
-#. translators: plugin header field 'PluginURI'
-#: woocommerce-moip.php:0
-#@ woocommerce-moip
-msgid "https://github.com/claudiosmweb/woocommerce-moip"
-msgstr "https://github.com/claudiosmweb/woocommerce-moip"
-
-#: includes/class-wc-moip-gateway.php:252
-#@ woocommerce-moip
-msgid "Payment API"
-msgstr "API de Pagamentos"
-
-#: includes/class-wc-moip-gateway.php:282
-#@ woocommerce-moip
-msgid "Payment Settings"
-msgstr "Configurações de Pagamento"
-
-#: includes/class-wc-moip-gateway.php:284
-#@ woocommerce-moip
-msgid "These options need to be available to you in your Moip account."
-msgstr "Estas opções devem estar disponíveis para você na sua conta Moip também."
-
-#: includes/class-wc-moip-gateway.php:293
-#: templates/transparent-checkout.php:20
-#@ woocommerce-moip
-msgid "Credit Card"
-msgstr "Cartão de Crédito"
-
-#: includes/class-wc-moip-gateway.php:295
-#@ woocommerce-moip
-msgid "Enable Credit Card"
-msgstr "Ativar Cartão de Crédito"
-
-#: includes/class-wc-moip-gateway.php:299
-#@ woocommerce-moip
-msgid "Debit Card"
-msgstr "Cartão de Debito"
-
-#: includes/class-wc-moip-gateway.php:301
-#@ woocommerce-moip
-msgid "Enable Debit Card"
-msgstr "Ativar Cartão de Debito"
-
-#: includes/class-wc-moip-gateway.php:315
-#: templates/transparent-checkout.php:24
-#@ woocommerce-moip
-msgid "Banking Debit"
-msgstr "Débito em Conta"
-
-#: includes/class-wc-moip-gateway.php:317
-#@ woocommerce-moip
-msgid "Enable Banking Debit"
-msgstr "Ativar Débito em Conta"
-
-#: includes/class-wc-moip-gateway.php:321
-#@ woocommerce-moip
-msgid "Financing Banking"
-msgstr "Financiamento Bancário"
-
-#: includes/class-wc-moip-gateway.php:323
-#@ woocommerce-moip
-msgid "Enable Financing Banking"
-msgstr "Ativar Financiamento Bancário"
-
-#: includes/class-wc-moip-gateway.php:287
-#: templates/transparent-checkout.php:28
-#: templates/transparent-checkout.php:186
-#@ woocommerce-moip
-msgid "Billet Banking"
-msgstr "Boleto Bancário"
-
-#: includes/class-wc-moip-gateway.php:289
-#@ woocommerce-moip
-msgid "Enable Billet Banking"
-msgstr "Ativar Boleto Bancário"
-
-#: includes/class-wc-moip-gateway.php:340
-#@ woocommerce-moip
-msgid "Minimum Installment"
-msgstr "Parcela Mínima"
-
-#: includes/class-wc-moip-gateway.php:360
-#@ woocommerce-moip
-msgid "Maximum Installment"
-msgstr "Parcela Máxima"
-
-#: includes/class-wc-moip-gateway.php:380
-#@ woocommerce-moip
-msgid "Receipt"
-msgstr "Recebimento"
-
-#: includes/class-wc-moip-gateway.php:382
-#@ woocommerce-moip
-msgid "If the installment payment will in at sight (subject to additional costs) in your account Moip (in one installment) or if it will be split (credited in the same number of parcels chosen by the payer)."
-msgstr "Se o pagamento parcelado será credito à vista (está sujeito a custos adicionais) na sua conta Moip (em apenas um parcela) ou se ele será parcelado (creditado no mesmo número de parcelas escolhidas pelo pagador)."
-
-#: includes/class-wc-moip-gateway.php:386
-#@ woocommerce-moip
-msgid "At Sight"
-msgstr "À Vista"
-
-#: includes/class-wc-moip-gateway.php:387
-#@ woocommerce-moip
-msgid "Installments"
-msgstr "Parcelado"
-
-#: includes/class-wc-moip-gateway.php:391
-#@ woocommerce-moip
-msgid "Interest"
-msgstr "Juros"
-
-#: includes/class-wc-moip-gateway.php:393
-#@ woocommerce-moip
-msgid "Interest to be applied to the installment."
-msgstr "Juros que será aplicado na parcela."
-
-#: includes/class-wc-moip-gateway.php:399
-#@ woocommerce-moip
-msgid "Rehearse"
-msgstr "Repassar"
-
-#: includes/class-wc-moip-gateway.php:401
-#@ woocommerce-moip
-msgid "Enable Rehearse"
-msgstr "Ativar Repassar"
-
-#: includes/class-wc-moip-gateway.php:587
-#@ woocommerce-moip
-msgid "Not contained"
-msgstr "Não consta"
-
-#: includes/class-wc-moip-gateway.php:307
-#@ woocommerce-moip
-msgid "Moip Wallet"
-msgstr "Carteira Moip"
-
-#: includes/class-wc-moip-gateway.php:309
-#@ woocommerce-moip
-msgid "Enable Moip Wallet"
-msgstr "Ativar Carteira Moip"
-
-#: includes/class-wc-moip-gateway.php:342
-#@ woocommerce-moip
-msgid "Indicate the minimum installments."
-msgstr "Indicar o valor da parcela mínima."
-
-#: includes/class-wc-moip-gateway.php:362
-#@ woocommerce-moip
-msgid "Indicate the Maximum installments."
-msgstr "Indicar o valor da parcela máxima."
-
-#: includes/class-wc-moip-gateway.php:403
-#@ woocommerce-moip
-msgid "Defines if the installment will be paid by the payer."
-msgstr "Define se a parcela será paga pelo cliente."
-
-#: includes/class-wc-moip-gateway.php:257
-#@ woocommerce-moip
-msgid "Moip Payment API"
-msgstr "API de Pagamentos do Moip"
-
-#: includes/class-wc-moip-gateway.php:263
-#@ woocommerce-moip
-msgid "XML - Safe and with more options"
-msgstr "XML - Segura e com mais opções"
-
-#: includes/class-wc-moip-gateway.php:268
-#@ woocommerce-moip
-msgid "Access Token"
-msgstr "Token de Acesso"
-
-#: includes/class-wc-moip-gateway.php:270
-#@ woocommerce-moip
-msgid "Please enter your Access Token; this is needed in order to take payment."
-msgstr "Por favor, digite o seu Token de Acesso que é necessário para receber o pagamento."
-
-#: includes/class-wc-moip-gateway.php:275
-#@ woocommerce-moip
-msgid "Access Key"
-msgstr "Chave de Acesso"
-
-#: includes/class-wc-moip-gateway.php:277
-#@ woocommerce-moip
-msgid "Please enter your Access Key; this is needed in order to take payment."
-msgstr "Por favor, digite o seu Chave de Acesso que é necessário para receber o pagamento."
-
-#: includes/class-wc-moip-gateway.php:262
-#@ woocommerce-moip
-msgid "HTML - Basic and less safe"
-msgstr "HTML - Básica e menos segura"
-
-#: includes/class-wc-moip-gateway.php:329
-#@ woocommerce-moip
-msgid "Credit Card Installments Settings"
-msgstr "Configurações de Parcelamento do Cartão de Crédito"
-
-#: includes/class-wc-moip-gateway.php:334
-#@ woocommerce-moip
-msgid "Installments settings"
-msgstr "Configurações de Parcelamento"
-
-#: includes/class-wc-moip-gateway.php:336
-#@ woocommerce-moip
-msgid "Enable Installments settings"
-msgstr "Ativar as configurações de Parcelamento"
-
-#: includes/class-wc-moip-gateway.php:406
-#@ woocommerce-moip
-msgid "Billet Settings"
-msgstr "Configurações do Boleto"
-
-#: includes/class-wc-moip-gateway.php:411
-#@ woocommerce-moip
-msgid "Billet settings"
-msgstr "Configurações do Boleto"
-
-#: includes/class-wc-moip-gateway.php:413
-#@ woocommerce-moip
-msgid "Enable Billet settings"
-msgstr "Ativar as configurações de Boleto"
-
-#: includes/class-wc-moip-gateway.php:422
-#@ woocommerce-moip
-msgid "Default"
-msgstr "Padrão"
-
-#: includes/class-wc-moip-gateway.php:423
-#@ woocommerce-moip
-msgid "Calendar Days"
-msgstr "Dias Corridos"
-
-#: includes/class-wc-moip-gateway.php:424
-#@ woocommerce-moip
-msgid "Working Days"
-msgstr "Dias Úteis"
-
-#: includes/class-wc-moip-gateway.php:428
-#@ woocommerce-moip
-msgid "Number of Days"
-msgstr "Número de Dias"
-
-#: includes/class-wc-moip-gateway.php:430
-#@ woocommerce-moip
-msgid "Days of expiry of the billet after printed."
-msgstr "Dias de expiração do boleto, depois de impresso."
-
-#: includes/class-wc-moip-gateway.php:436
-#@ woocommerce-moip
-msgid "Instruction Line 1"
-msgstr "Primeira Linha de Instrução"
-
-#: includes/class-wc-moip-gateway.php:438
-#@ woocommerce-moip
-msgid "First line instruction for the billet."
-msgstr "Primeira linha de instrução para o boleto."
-
-#: includes/class-wc-moip-gateway.php:443
-#@ woocommerce-moip
-msgid "Instruction Line 2"
-msgstr "Segunda Linha de Instrução"
-
-#: includes/class-wc-moip-gateway.php:445
-#@ woocommerce-moip
-msgid "Second line instruction for the billet."
-msgstr "Segunda linha de instrução para o boleto."
-
-#: includes/class-wc-moip-gateway.php:450
-#@ woocommerce-moip
-msgid "Instruction Line 3"
-msgstr "Terceira Linha de Instrução"
-
-#: includes/class-wc-moip-gateway.php:452
-#@ woocommerce-moip
-msgid "Third line instruction for the billet."
-msgstr "Terceira linha de instrução para o boleto."
-
-#: includes/class-wc-moip-gateway.php:457
-#@ woocommerce-moip
-msgid "Custom Logo URL"
-msgstr "URL para Logo Customizado"
-
-#: includes/class-wc-moip-gateway.php:459
-#@ woocommerce-moip
-msgid "URL of the logo image to be shown on the billet."
-msgstr "URL da imagem do logo a ser mostrado no boleto."
-
-#: includes/class-wc-moip-gateway.php:417
-#@ woocommerce-moip
-msgid "Type of Term"
-msgstr "Tipo de Prazo"
-
-#: includes/class-wc-moip-gateway.php:264
-#@ woocommerce-moip
-msgid "Transparent Checkout"
-msgstr "Checkout Transparente"
-
-#: includes/class-wc-moip-gateway.php:302
-#: includes/class-wc-moip-gateway.php:310
-#: includes/class-wc-moip-gateway.php:324
-#@ woocommerce-moip
-msgid "Not available for Transparent Checkout."
-msgstr "Não esta disponível para Checkout Transparente."
-
-#: templates/transparent-checkout.php:13
-#@ woocommerce-moip
-msgid "This payment will be processed by Moip Payments S/A."
-msgstr "Este pagamento será processado por Moip Pagamentos S/A."
-
-#: templates/transparent-checkout.php:37
-#@ woocommerce-moip
-msgid "Master Card"
-msgstr "Master Card"
-
-#: templates/transparent-checkout.php:43
-#@ woocommerce-moip
-msgid "Visa"
-msgstr "Visa"
-
-#: templates/transparent-checkout.php:49
-#@ woocommerce-moip
-msgid "American Express"
-msgstr "American Express"
-
-#: templates/transparent-checkout.php:55
-#@ woocommerce-moip
-msgid "Diners"
-msgstr "Diners"
-
-#: templates/transparent-checkout.php:61
-#@ woocommerce-moip
-msgid "Hipercard"
-msgstr "Hipercard"
-
-#: templates/transparent-checkout.php:68
-#@ woocommerce-moip
-msgid "Credit card number"
-msgstr "Número do cartão"
-
-#: templates/transparent-checkout.php:70
-#@ woocommerce-moip
-msgid "Only digits"
-msgstr "Apenas números"
-
-#: templates/transparent-checkout.php:73
-#@ woocommerce-moip
-msgid "Expiration"
-msgstr "Validade do cartão"
-
-#: templates/transparent-checkout.php:90
-#@ woocommerce-moip
-msgid "Security code"
-msgstr "Código de segurança (CVV)"
-
-#: templates/transparent-checkout.php:96
-#@ woocommerce-moip
-msgid "Holder name"
-msgstr "Nome do titular"
-
-#: templates/transparent-checkout.php:98
-#@ woocommerce-moip
-msgid "As recorded on this card"
-msgstr "Como impresso no cartão"
-
-#: templates/transparent-checkout.php:101
-#@ woocommerce-moip
-msgid "Holder birth date"
-msgstr "Data de nascimento do titular"
-
-#: templates/transparent-checkout.php:141
-#@ woocommerce-moip
-msgid "Installments in"
-msgstr "Parcelar em"
-
-#: templates/transparent-checkout.php:131
-#@ woocommerce-moip
-msgid "Holder phone"
-msgstr "Telefone do titular"
-
-#: templates/transparent-checkout.php:135
-#@ woocommerce-moip
-msgid "Holder CPF"
-msgstr "CPF do titular"
-
-#: templates/transparent-checkout.php:155
-#@ woocommerce-moip
-msgid "Banco do Brasil"
-msgstr "Banco do Brasil"
-
-#: templates/transparent-checkout.php:161
-#@ woocommerce-moip
-msgid "Bradesco"
-msgstr "Bradesco"
-
-#: templates/transparent-checkout.php:167
-#@ woocommerce-moip
-msgid "Banrisul"
-msgstr "Banrisul"
-
-#: templates/transparent-checkout.php:173
-#@ woocommerce-moip
-msgid "Itau"
-msgstr "Itaú"
-
-#: templates/transparent-checkout.php:202
-#@ woocommerce-moip
-msgid "Pay order"
-msgstr "Pagar pedido"
-
-#: includes/class-wc-moip-gateway.php:888
-#@ woocommerce-moip
-msgid "An error has occurred while processing your payment, please try again. Or contact us for assistance."
-msgstr "Um erro ocorreu ao processar o seu pagamento, por favor tente novamente. Ou entre em contato conosco para conseguir ajuda."
-
-#: includes/class-wc-moip-gateway.php:889
-#@ woocommerce-moip
-msgid "Click to try again"
-msgstr "Clique para tentar novamente"
-
-#: includes/class-wc-moip-gateway.php:188
-#@ woocommerce-moip
-msgid "There was an error in the request, please cancel the order and contact us to place your order."
-msgstr "Aconteceu um erro na solicitação, por favor cancele o pedido e entre em contato para finalizar o pedido."
-
-#: includes/class-wc-moip-messages.php:17
-#@ woocommerce-moip
-msgid "Authorized"
-msgstr "Autorizado"
-
-#: includes/class-wc-moip-messages.php:20
-#@ woocommerce-moip
-msgid "Initiate"
-msgstr "Iniciado"
-
-#: includes/class-wc-moip-messages.php:23
-#@ woocommerce-moip
-msgid "Billet Printed"
-msgstr "Boleto Impresso"
-
-#: includes/class-wc-moip-messages.php:26
-#@ woocommerce-moip
-msgid "Concluded"
-msgstr "Concluído"
-
-#: includes/class-wc-moip-messages.php:29
-#@ woocommerce-moip
-msgid "Canceled"
-msgstr "Cancelado"
-
-#: includes/class-wc-moip-messages.php:32
-#@ woocommerce-moip
-msgid "In Review"
-msgstr "Em Analise"
-
-#: includes/class-wc-moip-messages.php:35
-#@ woocommerce-moip
-msgid "Reversed"
-msgstr "Estornado"
-
-#: includes/class-wc-moip-messages.php:38
-#@ woocommerce-moip
-msgid "Refunded"
-msgstr "Reembolsado"
-
-#: includes/class-wc-moip-messages.php:51
-#@ woocommerce-moip
-msgid "Your transaction has been processed by Moip Payments S/A."
-msgstr "Sua transação foi processada pelo Moip Pagamentos S/A."
-
-#: includes/class-wc-moip-gateway.php:1084
-#@ woocommerce-moip
-msgid "Pay the order &rarr;"
-msgstr "Pagar o pedido &rarr;"
-
-#: includes/class-wc-moip-gateway.php:1093
-#@ woocommerce-moip
-msgid "Print the billet &rarr;"
-msgstr "Imprimir o boleto &rarr;"
-
-#: includes/class-wc-moip-messages.php:112
-#@ woocommerce-moip
-msgid "If you have not yet received the billet, please click the button to the left to print it."
-msgstr "Caso você ainda não tenha recebido o boleto, por favor, clique no botão a sua esquerda para imprimi-lo."
-
-#: includes/class-wc-moip-messages.php:86
-#@ woocommerce-moip
-msgid "If you have not made ​​the payment, please click the button to your left to pay."
-msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua esquerda para pagar."
-
-#: woocommerce-moip.php:152
-#: woocommerce-moip.php:156
-#: woocommerce-moip.php:169
-#: woocommerce-moip.php:173
-#: woocommerce-moip.php:186
-#: woocommerce-moip.php:190
-#, php-format
-#@ woocommerce-moip
-msgid "Order %s received"
-msgstr "Pedido %s recebido"
-
-#: includes/class-wc-moip-messages.php:99
-#@ woocommerce-moip
-msgid "If you have not made ​​the payment, please use the link below to pay."
-msgstr "Caso o você ainda não realizou o pagamento, por favor, utilize o link a baixo para pagar."
-
-#: includes/class-wc-moip-messages.php:125
-#@ woocommerce-moip
-msgid "If you have not yet received the billet, please use the link below to print it."
-msgstr "Caso você ainda não tenha recebido o boleto, por favor, utilize o link abaixo para imprimi-lo."
-
-#: includes/class-wc-moip-gateway.php:183
-#@ woocommerce-moip
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:185
 msgid "Please select a payment method."
 msgstr "Por favor, selecione uma forma de pagamento."
 
-#: includes/class-wc-moip-gateway.php:189
-#@ woocommerce-moip
-msgid "at sight"
-msgstr "à vista"
-
-#: includes/class-wc-moip-gateway.php:190
-#@ woocommerce-moip
-msgid "of"
-msgstr "de"
-
-#: includes/class-wc-moip-gateway.php:184
-#@ woocommerce-moip
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:186
 msgid "Wait a few moments, your transaction is being processed..."
 msgstr "Aguarde alguns instantes, sua transação está sendo processada..."
 
-#: includes/class-wc-moip-gateway.php:185
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:187
 #, php-format
-#@ woocommerce-moip
 msgid "Thank you for your order, we will complete your order in %s seconds..."
 msgstr "Obrigado pelo seu pedido, iremos completá-lo em %s segundos..."
 
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:190
+msgid ""
+"There was an error in the request, please cancel the order and contact us to "
+"place your order."
+msgstr ""
+"Aconteceu um erro na solicitação, por favor cancele o pedido e entre em "
+"contato para finalizar o pedido."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:191
+msgid "at sight"
+msgstr "à vista"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:192
+msgid "of"
+msgstr "de"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:204
+msgid "Moip standard"
+msgstr "Moip padrão"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:205
+msgid ""
+"Moip standard works by sending the user to Moip to enter their payment "
+"information."
+msgstr ""
+"Moip padrão funciona enviando o usuário para o site do Moip, onde ele irá "
+"fazer o pagamento."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:221
+msgid "Enable/Disable"
+msgstr "Habilita/Desabilita"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:223
+msgid "Enable Moip standard"
+msgstr "Habilitar Moip padrão"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:227
+msgid "Title"
+msgstr "Título"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:229
+msgid "This controls the title which the user sees during checkout."
+msgstr "Isto controla o título que o usuário vê durante o checkout."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:234
+msgid "Description"
+msgstr "Descrição"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:236
+msgid "This controls the description which the user sees during checkout."
+msgstr "Isso controla a descrição que o usuário vê durante o checkout."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:237
+#: includes/class-wc-moip-gateway.php:908
+msgid "Pay via Moip"
+msgstr "Pagar com Moip"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:240
+msgid "Moip Login"
+msgstr "Moip Login"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:242
+msgid ""
+"Please enter your Moip email address or username; this is needed in order to "
+"take payment."
+msgstr ""
+"Por favor, digite o seu endereço de email ou nome de usuário do Moip, que é "
+"necessário para receber o pagamento."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:247
+msgid "Invoice Prefix"
+msgstr "Prefixo de pedido"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:249
+msgid ""
+"Please enter a prefix for your invoice numbers. If you use your Moip account "
+"for multiple stores ensure this prefix is unqiue as Moip will not allow "
+"orders with the same invoice number."
+msgstr ""
+"Por favor informe um prefixo para utilizar com os números de pedidos. Caso "
+"você utilize sua conta do Moip em mais de uma loja, procure utilizar um "
+"prefixo único para cada loja."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:254
+msgid "Payment API"
+msgstr "API de Pagamentos"
+
+# @ woocommerce-moip
 #: includes/class-wc-moip-gateway.php:259
+msgid "Moip Payment API"
+msgstr "API de Pagamentos do Moip"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:261
 #, php-format
-#@ woocommerce-moip
-msgid "The XML and Checkout Transparent requires Access Token and Access Key. %sHere's how to get this information%s."
-msgstr "As APIs em XML e Checkout Transparente exigem Token de Acesso e Chave de Acesso. %sVeja aqui como obter estas informações%s."
+msgid ""
+"The XML and Checkout Transparent requires Access Token and Access Key. "
+"%sHere's how to get this information%s."
+msgstr ""
+"As APIs em XML e Checkout Transparente exigem Token de Acesso e Chave de "
+"Acesso. %sVeja aqui como obter estas informações%s."
 
-#: includes/class-wc-moip-gateway.php:1127
-#: includes/class-wc-moip-gateway.php:1136
-#: includes/class-wc-moip-gateway.php:1145
-#: includes/class-wc-moip-gateway.php:1154
-#@ woocommerce-moip
-msgid "Moip Disabled"
-msgstr "Moip Desabilitado"
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:264
+msgid "HTML - Basic and less safe"
+msgstr "HTML - Básica e menos segura"
 
-#: includes/class-wc-moip-gateway.php:1024
-#@ woocommerce-moip
-msgid "Moip: Payment has already been made but not yet credited to Carteira Moip."
-msgstr "Moip: O pagamento já foi feito, mas ainda não foi creditado na sua Carteira Moip."
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:265
+msgid "XML - Safe and with more options"
+msgstr "XML - Segura e com mais opções"
 
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:266
+msgid "Transparent Checkout"
+msgstr "Checkout Transparente"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:270
+msgid "Access Token"
+msgstr "Token de Acesso"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:272
+msgid ""
+"Please enter your Access Token; this is needed in order to take payment."
+msgstr ""
+"Por favor, digite o seu Token de Acesso que é necessário para receber o "
+"pagamento."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:277
+msgid "Access Key"
+msgstr "Chave de Acesso"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:279
+msgid "Please enter your Access Key; this is needed in order to take payment."
+msgstr ""
+"Por favor, digite o seu Chave de Acesso que é necessário para receber o "
+"pagamento."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:284
+msgid "Payment Settings"
+msgstr "Configurações de Pagamento"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:286
+msgid "These options need to be available to you in your Moip account."
+msgstr ""
+"Estas opções devem estar disponíveis para você na sua conta Moip também."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:289 templates/transparent-checkout.php:28
+#: templates/transparent-checkout.php:197
+msgid "Billet Banking"
+msgstr "Boleto Bancário"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:291
+msgid "Enable Billet Banking"
+msgstr "Ativar Boleto Bancário"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:295 templates/transparent-checkout.php:20
+msgid "Credit Card"
+msgstr "Cartão de Crédito"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:297
+msgid "Enable Credit Card"
+msgstr "Ativar Cartão de Crédito"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:301
+msgid "Debit Card"
+msgstr "Cartão de Debito"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:303
+msgid "Enable Debit Card"
+msgstr "Ativar Cartão de Debito"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:304
+#: includes/class-wc-moip-gateway.php:312
+#: includes/class-wc-moip-gateway.php:326
+msgid "Not available for Transparent Checkout."
+msgstr "Não esta disponível para Checkout Transparente."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:309
+msgid "Moip Wallet"
+msgstr "Carteira Moip"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:311
+msgid "Enable Moip Wallet"
+msgstr "Ativar Carteira Moip"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:317 templates/transparent-checkout.php:24
+msgid "Banking Debit"
+msgstr "Débito em Conta"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:319
+msgid "Enable Banking Debit"
+msgstr "Ativar Débito em Conta"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:323
+msgid "Financing Banking"
+msgstr "Financiamento Bancário"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:325
+msgid "Enable Financing Banking"
+msgstr "Ativar Financiamento Bancário"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:331
+msgid "Credit Card Installments Settings"
+msgstr "Configurações de Parcelamento do Cartão de Crédito"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:336
+msgid "Installments settings"
+msgstr "Configurações de Parcelamento"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:338
+msgid "Enable Installments settings"
+msgstr "Ativar as configurações de Parcelamento"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:342
+msgid "Minimum Installment"
+msgstr "Parcela Mínima"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:344
+msgid "Indicate the minimum installments."
+msgstr "Indicar o valor da parcela mínima."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:362
+msgid "Maximum Installment"
+msgstr "Parcela Máxima"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:364
+msgid "Indicate the Maximum installments."
+msgstr "Indicar o valor da parcela máxima."
+
+#: includes/class-wc-moip-gateway.php:382
+msgid "Minimum value installment"
+msgstr "Valor Mínimo da parcela"
+
+#: includes/class-wc-moip-gateway.php:384
+msgid "Minimum value Installment to be applied to the installment."
+msgstr "Mínimo valor da parcela"
+
+#: includes/class-wc-moip-gateway.php:390
+msgid "Installments with interest after minimum value"
+msgstr "Parcelas com juros após valor mínimo"
+
+#: includes/class-wc-moip-gateway.php:392
+msgid "Enable Installments with interest after minimum value"
+msgstr "Habilita parcelas com juros após valor mínimo"
+
+#: includes/class-wc-moip-gateway.php:394
+msgid "Defines if has installments with interest after minimum value."
+msgstr "Define se tem parcelas com juros após o valor mínimo da parcela."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:397
+msgid "Receipt"
+msgstr "Recebimento"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:399
+msgid ""
+"If the installment payment will in at sight (subject to additional costs) in "
+"your account Moip (in one installment) or if it will be split (credited in "
+"the same number of parcels chosen by the payer)."
+msgstr ""
+"Se o pagamento parcelado será credito à vista (está sujeito a custos "
+"adicionais) na sua conta Moip (em apenas um parcela) ou se ele será "
+"parcelado (creditado no mesmo número de parcelas escolhidas pelo pagador)."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:403
+msgid "At Sight"
+msgstr "À Vista"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:404
+msgid "Installments"
+msgstr "Parcelado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:408
+msgid "Interest"
+msgstr "Juros"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:410
+msgid "Interest to be applied to the installment."
+msgstr "Juros que será aplicado na parcela."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:416
+msgid "Rehearse"
+msgstr "Repassar"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:418
+msgid "Enable Rehearse"
+msgstr "Ativar Repassar"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:420
+msgid "Defines if the installment will be paid by the payer."
+msgstr "Define se a parcela será paga pelo cliente."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:423
+msgid "Billet Settings"
+msgstr "Configurações do Boleto"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:428
+msgid "Billet settings"
+msgstr "Configurações do Boleto"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:430
+msgid "Enable Billet settings"
+msgstr "Ativar as configurações de Boleto"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:434
+msgid "Type of Term"
+msgstr "Tipo de Prazo"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:439
+msgid "Default"
+msgstr "Padrão"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:440
+msgid "Calendar Days"
+msgstr "Dias Corridos"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:441
+msgid "Working Days"
+msgstr "Dias Úteis"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:445
+msgid "Number of Days"
+msgstr "Número de Dias"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:447
+msgid "Days of expiry of the billet after printed."
+msgstr "Dias de expiração do boleto, depois de impresso."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:453
+msgid "Instruction Line 1"
+msgstr "Primeira Linha de Instrução"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:455
+msgid "First line instruction for the billet."
+msgstr "Primeira linha de instrução para o boleto."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:460
+msgid "Instruction Line 2"
+msgstr "Segunda Linha de Instrução"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:462
+msgid "Second line instruction for the billet."
+msgstr "Segunda linha de instrução para o boleto."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:467
+msgid "Instruction Line 3"
+msgstr "Terceira Linha de Instrução"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:469
+msgid "Third line instruction for the billet."
+msgstr "Terceira linha de instrução para o boleto."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:474
+msgid "Custom Logo URL"
+msgstr "URL para Logo Customizado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:476
+msgid "URL of the logo image to be shown on the billet."
+msgstr "URL da imagem do logo a ser mostrado no boleto."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:481
+msgid "Gateway Testing"
+msgstr "Teste de Gateway"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:486
+msgid "Moip sandbox"
+msgstr "Moip sandbox"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:488
+msgid "Enable Moip sandbox"
+msgstr "Ativar o Moip sandbox"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:490
+#, php-format
+msgid ""
+"Moip sandbox can be used to test payments. Sign up for a developer account "
+"<a href=\"%s\">here</a>."
+msgstr ""
+"Moip sandbox pode fazer pagamentos de testes. Faça login a sua conta de "
+"desenvolvedor no <a href=\"%s\">Moip Labs</a>."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:493
+msgid "Debug Log"
+msgstr "Log de depuração"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:495
+msgid "Enable logging"
+msgstr "Habilitar log"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:497
+#, php-format
+msgid "Log Moip events, such as API requests, inside %s"
+msgstr "Registrar eventos do Moip, tais como pedidos de API, dentro de %s"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:572
+#, php-format
+msgid "Order %s"
+msgstr "Pedido %s"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:582
+msgid "Shipping via"
+msgstr "Entrega via"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:604
+msgid "Not contained"
+msgstr "Não consta"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:855
+#: includes/class-wc-moip-gateway.php:877
+msgid ""
+"Thank you for your order. We are now redirecting you to Moip to make payment."
+msgstr ""
+"Obrigado por fazer seu pedido. Agora estamos redirecionando você para o Moip "
+"para efetuar o pagamento."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:904
+msgid ""
+"Thank you for your order, please click the button below to pay with Moip."
+msgstr ""
+"Obrigado por seu pedido, por favor clique no botão abaixo para pagar com "
+"Moip."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:908
+#: templates/transparent-checkout.php:211
+msgid "Cancel order &amp; restore cart"
+msgstr "Cancelar pedido e restaurar o carrinho"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:953
+msgid ""
+"An error has occurred while processing your payment, please try again. Or "
+"contact us for assistance."
+msgstr ""
+"Um erro ocorreu ao processar o seu pagamento, por favor tente novamente. Ou "
+"entre em contato conosco para conseguir ajuda."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:954
+msgid "Click to try again"
+msgstr "Clique para tentar novamente"
+
+# @ woocommerce-moip
 #: includes/class-wc-moip-gateway.php:1029
-#: includes/class-wc-moip-gateway.php:1045
-#@ woocommerce-moip
+msgid "Moip Request Failure"
+msgstr "Moip falha no pedido"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1062
+msgid "Moip Transaction ID"
+msgstr "Moip: ID da transação"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1069
+msgid "Payer email"
+msgstr "E-mail do comprador"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1076
+msgid "Payment type"
+msgstr "Tipo de pagamento"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1083
+msgid "Number of parcels"
+msgstr "Número de parcelas"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1089
+msgid ""
+"Moip: Payment has already been made but not yet credited to Carteira Moip."
+msgstr ""
+"Moip: O pagamento já foi feito, mas ainda não foi creditado na sua Carteira "
+"Moip."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1094
+#: includes/class-wc-moip-gateway.php:1110
 msgid "Moip: Payment under review."
 msgstr "Moip: Pagamento em análise."
 
-#: includes/class-wc-moip-gateway.php:1033
-#@ woocommerce-moip
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1098
 msgid "Moip: Billet was printed and has not been paid yet."
 msgstr "Moip: O boleto foi impresso e não foi pago ainda."
 
-#: includes/class-wc-moip-gateway.php:1037
-#@ woocommerce-moip
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1102
 msgid "Moip: Payment completed and credited in your Carteira Moip."
 msgstr "Moip: Pagamento completo e creditado na sua Carteira Moip."
 
-#: includes/class-wc-moip-gateway.php:1041
-#@ woocommerce-moip
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1106
 msgid "Moip: Payment canceled."
 msgstr "Moip: Pagamento cancelado."
 
-#: includes/class-wc-moip-gateway.php:1049
-#@ woocommerce-moip
-msgid "Moip: Payment was reversed by the payer, payee, payment institution or Moip."
-msgstr "Moip: O pagamento foi estornado pelo pagador, recebedor, instituição de pagamento ou Moip."
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1114
+msgid ""
+"Moip: Payment was reversed by the payer, payee, payment institution or Moip."
+msgstr ""
+"Moip: O pagamento foi estornado pelo pagador, recebedor, instituição de "
+"pagamento ou Moip."
 
-#: includes/class-wc-moip-gateway.php:1127
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1149
+msgid "Pay the order &rarr;"
+msgstr "Pagar o pedido &rarr;"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1158
+msgid "Print the billet &rarr;"
+msgstr "Imprimir o boleto &rarr;"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1192
+#: includes/class-wc-moip-gateway.php:1201
+#: includes/class-wc-moip-gateway.php:1210
+#: includes/class-wc-moip-gateway.php:1219
+msgid "Moip Disabled"
+msgstr "Moip Desabilitado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1192
 #, php-format
-#@ woocommerce-moip
 msgid "You should inform your email address. %s"
 msgstr "Você deve informar seu endereço de e-mail. %s"
 
-#: includes/class-wc-moip-gateway.php:1127
-#: includes/class-wc-moip-gateway.php:1136
-#: includes/class-wc-moip-gateway.php:1145
-#@ woocommerce-moip
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1192
+#: includes/class-wc-moip-gateway.php:1201
+#: includes/class-wc-moip-gateway.php:1210
 msgid "Click here to configure!"
 msgstr "Clique aqui para configurar!"
 
-#: includes/class-wc-moip-gateway.php:1136
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1201
 #, php-format
-#@ woocommerce-moip
 msgid "You should inform your Access Token. %s"
 msgstr "Você deve informar o seu Token de Acesso. %s"
 
-#: includes/class-wc-moip-gateway.php:1145
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1210
 #, php-format
-#@ woocommerce-moip
 msgid "You should inform your Access Key. %s"
 msgstr "Você deve informar a sua Chave de Acesso. %s"
 
-#: includes/class-wc-moip-gateway.php:1154
+# @ woocommerce-moip
+#: includes/class-wc-moip-gateway.php:1219
 #, php-format
-#@ woocommerce-moip
-msgid "Currency <code>%s</code> is not supported. Works only with <code>BRL</code> (Brazilian Real)."
-msgstr "A moeda <code>%s</code> não é suportada. Funciona apenas com <code>BRL</code> (Real)."
+msgid ""
+"Currency <code>%s</code> is not supported. Works only with <code>BRL</code> "
+"(Brazilian Real)."
+msgstr ""
+"A moeda <code>%s</code> não é suportada. Funciona apenas com <code>BRL</"
+"code> (Real)."
 
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:17
+msgid "Authorized"
+msgstr "Autorizado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:20
+msgid "Initiate"
+msgstr "Iniciado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:23
+msgid "Billet Printed"
+msgstr "Boleto Impresso"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:26
+msgid "Concluded"
+msgstr "Concluído"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:29
+msgid "Canceled"
+msgstr "Cancelado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:32
+msgid "In Review"
+msgstr "Em Analise"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:35
+msgid "Reversed"
+msgstr "Estornado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:38
+msgid "Refunded"
+msgstr "Reembolsado"
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:51
+msgid "Your transaction has been processed by Moip Payments S/A."
+msgstr "Sua transação foi processada pelo Moip Pagamentos S/A."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:60
+msgid ""
+"If you have any questions regarding the transaction, please contact us or "
+"the Moip."
+msgstr ""
+" Caso tenha alguma dúvida referente à transação, entre em contato conosco ou "
+"com o Moip."
+
+# @ woocommerce-moip
 #: includes/class-wc-moip-messages.php:73
 #, php-format
-#@ woocommerce-moip
 msgid "The status of your transaction is %s and the MoIP code is %s."
 msgstr "A sua transação está %s e o código Moip é %s."
 
-#: includes/class-wc-moip-messages.php:60
-#@ woocommerce-moip
-msgid "If you have any questions regarding the transaction, please contact us or the Moip."
-msgstr " Caso tenha alguma dúvida referente à transação, entre em contato conosco ou com o Moip."
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:86
+msgid ""
+"If you have not made ​​the payment, please click the button to your left to "
+"pay."
+msgstr ""
+"Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua "
+"esquerda para pagar."
 
-#: templates/transparent-checkout.php:143
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:99
+msgid "If you have not made ​​the payment, please use the link below to pay."
+msgstr ""
+"Caso o você ainda não realizou o pagamento, por favor, utilize o link a "
+"baixo para pagar."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:112
+msgid ""
+"If you have not yet received the billet, please click the button to the left "
+"to print it."
+msgstr ""
+"Caso você ainda não tenha recebido o boleto, por favor, clique no botão a "
+"sua esquerda para imprimi-lo."
+
+# @ woocommerce-moip
+#: includes/class-wc-moip-messages.php:125
+msgid ""
+"If you have not yet received the billet, please use the link below to print "
+"it."
+msgstr ""
+"Caso você ainda não tenha recebido o boleto, por favor, utilize o link "
+"abaixo para imprimi-lo."
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:13
+msgid "This payment will be processed by Moip Payments S/A."
+msgstr "Este pagamento será processado por Moip Pagamentos S/A."
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:37
+msgid "Master Card"
+msgstr "Master Card"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:43
+msgid "Visa"
+msgstr "Visa"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:49
+msgid "American Express"
+msgstr "American Express"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:55
+msgid "Diners"
+msgstr "Diners"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:61
+msgid "Hipercard"
+msgstr "Hipercard"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:68
+msgid "Credit card number"
+msgstr "Número do cartão"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:70
+msgid "Only digits"
+msgstr "Apenas números"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:73
+msgid "Expiration"
+msgstr "Validade do cartão"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:90
+msgid "Security code"
+msgstr "Código de segurança (CVV)"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:96
+msgid "Holder name"
+msgstr "Nome do titular"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:98
+msgid "As recorded on this card"
+msgstr "Como impresso no cartão"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:101
+msgid "Holder birth date"
+msgstr "Data de nascimento do titular"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:131
+msgid "Holder phone"
+msgstr "Telefone do titular"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:135
+msgid "Holder CPF"
+msgstr "CPF do titular"
+
+#: templates/transparent-checkout.php:144
 #, php-format
-#@ woocommerce-moip
+msgid "Installments with lower value $ %s "
+msgstr "Parcelamento em parcelas com valor menor de R$ %s "
+
+#: templates/transparent-checkout.php:145
+#, php-format
+msgid "increase %s interest "
+msgstr "haverá incidência de %s de juros sobre a parcela "
+
+#: templates/transparent-checkout.php:147
+#, php-format
+msgid "Minimum installments without interest $ %s"
+msgstr "Valor mínimo da parcela: R$ %s"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:150
+msgid "Installments in"
+msgstr "Parcelar em"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:154
+#, php-format
 msgid "$ %s at sight"
 msgstr "R$ %s á vista"
 
-#. translators: plugin header field 'Version'
-#: woocommerce-moip.php:0
-#@ woocommerce-moip
-msgid "2.2.9"
-msgstr "2.2.9"
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:166
+msgid "Banco do Brasil"
+msgstr "Banco do Brasil"
 
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:172
+msgid "Bradesco"
+msgstr "Bradesco"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:178
+msgid "Banrisul"
+msgstr "Banrisul"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:184
+msgid "Itau"
+msgstr "Itaú"
+
+# @ woocommerce-moip
+#: templates/transparent-checkout.php:213
+msgid "Pay order"
+msgstr "Pagar pedido"
+
+# @ woocommerce-moip
+#: woocommerce-moip.php:152 woocommerce-moip.php:156 woocommerce-moip.php:169
+#: woocommerce-moip.php:173 woocommerce-moip.php:186 woocommerce-moip.php:190
+#, php-format
+msgid "Order %s received"
+msgstr "Pedido %s recebido"
+
+# @ woocommerce-moip
+#: woocommerce-moip.php:202
+#, php-format
+msgid "WooCommerce Moip Gateway depends on the last version of %s to work!"
+msgstr ""
+"WooCommerce Moip Gateway depende da última versão do %s para funcionar!"
+
+#~ msgid "Min value Installment"
+#~ msgstr "Valor mínimo da parcela"
+
+#~ msgid "Min value Installment to be applied to the installment."
+#~ msgstr "Valor mínimo da parcela a ser aplicado para a parcela."
+
+# @ woocommerce-moip
+#~ msgid "WooCommerce Moip"
+#~ msgstr "WooCommerce Moip"
+
+# @ woocommerce-moip
+#~ msgid "Gateway de pagamento Moip para WooCommerce."
+#~ msgstr "Gateway de pagamento Moip para WooCommerce."
+
+# @ woocommerce-moip
+#~ msgid "claudiosanches"
+#~ msgstr "claudiosanches"
+
+# @ woocommerce-moip
+#~ msgid "http://claudiosmweb.com/"
+#~ msgstr "http://claudiosmweb.com/"
+
+# @ woocommerce-moip
+#~ msgid "https://github.com/claudiosmweb/woocommerce-moip"
+#~ msgstr "https://github.com/claudiosmweb/woocommerce-moip"
+
+# @ woocommerce-moip
+#~ msgid "2.2.9"
+#~ msgstr "2.2.9"
