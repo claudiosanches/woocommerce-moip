@@ -3,3 +3,9 @@ node_modules/
 assets/css
 assets/.sass-cache/
 assets/js/*.min.js
+.idea/workspace.xml
+.idea/deployment.xml
+.idea/copyright/profiles_settings.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/woocommerce-moip.iml
