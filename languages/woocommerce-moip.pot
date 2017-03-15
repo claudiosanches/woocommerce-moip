@@ -1,14 +1,14 @@
-# Copyright (C) 2016 WooCommerce Moip
+# Copyright (C) 2017 WooCommerce Moip
 # This file is distributed under the same license as the WooCommerce Moip package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moip 2.2.10\n"
+"Project-Id-Version: WooCommerce Moip 2.2.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-moip\n"
-"POT-Creation-Date: 2016-06-09 01:42:46+00:00\n"
+"POT-Creation-Date: 2017-03-15 21:29:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -160,7 +160,7 @@ msgid "These options need to be available to you in your Moip account."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:287 templates/transparent-checkout.php:28
-#: templates/transparent-checkout.php:186
+#: templates/transparent-checkout.php:187
 msgid "Billet Banking"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:843
-#: templates/transparent-checkout.php:200
+#: templates/transparent-checkout.php:201
 msgid "Cancel order &amp; restore cart"
 msgstr ""
 
@@ -591,71 +591,67 @@ msgstr ""
 msgid "Diners"
 msgstr ""
 
-#: templates/transparent-checkout.php:61
+#: templates/transparent-checkout.php:61 templates/transparent-checkout.php:67
 msgid "Hipercard"
 msgstr ""
 
-#: templates/transparent-checkout.php:68
+#: templates/transparent-checkout.php:74
 msgid "Credit card number"
 msgstr ""
 
-#: templates/transparent-checkout.php:70
+#: templates/transparent-checkout.php:76
 msgid "Only digits"
 msgstr ""
 
-#: templates/transparent-checkout.php:73
+#: templates/transparent-checkout.php:79
 msgid "Expiration"
 msgstr ""
 
-#: templates/transparent-checkout.php:90
+#: templates/transparent-checkout.php:96
 msgid "Security code"
 msgstr ""
 
-#: templates/transparent-checkout.php:96
+#: templates/transparent-checkout.php:102
 msgid "Holder name"
 msgstr ""
 
-#: templates/transparent-checkout.php:98
+#: templates/transparent-checkout.php:104
 msgid "As recorded on this card"
 msgstr ""
 
-#: templates/transparent-checkout.php:101
+#: templates/transparent-checkout.php:107
 msgid "Holder birth date"
 msgstr ""
 
-#: templates/transparent-checkout.php:131
+#: templates/transparent-checkout.php:137
 msgid "Holder phone"
 msgstr ""
 
-#: templates/transparent-checkout.php:135
+#: templates/transparent-checkout.php:141
 msgid "Holder CPF"
 msgstr ""
 
-#: templates/transparent-checkout.php:141
+#: templates/transparent-checkout.php:147
 msgid "Installments in"
 msgstr ""
 
-#: templates/transparent-checkout.php:143
+#: templates/transparent-checkout.php:149
 msgid "$ %s at sight"
 msgstr ""
 
-#: templates/transparent-checkout.php:155
+#: templates/transparent-checkout.php:161
 msgid "Banco do Brasil"
 msgstr ""
 
-#: templates/transparent-checkout.php:161
+#: templates/transparent-checkout.php:167
 msgid "Bradesco"
 msgstr ""
 
-#: templates/transparent-checkout.php:167
-msgid "Banrisul"
-msgstr ""
-
-#: templates/transparent-checkout.php:173
+#: templates/transparent-checkout.php:174
 msgid "Itau"
 msgstr ""
 
-#: templates/transparent-checkout.php:202
+#: templates/transparent-checkout.php:203
 msgid "Pay order"
 msgstr ""
 
