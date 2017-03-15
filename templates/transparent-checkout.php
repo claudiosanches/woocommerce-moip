@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</li>
 						<li>
 							<label>
-								<?php echo sprintf( '<img src="%1$s" alt="%2$s" title="%2$s" />', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/elo.png', plugin_dir_path( __FILE__ ) ) ), __( 'Hipercard', 'woocommerce-moip' ) ); ?>
+								<?php echo sprintf( '<img src="%1$s" alt="%2$s" title="%2$s" />', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/elo.png', plugin_dir_path( __FILE__ ) ) ), __( 'Elo', 'woocommerce-moip' ) ); ?>
 								<input type="radio" name="payment_institution" value="Elo" />
 							</label>
 						</li>
