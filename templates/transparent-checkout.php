@@ -62,6 +62,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<input type="radio" name="payment_institution" value="Hipercard" />
 							</label>
 						</li>
+						<li>
+							<label>
+								<?php echo sprintf( '<img src="%1$s" alt="%2$s" title="%2$s" />', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/elo.png', plugin_dir_path( __FILE__ ) ) ), __( 'Hipercard', 'woocommerce-moip' ) ); ?>
+								<input type="radio" name="payment_institution" value="Hipercard" />
+							</label>
+						</li>						
 					</ul>
 					<div class="form-group-wrap">
 						<div class="form-group">
@@ -88,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 						<div class="form-group">
 							<label for="credit-card-security-code"><?php _e( 'Security code', 'woocommerce-moip' ); ?></label>
-							<input type="text" name="credit_card_security_code" id="credit-card-security-code" />
+							<input type="text" name="credit_card_security_code" id="credit-card-security-code" size="5" />
 						</div>
 					</div>
 					<div class="form-group-wrap">
@@ -162,12 +168,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<input type="radio" name="payment_institution" value="Bradesco" />
 							</label>
 						</li>
-						<li>
-							<label>
-								<?php echo sprintf( '<img src="%1$s" alt="%2$s" title="%2$s" />', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/banrisul.png', plugin_dir_path( __FILE__ ) ) ), __( 'Banrisul', 'woocommerce-moip' ) ); ?>
-								<input type="radio" name="payment_institution" value="Banrisul" />
-							</label>
-						</li>
+
 						<li>
 							<label>
 								<?php echo sprintf( '<img src="%1$s" alt="%2$s" title="%2$s" />', apply_filters( 'woocommerce_moip_icon_mastercard', plugins_url( 'assets/images/itau.png', plugin_dir_path( __FILE__ ) ) ), __( 'Itau', 'woocommerce-moip' ) ); ?>

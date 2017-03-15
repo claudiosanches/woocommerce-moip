@@ -627,7 +627,7 @@ msgstr "Um erro ocorreu ao processar o seu pagamento, por favor tente novamente.
 #: includes/class-wc-moip-gateway.php:889
 #@ woocommerce-moip
 msgid "Click to try again"
-msgstr "Clique para tentar novamente"
+msgstr "Clique aqui para processar novamente"
 
 #: includes/class-wc-moip-gateway.php:188
 #@ woocommerce-moip
@@ -697,7 +697,7 @@ msgstr "Caso você ainda não tenha recebido o boleto, por favor, clique no bot�
 #: includes/class-wc-moip-messages.php:86
 #@ woocommerce-moip
 msgid "If you have not made ​​the payment, please click the button to your left to pay."
-msgstr "Caso o você ainda não realizou o pagamento, por favor, clique no botão a sua esquerda para pagar."
+msgstr "Caso você ainda não tenha realizado o pagamento, por favor, clique no botão a sua esquerda para pagar."
 
 #: woocommerce-moip.php:152
 #: woocommerce-moip.php:156
@@ -713,7 +713,7 @@ msgstr "Pedido %s recebido"
 #: includes/class-wc-moip-messages.php:99
 #@ woocommerce-moip
 msgid "If you have not made ​​the payment, please use the link below to pay."
-msgstr "Caso o você ainda não realizou o pagamento, por favor, utilize o link a baixo para pagar."
+msgstr "Caso você ainda não tenha realizado o pagamento, por favor, utilize o link abaixo para pagar."
 
 #: includes/class-wc-moip-messages.php:125
 #@ woocommerce-moip
