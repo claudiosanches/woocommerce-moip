@@ -1,16 +1,17 @@
-# Copyright (C) 2017 WooCommerce Moip
-# This file is distributed under the same license as the WooCommerce Moip package.
+# Copyright (C) 2019 Claudio Sanches
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Moip 2.2.11\n"
+"Project-Id-Version: Claudio Sanches - Moip for WooCommerce 2.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-moip\n"
-"POT-Creation-Date: 2017-03-15 21:29:38+00:00\n"
+"POT-Creation-Date: 2019-09-20 23:56:49+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: includes/class-wc-moip-ajax.php:54 includes/class-wc-moip-ajax.php:58
 #: includes/class-wc-moip-ajax.php:71 includes/class-wc-moip-ajax.php:75
@@ -36,8 +37,8 @@ msgstr ""
 
 #: includes/class-wc-moip-gateway.php:188
 msgid ""
-"There was an error in the request, please cancel the order and contact us to "
-"place your order."
+"There was an error in the request, please cancel the order and contact us "
+"to place your order."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:189
@@ -93,8 +94,8 @@ msgstr ""
 
 #: includes/class-wc-moip-gateway.php:240
 msgid ""
-"Please enter your Moip email address or username; this is needed in order to "
-"take payment."
+"Please enter your Moip email address or username; this is needed in order "
+"to take payment."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:245
@@ -103,9 +104,9 @@ msgstr ""
 
 #: includes/class-wc-moip-gateway.php:247
 msgid ""
-"Please enter a prefix for your invoice numbers. If you use your Moip account "
-"for multiple stores ensure this prefix is unqiue as Moip will not allow "
-"orders with the same invoice number."
+"Please enter a prefix for your invoice numbers. If you use your Moip "
+"account for multiple stores ensure this prefix is unqiue as Moip will not "
+"allow orders with the same invoice number."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:252
@@ -139,8 +140,7 @@ msgid "Access Token"
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:270
-msgid ""
-"Please enter your Access Token; this is needed in order to take payment."
+msgid "Please enter your Access Token; this is needed in order to take payment."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:275
@@ -248,9 +248,9 @@ msgstr ""
 
 #: includes/class-wc-moip-gateway.php:382
 msgid ""
-"If the installment payment will in at sight (subject to additional costs) in "
-"your account Moip (in one installment) or if it will be split (credited in "
-"the same number of parcels chosen by the payer)."
+"If the installment payment will in at sight (subject to additional costs) "
+"in your account Moip (in one installment) or if it will be split (credited "
+"in the same number of parcels chosen by the payer)."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:386
@@ -394,12 +394,12 @@ msgstr ""
 #: includes/class-wc-moip-gateway.php:790
 #: includes/class-wc-moip-gateway.php:812
 msgid ""
-"Thank you for your order. We are now redirecting you to Moip to make payment."
+"Thank you for your order. We are now redirecting you to Moip to make "
+"payment."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:839
-msgid ""
-"Thank you for your order, please click the button below to pay with Moip."
+msgid "Thank you for your order, please click the button below to pay with Moip."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:843
@@ -438,8 +438,7 @@ msgid "Number of parcels"
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:1024
-msgid ""
-"Moip: Payment has already been made but not yet credited to Carteira Moip."
+msgid "Moip: Payment has already been made but not yet credited to Carteira Moip."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:1029
@@ -460,8 +459,7 @@ msgid "Moip: Payment canceled."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:1049
-msgid ""
-"Moip: Payment was reversed by the payer, payee, payment institution or Moip."
+msgid "Moip: Payment was reversed by the payer, payee, payment institution or Moip."
 msgstr ""
 
 #: includes/class-wc-moip-gateway.php:1084
@@ -561,8 +559,8 @@ msgstr ""
 
 #: includes/class-wc-moip-messages.php:112
 msgid ""
-"If you have not yet received the billet, please click the button to the left "
-"to print it."
+"If you have not yet received the billet, please click the button to the "
+"left to print it."
 msgstr ""
 
 #: includes/class-wc-moip-messages.php:125
@@ -591,8 +589,12 @@ msgstr ""
 msgid "Diners"
 msgstr ""
 
-#: templates/transparent-checkout.php:61 templates/transparent-checkout.php:67
+#: templates/transparent-checkout.php:61
 msgid "Hipercard"
+msgstr ""
+
+#: templates/transparent-checkout.php:67
+msgid "Elo"
 msgstr ""
 
 #: templates/transparent-checkout.php:74
@@ -656,15 +658,17 @@ msgid "Pay order"
 msgstr ""
 
 #: woocommerce-moip.php:124
-msgid "WooCommerce Moip Gateway depends on the last version of %s to work!"
+msgid ""
+"Claudio Sanches - Moip for WooCommerce depends on the last version of %s to "
+"work!"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "WooCommerce Moip"
+msgid "Claudio Sanches - Moip for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://github.com/claudiosmweb/woocommerce-moip"
+msgid "https://github.com/claudiosanches/woocommerce-moip"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -676,5 +680,5 @@ msgid "Claudio Sanches"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://claudiosmweb.com/"
+msgid "http://claudiosanches.com/"
 msgstr ""

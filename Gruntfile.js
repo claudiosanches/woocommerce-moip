@@ -1,211 +1,179 @@
 /* jshint node:true */
+module.exports = function( grunt ) {
 'use strict';
 
-module.exports = function( grunt ) {
+	grunt.initConfig({
 
-	// auto load grunt tasks
-	require( 'load-grunt-tasks' )( grunt );
-
-	var pluginConfig = {
-
-		// gets the package vars
+		// Gets the package vars.
 		pkg: grunt.file.readJSON( 'package.json' ),
 
-		// plugin directories
+		// Setting folder templates
 		dirs: {
-			js: 'assets/js',
-			css: 'assets/css',
-			sass: 'assets/sass',
+			css:    'assets/css',
+			fonts:  'assets/fonts',
 			images: 'assets/images',
-			fonts: 'assets/fonts'
+			js:     'assets/js'
 		},
 
-		// svn settings
-		svn_settings: {
-			path: '../../../../wp_plugins/<%= pkg.name %>',
-			tag: '<%= svn_settings.path %>/tags/<%= pkg.version %>',
-			trunk: '<%= svn_settings.path %>/trunk',
-			exclude: [
-				'.editorconfig',
-				'.git/',
-				'.gitignore',
-				'.jshintrc',
-				'.sass-cache/',
-				'node_modules/',
-				'assets/sass/',
-				'assets/js/admin.js',
-				'assets/js/checkout.js',
-				'Gruntfile.js',
-				'PSDs',
-				'README.md',
-				'package.json',
-				'*.zip'
-			]
-		},
-
-		// javascript linting with jshint
+		// Javascript linting with jshint.
 		jshint: {
 			options: {
 				jshintrc: '.jshintrc'
 			},
 			all: [
 				'Gruntfile.js',
-				'<%= dirs.js %>/admin.js',
-				'<%= dirs.js %>/checkout.js'
+				'<%= dirs.js %>/*/*/*.js',
+				'!<%= dirs.js %>/*/*/*.min.js'
 			]
 		},
 
-		// uglify to concat and minify
+		// Minify .js files.
 		uglify: {
-			dist: {
-				files: {
-					'<%= dirs.js %>/admin.min.js': ['<%= dirs.js %>/admin.js'],
-					'<%= dirs.js %>/checkout.min.js': ['<%= dirs.js %>/checkout.js']
-				}
-			}
-		},
-
-		// compass and scss
-		compass: {
 			options: {
-				httpPath: '',
-				environment: 'production',
-				relativeAssets: true,
-				noLineComments: true,
-				outputStyle: 'compressed'
+				preserveComments: /^!/
 			},
-			dist: {
-				options: {
-					sassDir: '<%= dirs.sass %>',
-					cssDir: '<%= dirs.css %>',
-					imagesDir: '<%= dirs.images %>',
-					javascriptsDir: '<%= dirs.js %>',
-					fontsDir: '<%= dirs.fonts %>'
-				}
+			scripts: {
+				files: [{
+					expand: true,
+					cwd: '<%= dirs.js %>/',
+					src: [
+						'*.js',
+						'!*.min.js'
+					],
+					dest: '<%= dirs.js %>/',
+					ext: '.min.js'
+				}]
 			}
 		},
 
-		// watch for changes and trigger compass, jshint and uglify
+		// Minify CSS.
+		cssmin: {
+			frontend: {
+				files: [{
+					expand: true,
+					cwd: '<%= dirs.css %>/',
+					src: [
+						'*.css',
+						'!*.min.css'
+					],
+					dest: '<%= dirs.css %>/',
+					ext: '.min.css'
+				}]
+			}
+		},
+
+		// Watch changes for assets.
 		watch: {
-			compass: {
-				files: [
-					'<%= compass.dist.options.sassDir %>/**'
-				],
-				tasks: ['compass']
-			},
 			js: {
 				files: [
-					'<%= jshint.all %>'
+					'<%= dirs.js %>/*js',
+					'!<%= dirs.js %>/*.min.js'
 				],
-				tasks: ['jshint', 'uglify']
+				tasks: [ 'jshint', 'uglify' ]
+			},
+			css: {
+				files: [
+					'<%= dirs.css %>/*css',
+					'!<%= dirs.css %>/*.min.css'
+				],
+				tasks: [ 'cssmin' ]
 			}
 		},
 
-		// image optimization
-		imagemin: {
+		// Make .pot files.
+		makepot: {
 			dist: {
 				options: {
-					optimizationLevel: 7,
-					progressive: true
-				},
-				files: [
-					{
-						expand: true,
-						cwd: '<%= dirs.images %>/',
-						src: '**/*.{png,jpg,gif}',
-						dest: '<%= dirs.images %>/'
-					},
-					{
-						expand: true,
-						cwd: './',
-						src: 'screenshot-*.png',
-						dest: './'
-					}
+					type: 'wp-plugin'
+				}
+			}
+		},
+
+		// Check text domain.
+		checktextdomain: {
+			options:{
+				text_domain: '<%= pkg.name %>',
+				keywords: [
+					'__:1,2d',
+					'_e:1,2d',
+					'_x:1,2c,3d',
+					'esc_html__:1,2d',
+					'esc_html_e:1,2d',
+					'esc_html_x:1,2c,3d',
+					'esc_attr__:1,2d',
+					'esc_attr_e:1,2d',
+					'esc_attr_x:1,2c,3d',
+					'_ex:1,2c,3d',
+					'_n:1,2,4d',
+					'_nx:1,2,4c,5d',
+					'_n_noop:1,2,3d',
+					'_nx_noop:1,2,3c,4d'
+				]
+			},
+			files: {
+				src:  [
+					'**/*.php', // Include all files.
+					'!node_modules/**' // Exclude node_modules/.
+				],
+				expand: true
+			}
+		},
+
+		// Create README.md for GitHub.
+		wp_readme_to_markdown: {
+			options: {
+				screenshot_url: 'http://ps.w.org/<%= pkg.name %>/assets/{screenshot}.png'
+			},
+			dest: {
+				files: {
+					'README.md': 'readme.txt'
+				}
+			}
+		},
+
+		// PHP Code Sniffer.
+		phpcs: {
+			options: {
+				bin: 'vendor/bin/phpcs',
+				showSniffCodes: true,
+				standard: './phpcs.xml'
+			},
+			dist: {
+				src:  [
+					'**/*.php',         // Include all files
+					'!node_modules/**', // Exclude node_modules/
+					'!vendor/**'        // Exclude vendor/
 				]
 			}
-		},
-
-		// rsync commands used to take the files to svn repository
-		rsync: {
-			options: {
-				args: ['--verbose'],
-				exclude: '<%= svn_settings.exclude %>',
-				syncDest: true,
-				recursive: true
-			},
-			tag: {
-				options: {
-					src: './',
-					dest: '<%= svn_settings.tag %>'
-				}
-			},
-			trunk: {
-				options: {
-				src: './',
-				dest: '<%= svn_settings.trunk %>'
-				}
-			}
-		},
-
-		// shell command to commit the new version of the plugin
-		shell: {
-			// Remove delete files.
-			svn_remove: {
-				command: 'svn st | grep \'^!\' | awk \'{print $2}\' | xargs svn --force delete',
-				options: {
-					stdout: true,
-					stderr: true,
-					execOptions: {
-						cwd: '<%= svn_settings.path %>'
-					}
-				}
-			},
-			// Add new files.
-			svn_add: {
-				command: 'svn add --force * --auto-props --parents --depth infinity -q',
-				options: {
-					stdout: true,
-					stderr: true,
-					execOptions: {
-						cwd: '<%= svn_settings.path %>'
-					}
-				}
-			},
-			// Commit the changes.
-			svn_commit: {
-				command: 'svn commit -m "updated the plugin version to <%= pkg.version %>"',
-				options: {
-					stdout: true,
-					stderr: true,
-					execOptions: {
-						cwd: '<%= svn_settings.path %>'
-					}
-				}
-			}
 		}
-	};
+	});
 
-	// initialize grunt config
-	// --------------------------
-	grunt.initConfig( pluginConfig );
+	// Load tasks.
+	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-checktextdomain' );
+	grunt.loadNpmTasks( 'grunt-wp-i18n' );
+	grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
+	grunt.loadNpmTasks( 'grunt-phpcs' );
 
-	// register tasks
-	// --------------------------
-
-	// default task
+	// Default task.
 	grunt.registerTask( 'default', [
 		'jshint',
-		'compass',
-		'uglify'
-	] );
+		'uglify',
+		'cssmin'
+	]);
 
-	// deploy task
-	grunt.registerTask( 'deploy', [
+	// Shortcut for wp_readme_to_markdown.
+	grunt.registerTask( 'readme', 'wp_readme_to_markdown' );
+
+	// Dev task.
+	grunt.registerTask( 'dev', [
 		'default',
-		'rsync:tag',
-		'rsync:trunk',
-		'shell:svn_remove',
-		'shell:svn_add',
-		'shell:svn_commit'
-	] );
+		'readme',
+		'phpcs',
+		'checktextdomain',
+		'makepot'
+	]);
 };
