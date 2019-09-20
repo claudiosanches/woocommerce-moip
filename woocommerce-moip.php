@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Moip
- * Plugin URI: https://github.com/claudiosmweb/woocommerce-moip
+ * Plugin Name: Claudio Sanches - Moip for WooCommerce
+ * Plugin URI: https://github.com/claudiosanches/woocommerce-moip
  * Description: Gateway de pagamento Moip para WooCommerce.
  * Author: Claudio Sanches
- * Author URI: http://claudiosmweb.com/
- * Version: 2.2.11
+ * Author URI: http://claudiosanches.com/
+ * Version: 2.3.0
  * License: GPLv2 or later
  * Text Domain: woocommerce-moip
  * Domain Path: /languages/
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_Moip' ) ) :
 
 /**
- * WooCommerce Moip main class.
+ * Plugin's main class.
  */
 class WC_Moip {
 
@@ -27,7 +27,7 @@ class WC_Moip {
 	 *
 	 * @var string
 	 */
-	const VERSION = '2.2.11';
+	const VERSION = '2.3.0';
 
 	/**
 	 * Integration id.
@@ -121,7 +121,7 @@ class WC_Moip {
 	 * @return string
 	 */
 	public function woocommerce_missing_notice() {
-		echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Moip Gateway depends on the last version of %s to work!', 'woocommerce-moip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( __( 'Claudio Sanches - Moip for WooCommerce depends on the last version of %s to work!', 'woocommerce-moip' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
 	}
 }
 

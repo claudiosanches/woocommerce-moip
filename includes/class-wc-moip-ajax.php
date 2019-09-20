@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WooCommerce Moip Ajax actions.
+ * Ajax actions.
  */
 class WC_Moip_Ajax {
 

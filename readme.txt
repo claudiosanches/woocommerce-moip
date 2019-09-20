@@ -1,10 +1,10 @@
-=== WooCommerce Moip ===
+=== Claudio Sanches - Moip for WooCommerce ===
 Contributors: claudiosanches
 Donate link: https://claudiosanches.com/doacoes/
 Tags: woocommerce, checkout, moip
 Requires at least: 3.8
-Tested up to: 4.7
-Stable tag: 2.2.11
+Tested up to: 5.2
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,7 +28,7 @@ Adicione o **Moip** (disponível **Checkout Transparente**) como método de paga
 
 [Moip](http://site.moip.com.br/) é um método de pagamento brasileiro desenvolvido pela IG.
 
-O plugin WooCommerce Moip foi desenvolvido sem nenhum incentivo do Moip ou IG. Nenhum dos desenvolvedores deste plugin possuem vínculos com estas duas empresas.
+Este plugin foi desenvolvido sem nenhum incentivo do Moip ou IG. Nenhum dos desenvolvedores deste plugin possuem vínculos com estas duas empresas.
 
 Este plugin foi feito baseado na [documentação oficial do Moip](http://labs.moip.com.br/).
 
@@ -38,7 +38,7 @@ Compatível desde a versão 2.0.x até 2.6.x do WooCommerce.
 
 = Instalação: =
 
-Confira o nosso guia de instalação e configuração do WooCommerce Moip na aba [Installation](http://wordpress.org/extend/plugins/woocommerce-moip/installation/).
+Confira o nosso guia de instalação e configuração do plugin na aba [Installation](http://wordpress.org/extend/plugins/woocommerce-moip/installation/).
 
 = Dúvidas? =
 
@@ -168,6 +168,10 @@ Para produtos baixáveis a configuração padrão do WooCommerce é permitir o a
 
 == Changelog ==
 
+= 2.3.0 - 2019/09/20 =
+
+* Nome do plugin alterado de "WooCommerce Moip" para "Claudio Sanches - Moip for WooCommerce".
+
 = 2.2.11 - 2017/03/15 =
 
 * Adicionada opção de pagamento com cartão Elo no Checkout Transparente (obrigado [mixbee](https://wordpress.org/support/users/mixbee/)).
@@ -223,8 +227,6 @@ Para produtos baixáveis a configuração padrão do WooCommerce é permitir o a
 
 == Upgrade Notice ==
 
-= 2.2.11 =
+= 2.3.0 =
 
-* Adicionada opção de pagamento com cartão Elo no Checkout Transparente (obrigado [mixbee](https://wordpress.org/support/users/mixbee/)).
-* Removido método depreciado de pagamento do Banrisul no Checkout Transparente (obrigado [mixbee](https://wordpress.org/support/users/mixbee/)).
-* Adicionado a código de segurança de 5 digitos no Checkout Transparente (obrigado [mixbee](https://wordpress.org/support/users/mixbee/)).
+* Nome do plugin alterado de "WooCommerce Moip" para "Claudio Sanches - Moip for WooCommerce".
